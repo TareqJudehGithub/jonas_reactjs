@@ -67,47 +67,66 @@ function Header() {
 	);
 }
 function Menu() {
+	const pizzas = pizzaData;
+	const numpizzas = pizzas.length;
+
 	return (
 		<main className="menu">
 			<h2>Our Menu</h2>
-			<Pizza
-				name="Pizza Spinaci"
-				ingredients="Tomato, mozarella, spinach, and ricotta cheese"
-				photoName="/pizzas/spinaci.jpg"
-				price={10} // For passing a non string data type.. i.e number.
-			/>
-			<Pizza
-				name="Pizza Prosciutto"
-				ingredients="Tomato, mozarella, ham, aragula, and burrata cheese"
-				price={18}
-				photoName="pizzas/prosciutto.jpg"
-			/>
+			<p>
+				Authentic Italian cuisine. Six creative dishes to choose from. All from
+				stone oven, all organic, all delicious.
+			</p>
+
+			<ul className="pizzas">
+				{pizzaData.map((pizza) => (
+					<Pizza
+						/* Passing the pizza object*/
+						pizzaObj={pizza}
+						key={pizza.name}
+
+						/* Passing each property name in pizza object*/
+						// name={pizza.name}
+						// ingredients={pizza.ingredients}
+						// price={pizza.price}
+						// photoName={pizza.photoName}
+						// soldOut={pizza.soldOut}
+					/>
+				))}
+			</ul>
 		</main>
 	);
 }
+
 function Pizza(props) {
 	return (
-		<div>
-			<img src={props.photoName} alt="Piza Spinaci " />
-			<h3>{props.name}</h3>
-			<p>{props.ingredients}</p>
-			<p>{props.price}</p>
-		</div>
+		<ul className="pizza">
+			<img src={props.pizzaObj.photoName} alt="Pizza" />
+			<h3>{props.pizzaObj.name}</h3>
+			<p>{props.pizzaObj.ingredients}</p>
+			<p>{props.pizzaObj.price}</p>
+			<span className="sold-out">
+				{props.pizzaObj.soldOut ? "Current out of stock" : "Available"}{" "}
+			</span>
+		</ul>
 	);
 }
 
 function Footer() {
 	const hourTime = new Date().getHours();
-	console.log(hourTime);
+	const openHour = 12;
+	const closeHour = 22;
+	const isOpen = hourTime >= openHour && hourTime < closeHour;
+
 	return (
 		<footer className="footer">
-			<p>{new Date().toLocaleTimeString()}</p>
-			<p>
-				{/* check if shop is open or closed  */}
-				{hourTime >= 12 && hourTime < 22
-					? "We're currently open!"
-					: "We are currently closed!"}
-			</p>
+			{/* check if shop is open or closed using short circuiting */}
+			{isOpen && (
+				<div className="order">
+					<p>We're currently open!</p>
+					<button className="btn">Order</button>
+				</div>
+			)}
 		</footer>
 	);
 }
