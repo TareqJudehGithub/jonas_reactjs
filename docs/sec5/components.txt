@@ -28,6 +28,10 @@ props
  - We can pass any type of value as a prop.
  - props are immutable. In case we needed to mutate a prop, then we need a state.
 
+- How props works in React?
+ - first we pass a propName in the parent component under App component.
+ - In the child, component function header, include a param (usually props).
+ - Inside the child component function body, in the {JSX code} pass the props you need.
 State
  - Each component is made of states and components.
  - A state is internal data that can be updated by the component's logic.
@@ -37,4 +41,3 @@ One-way data flow benefits
   - Makes applications more predictable and easier to understand.
   - Makes applications easier to debug, as we have more control over the data.
   - One-way data flow is more performant.
-  
