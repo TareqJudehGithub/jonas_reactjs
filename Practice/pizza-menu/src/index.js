@@ -68,6 +68,7 @@ function Header() {
 }
 function Menu() {
 	const pizzas = pizzaData;
+	//const pizzas = [];
 	const numpizzas = pizzas.length;
 
 	return (
@@ -77,23 +78,26 @@ function Menu() {
 				Authentic Italian cuisine. Six creative dishes to choose from. All from
 				stone oven, all organic, all delicious.
 			</p>
+			{numpizzas > 0 ? (
+				<ul className="pizzas">
+					{pizzaData.map((pizza) => (
+						<Pizza
+							/* Passing the pizza object*/
+							pizzaObj={pizza}
+							key={pizza.name}
 
-			<ul className="pizzas">
-				{pizzaData.map((pizza) => (
-					<Pizza
-						/* Passing the pizza object*/
-						pizzaObj={pizza}
-						key={pizza.name}
-
-						/* Passing each property name in pizza object*/
-						// name={pizza.name}
-						// ingredients={pizza.ingredients}
-						// price={pizza.price}
-						// photoName={pizza.photoName}
-						// soldOut={pizza.soldOut}
-					/>
-				))}
-			</ul>
+							/* Passing each property name in pizza object*/
+							// name={pizza.name}
+							// ingredients={pizza.ingredients}
+							// price={pizza.price}
+							// photoName={pizza.photoName}
+							// soldOut={pizza.soldOut}
+						/>
+					))}
+				</ul>
+			) : (
+				<p>We still working on our menu</p>
+			)}
 		</main>
 	);
 }
@@ -105,27 +109,41 @@ function Pizza(props) {
 			<h3>{props.pizzaObj.name}</h3>
 			<p>{props.pizzaObj.ingredients}</p>
 			<p>{props.pizzaObj.price}</p>
-			<span className="sold-out">
-				{props.pizzaObj.soldOut ? "Current out of stock" : "Available"}{" "}
-			</span>
+
+			{props.pizzaObj.soldOut ? (
+				<span className="sold-out">Currently out of stock</span>
+			) : (
+				<span>Available</span>
+			)}
 		</ul>
 	);
 }
 
 function Footer() {
-	const hourTime = new Date().getHours();
+	const hourTime = new Date().getHours() + 10;
 	const openHour = 12;
 	const closeHour = 22;
 	const isOpen = hourTime >= openHour && hourTime < closeHour;
 
+	// Using if statement instead of ternary for including multiple returns.
+	// if (!isOpen)
+	// 	return (
+	// 		<p>
+	// 			Using if statement. We are happy to welcome you between {openHour}:00
+	// 			and {closeHour}:00
+	// 		</p>
+	// 	);
+
 	return (
 		<footer className="footer">
 			{/* check if shop is open or closed using short circuiting */}
-			{isOpen && (
-				<div className="order">
-					<p>We're currently open!</p>
-					<button className="btn">Order</button>
-				</div>
+			{isOpen ? (
+				<Order openHour={openHour} closeHour={closeHour} />
+			) : (
+				<p>
+					{new Date().getHours().toLocaleString()}:00 We are happy to welcome
+					you between {openHour}:00 and {closeHour}:00
+				</p>
 			)}
 		</footer>
 	);
@@ -136,3 +154,15 @@ root.render(
 		<App />
 	</React.StrictMode>
 );
+
+function Order(props) {
+	return (
+		<div className="order">
+			<p>
+				We're currently open! From {props.openHour}:00 right until{" "}
+				{props.closeHour}:00
+			</p>
+			<button className="btn">Order</button>
+		</div>
+	);
+}

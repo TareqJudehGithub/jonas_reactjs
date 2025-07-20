@@ -140,8 +140,9 @@ body {
 	font-size: 1.6rem;
 }
 
-.pizza.sold-out {
+.pizza .sold-out {
 	color: #888;
+	color: red;
 }
 
 .pizza.sold-out img {
