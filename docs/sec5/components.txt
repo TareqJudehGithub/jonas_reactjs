@@ -1,0 +1,40 @@
+Components
+ - Reusable functions for React.
+ - Components must be PascalCase, and also must return values.
+ - Each component can return one element.
+ - /public/ folder is the root folder, is where we put resources like images, and other 
+   related files.   Like wwwrooot folder in MVC Core.
+ - A component should NEVER mutate/update data coming from outside (see props and state 
+   below for more info).
+ - In React, data flow* is one-way. Data can only be passed from parent to child 
+   components, but NEVER the opposite way.
+
+ What is JSX?
+   - A declarative syntax to describe what Components look like and how they work.
+   - Declarative VS Imperative.
+    - In the im approach, we tell the app exactly what to do, like when using JS, we 
+      have to manually manipulate the dOM.
+    - In Declarative approach, we describe what the UI should look like based on data 
+      provided in the component.
+    - React is an abstraction away from DOM: we never touch the DOM.
+
+props
+ - A way to communicate between parent and child components.
+ - props are data coming from the parent component.
+ - props can be updated only by the parent component.
+ - props are essential to configure and to customize components.
+ - With props, parent components "control" how child components should look like
+   and how they should work.
+ - We can pass any type of value as a prop.
+ - props are immutable. In case we needed to mutate a prop, then we need a state.
+
+State
+ - Each component is made of states and components.
+ - A state is internal data that can be updated by the component's logic.
+
+
+One-way data flow benefits
+  - Makes applications more predictable and easier to understand.
+  - Makes applications easier to debug, as we have more control over the data.
+  - One-way data flow is more performant.
+  
