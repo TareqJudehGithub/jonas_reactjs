@@ -74,27 +74,30 @@ function Menu() {
 	return (
 		<main className="menu">
 			<h2>Our Menu</h2>
-			<p>
-				Authentic Italian cuisine. Six creative dishes to choose from. All from
-				stone oven, all organic, all delicious.
-			</p>
 			{numpizzas > 0 ? (
-				<ul className="pizzas">
-					{pizzaData.map((pizza) => (
-						<Pizza
-							/* Passing the pizza object*/
-							pizzaObj={pizza}
-							key={pizza.name}
+				<>
+					<p>
+						Authentic Italian cuisine. Six creative dishes to choose from. All
+						from stone oven, all organic, all delicious.
+					</p>
 
-							/* Passing each property name in pizza object*/
-							// name={pizza.name}
-							// ingredients={pizza.ingredients}
-							// price={pizza.price}
-							// photoName={pizza.photoName}
-							// soldOut={pizza.soldOut}
-						/>
-					))}
-				</ul>
+					<ul className="pizzas">
+						{pizzaData.map((pizza) => (
+							<Pizza
+								/* Passing the pizza object*/
+								pizzaObj={pizza}
+								key={pizza.name}
+
+								/* Passing each property name in pizza object*/
+								// name={pizza.name}
+								// ingredients={pizza.ingredients}
+								// price={pizza.price}
+								// photoName={pizza.photoName}
+								// soldOut={pizza.soldOut}
+							/>
+						))}
+					</ul>
+				</>
 			) : (
 				<p>We still working on our menu</p>
 			)}
@@ -102,37 +105,34 @@ function Menu() {
 	);
 }
 
-function Pizza(props) {
-	return (
-		<ul className="pizza">
-			<img src={props.pizzaObj.photoName} alt="Pizza" />
-			<h3>{props.pizzaObj.name}</h3>
-			<p>{props.pizzaObj.ingredients}</p>
-			<p>{props.pizzaObj.price}</p>
+function Pizza({ pizzaObj }) {
+	// param name must match the props name in parent component.
+	const { name, ingredients, price, photoName, soldOut } = pizzaObj;
 
-			{props.pizzaObj.soldOut ? (
-				<span className="sold-out">Currently out of stock</span>
-			) : (
-				<span>Available</span>
-			)}
-		</ul>
+	return (
+		<li className={`${soldOut ? "pizza sold-out" : "pizza"}`}>
+			<img src={photoName} alt="Pizza" />
+			<h3>{name}</h3>
+			<p>{ingredients}</p>
+			<span>
+				{soldOut ? (
+					<>
+						<span>{price}</span>
+						<span>Sold out</span>
+					</>
+				) : (
+					price
+				)}
+			</span>
+		</li>
 	);
 }
 
 function Footer() {
-	const hourTime = new Date().getHours() + 10;
+	const hourTime = new Date().getHours();
 	const openHour = 12;
 	const closeHour = 22;
 	const isOpen = hourTime >= openHour && hourTime < closeHour;
-
-	// Using if statement instead of ternary for including multiple returns.
-	// if (!isOpen)
-	// 	return (
-	// 		<p>
-	// 			Using if statement. We are happy to welcome you between {openHour}:00
-	// 			and {closeHour}:00
-	// 		</p>
-	// 	);
 
 	return (
 		<footer className="footer">
@@ -148,6 +148,17 @@ function Footer() {
 		</footer>
 	);
 }
+function Order({ openHour, closeHour }) {
+	return (
+		<div className="order">
+			<p>
+				We're currently open! From {openHour}:00 right until {closeHour}:00
+			</p>
+			<button className="btn">Order</button>
+		</div>
+	);
+}
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
 	<React.StrictMode>
@@ -155,14 +166,12 @@ root.render(
 	</React.StrictMode>
 );
 
-function Order(props) {
-	return (
-		<div className="order">
-			<p>
-				We're currently open! From {props.openHour}:00 right until{" "}
-				{props.closeHour}:00
-			</p>
-			<button className="btn">Order</button>
-		</div>
-	);
-}
+// For Footer() function
+// Using if statement instead of ternary for including multiple returns.
+// if (!isOpen)
+// 	return (
+// 		<p>
+// 			Using if statement. We are happy to welcome you between {openHour}:00
+// 			and {closeHour}:00
+// 		</p>
+// 	);

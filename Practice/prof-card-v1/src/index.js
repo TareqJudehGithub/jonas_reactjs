@@ -8,37 +8,37 @@ const skillsList = [
 		id: 1,
 		skillName: "HTML + CSS",
 		skillColor: "blue",
-		skillEmoji: <p>&#128526;</p>,
+		skillLevel: "advanced",
 	},
 	{
 		id: 2,
 		skillName: "JavaScript",
 		skillColor: "yellow",
-		skillEmoji: <p>"&#129300;"</p>,
+		skillLevel: "intermediate",
 	},
 	{
 		id: 3,
 		skillName: "Web Design",
 		skillColor: "orangered",
-		skillEmoji: <p>&#129321;</p>,
+		skillLevel: "intermediate",
 	},
 	{
 		id: 4,
 		skillName: "Git and GitHub",
 		skillColor: "green",
-		skillEmoji: <p>&#129395;</p>,
+		skillLevel: "beginner",
 	},
 	{
 		id: 5,
 		skillName: "React",
 		skillColor: "lightblue",
-		skillEmoji: <p>&#129488;</p>,
+		skillLevel: "beginner",
 	},
 	{
 		id: 6,
 		skillName: "C# + .Net MVC Core",
 		skillColor: "purple",
-		skillEmoji: <p>"&#128568;"</p>,
+		skillLevel: "intermediate",
 	},
 ];
 
@@ -70,13 +70,16 @@ function SkillList() {
 		</ul>
 	);
 }
-function Skill(props) {
+function Skill({ skillObj }) {
+	let { skillName, skillColor, skillEmoji, skillLevel } = skillObj;
 	return (
-		<ul
-			className="skill"
-			style={{ backgroundColor: props.skillObj.skillColor }}
-		>
-			{props.skillObj.skillName} {props.skillObj.skillEmoji}
+		<ul className="skill" style={{ backgroundColor: skillColor }}>
+			{skillName}{" "}
+			{skillLevel === "advanced"
+				? (skillEmoji = <p>&#128170;</p>)
+				: skillLevel === "intermediate"
+				? (skillEmoji = <p>&#128077;</p>)
+				: (skillEmoji = <p>&#128118;</p>)}
 		</ul>
 	);
 }
