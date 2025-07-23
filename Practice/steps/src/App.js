@@ -9,11 +9,11 @@ export default function App() {
 	return (
 		<>
 			<Steps />
-			<Steps />
 		</>
 	);
 }
 
+// Component
 function Steps() {
 	// Hooks
 	const [step, setStep] = useState(1);
@@ -35,6 +35,7 @@ function Steps() {
 	// UI render
 	return (
 		<>
+			{/* Extend/collapse button  */}
 			<button className="close" onClick={() => setIsOpen((s) => !s)}>
 				&times;
 			</button>
@@ -50,18 +51,12 @@ function Steps() {
 					</p>
 
 					<div className="buttons">
-						<button
-							style={{ backgroundColor: "#7950f2", color: "#fff" }}
-							onClick={handlePrevious}
-						>
-							Previous
+						<button onClick={handlePrevious}>
+							<span>Previous</span>
 						</button>
 
-						<button
-							style={{ backgroundColor: "#7950f2", color: "#fff" }}
-							onClick={handleNext}
-						>
-							Next
+						<button onClick={handleNext}>
+							<span>Next</span>
 						</button>
 					</div>
 				</div>

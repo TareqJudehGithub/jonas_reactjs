@@ -1,0 +1,105 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+.container-dashboard {
+	border-radius: 5px;
+	text-align: center;
+	margin: 150px auto;
+	padding: 25px;
+	width: 25%;
+	height: 200px;
+	border: 1px solid rgb(184, 182, 182);
+	box-shadow: 2px 2px 1px rgb(184, 182, 182);
+}
+.container-dashboard h2 {
+	margin-bottom: 30px;
+}
+.container-dashboard p {
+	font-size: 20px;
+	margin-bottom: 15px;
+}
+.container-dashboard button {
+	color: whitesmoke;
+	font-size: 18;
+	padding: 10px;
+	border-radius: 10px;
+	background-color: rgb(190, 187, 187);
+}
+
+.container-todos {
+	font-size: 20px;
+	border-radius: 5px;
+	text-align: center;
+	margin: 15px auto;
+	padding: 10px;
+	width: 25%;
+	height: 200px;
+	border: 1px solid rgb(184, 182, 182);
+	box-shadow: 2px 2px 1px rgb(184, 182, 182);
+}
+h3 {
+	margin-bottom: 20px;
+}
+.todo-items {
+	text-align: start;
+	padding: 5px;
+}
+li {
+	list-style: none;
+}
+.check-task {
+	margin-left: 25px;
+}
+.task-completed {
+	text-decoration: line-through;
+}
+.container-students {
+	border-radius: 5px;
+	text-align: center;
+	margin: 150px auto;
+	padding: 25px;
+	width: 100%;
+	border: 1px solid rgb(184, 182, 182);
+	box-shadow: 2px 2px 1px rgb(184, 182, 182);
+}
+.container-students h2 {
+	margin-bottom: 30px;
+}
+.students-list {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.student-card {
+	font-size: 20px;
+	border-radius: 5px;
+	text-align: center;
+	margin: 25px;
+	padding: 10px;
+	width: 25%;
+	min-width: 220px;
+	max-width: 220px;
+	height: 200px;
+	min-height: 200px;
+	max-height: 200px;
+	border: 1px solid rgb(184, 182, 182);
+	box-shadow: 2px 2px 1px rgb(184, 182, 182);
+}
+.student-card h4 {
+	margin: 10px auto;
+}
+.student-card p {
+	padding: 5px;
+}
+.passed,
+.check {
+	color: green;
+}
+.failed,
+.cross {
+	color: red;
+}

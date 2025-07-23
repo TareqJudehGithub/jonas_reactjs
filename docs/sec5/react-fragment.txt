@@ -1,0 +1,5 @@
+React Fragment <> </>
+ - A parent element but without a description, used to wrap more than one html
+ element inside a function.
+ - In case we needed a key (for lists):
+  <React.Fragment key="list.key">
