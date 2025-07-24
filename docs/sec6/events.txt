@@ -1,0 +1,10 @@
+Handling events in React
+ - React is declarative, so handling events in React is just passing the function head
+   to the action element, without the need to use addEventListener() like the case 
+   in JS.
+
+  function handleClickButton()
+  {
+    return // some action (show elert, show a popup, etc..)
+  }
+  <button onClick={handleClickButton}>

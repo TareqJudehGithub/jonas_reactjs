@@ -1,2 +1,4 @@
 Rendering Lists
- 
+  - Rending list in React is done using .map() array method.
+  - Each rendered list requires a unique key.
+  

@@ -1,0 +1,20 @@
+props
+ - A way to communicate (pass data) between parent and child components.
+ - props are external data, data coming from the parent component.
+ - props can be updated only by the parent component.
+ - props are essential to configure and to customize components.
+ 
+ - With props, parent components "control" how child components should look like
+   and how they should work.
+ - We can pass any type of value as a prop.
+ - props are immutable (read-only). In case we needed to mutate a prop, then we need a state.
+
+- How props works in React?
+ - first we pass a propName in the parent component under App component.
+ - In the child, component function header, include a param (usually props).
+ - Inside the child component function body, in the {JSX code} pass the props you need.
+
+ - Receiving new props causes component to re-render. Usually when the parent's state
+   has been updated.
+ - Props are used by parents to configure child components (settings).
+     

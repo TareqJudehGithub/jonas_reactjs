@@ -56,12 +56,9 @@ function TodoList() {
 		<div className="container-todos">
 			<h3>TODOs List</h3>
 			<ul>
-				<li>
-					{todos.map((todo) => (
-						// <TodoList key={ todo.id } task={ todo.task } />
-						<TodoItem key={todo.id} todosObj={todo} />
-					))}
-				</li>
+				{todos.map((todo) => (
+					<TodoItem key={todo.id} todosObj={todo} />
+				))}
 			</ul>
 		</div>
 	);
@@ -76,13 +73,11 @@ function TodoItem({ todosObj }) {
 	}
 
 	return (
-		<ul className="todo-items">
-			<li>
-				<span className={isComplete ? "task-completed" : ""}>
-					{task} <button onClick={handleCompleted}>Check</button>
-				</span>
-			</li>
-		</ul>
+		<li className="todo-items">
+			<span className={isComplete ? "task-completed" : ""}>
+				{task} <button onClick={handleCompleted}>Check</button>
+			</span>
+		</li>
 	);
 }
 

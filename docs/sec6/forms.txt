@@ -1,0 +1,35 @@
+Forms in React
+
+e.preventDefault() prevents SPA from reloading the whole page.
+
+Controlled Elements
+ - With Controlled Elements, React controls the state of input fields, and not 
+   the DOM.
+ - Controlled Elements enables react to always keep the state up to date with the
+   form elements. 
+
+ - To apply the Controlled Elements technique, follow these steps below:
+   1. We create a state.
+    const [input, setInput] = "";
+   2. Use the state we create in step .1 as a value for inputs.
+    <input type="text" value={input} />
+   3. Connect the state with the value we type in the input(s).
+    <input 
+      type="text" 
+      value={input} 
+      onChange={(e) => setInput(e.target.value)}
+      />
+   4. The new state (setInput) we set it again by typing new inputs, by firing the 
+      onChange event, a new state will be set every time with a new value.
+
+
+  Explaining e.target.value
+   e.target.value is always a string
+   e          The event it self
+   target     The entire input element 
+   value      The the input value provided by the user.
+     
+
+  - After finishing submitting a new item, the state should always go back to its 
+    initial state.   
+     
