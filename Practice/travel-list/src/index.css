@@ -109,7 +109,9 @@ input {
 	align-items: center;
 	gap: 1.2rem;
 }
-
+.list-item span {
+	color: gold;
+}
 input[type="checkbox"] {
 	height: 2rem;
 	width: 2rem;

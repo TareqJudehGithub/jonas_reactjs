@@ -1,30 +1,40 @@
 import { useState } from "react";
 import "./index.css";
 
-const initialItems = [
-	{ id: 1, description: "Passports", quantity: 2, packed: false },
-	{ id: 2, description: "Socks", quantity: 12, packed: false },
-	{ id: 3, description: "Charger", quantity: 1, packed: true },
-];
-
 // Parent component
 function App() {
+	const [items, setItems] = useState([]);
+
+	// Handlers
+	// Add new item. Updates the state handler function, which we must also pass (as a prop) to
+	// Form component, where we create new items.
+	function handleAddItems(item) {
+		setItems((items) => [...items, item]);
+	}
+
+	// Delete an item from the list.
+	function handleDeleteItem(id) {
+		setItems((items) => items.filter((item) => item.id !== id));
+	}
+
 	return (
 		<div className="app">
 			<Logo />
-			<Form />
-			<PackingList />
+			{/* Naming Convection for naming handle props*/}
+			<Form onAddItems={handleAddItems} />
+			<PackingList items={items} onDelItem={handleDeleteItem} />
 			<Stats />
 		</div>
 	);
 }
-
 // Child components
 function Logo() {
 	return <h1>🌴Far Away🎒</h1>;
 }
 
-function Form() {
+// The form component purpose is to add new items into the array (update the state), but
+// not to render it (the UI).
+function Form({ onAddItems }) {
 	// States
 	const [description, setDescription] = useState("");
 	const [quantity, setQuantity] = useState(1);
@@ -38,9 +48,8 @@ function Form() {
 			alert("Enter item name!");
 		}
 
-		// const newItem = { description, quantity, packed: false, id: Date.now() };
-		// console.log(newItem);
-		console.log(description, quantity);
+		const newItem = { id: Date.now(), description, quantity, packed: false };
+		onAddItems(newItem);
 
 		// Setting the description state back to its initial state.
 		setDescription("");
@@ -48,7 +57,6 @@ function Form() {
 	}
 
 	return (
-		//<form className="add-form" onSubmit={ handleSubmit }>
 		<form className="add-form" onSubmit={handleSubmit}>
 			<h3>What do you need for your 😍 trip?</h3>
 			<select
@@ -74,28 +82,28 @@ function Form() {
 	);
 }
 
-function PackingList() {
+function PackingList({ items, onDelItem }) {
 	return (
 		<div className="list">
 			<ul>
-				{initialItems.map((item) => (
-					<Item key={item.id} itemsObj={item} />
+				{items.map((item) => (
+					<Item key={item.id} listItems={item} onDelItem={onDelItem} />
 				))}
 			</ul>
 		</div>
 	);
 }
 
-function Item({ itemsObj }) {
-	const { description, quantity, packed } = itemsObj;
+function Item({ listItems, onDelItem }) {
+	const { id, description, quantity, packed } = listItems;
 	return (
-		<li>
+		<li className="list-item">
 			<span
-				style={packed ? { textDecoration: "line-through" } : { color: "red" }}
+				style={packed ? { textDecoration: "line-through" } : { color: "gold" }}
 			>
 				{quantity} {description}
 			</span>
-			<button>❌</button>
+			<button onClick={() => onDelItem(id)}>❌</button>
 		</li>
 	);
 }
