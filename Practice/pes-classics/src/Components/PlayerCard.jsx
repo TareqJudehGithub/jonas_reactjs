@@ -3,7 +3,7 @@ import { useState, Suspense } from "react";
 import { CardImg, Card, CardTitle, CardBody, Button } from "react-bootstrap";
 
 function PlayerCard({ playerObj, onDelPlayer }) {
-	const { id, playerName, playerImg, playerCountry, cardImg } = playerObj;
+	const { playerName, playerImg, playerCountry, cardImg } = playerObj;
 	const [selectedCard, setSelectedCard] = useState(null);
 
 	// Handlers
@@ -14,10 +14,14 @@ function PlayerCard({ playerObj, onDelPlayer }) {
 
 	return (
 		<li className="col-lg-3 col-md-6 col-sm-6">
-			<Card className="player-card" onClick={() => handleClick(id)}>
+			<Card
+				className="player-card"
+				onClick={() => handleClick(playerObj.id)}
+				style={{ backgroundColor: "rgba(13, 115, 199, 0.23)" }}
+			>
 				{/* If id matches, Show card (players details), else (click again) then
 				show back of the card  */}
-				{id === selectedCard ? (
+				{playerObj.id === selectedCard ? (
 					<Suspense>
 						<CardBody className="card-body">
 							<CardImg
@@ -43,7 +47,7 @@ function PlayerCard({ playerObj, onDelPlayer }) {
 				)}
 				<Button
 					className="btn btn-sm btn-warning"
-					onClick={() => onDelPlayer(id)}
+					onClick={() => onDelPlayer(playerObj.id)}
 					style={{ opacity: "0.8", color: "whitesmoke", fontWeight: "bold" }}
 				>
 					Withdraw

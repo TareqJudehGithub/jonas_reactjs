@@ -12,6 +12,14 @@ function App() {
 		setItems((items) => [...items, item]);
 	}
 
+	// Update/Edit an item
+	function handleUpdateItem(id) {
+		setItems(
+			items.map((item) =>
+				item.id === id ? { ...item, packed: !item.packed } : item
+			)
+		);
+	}
 	// Delete an item from the list.
 	function handleDeleteItem(id) {
 		setItems((items) => items.filter((item) => item.id !== id));
@@ -22,7 +30,11 @@ function App() {
 			<Logo />
 			{/* Naming Convection for naming handle props*/}
 			<Form onAddItems={handleAddItems} />
-			<PackingList items={items} onDelItem={handleDeleteItem} />
+			<PackingList
+				items={items}
+				onDelItem={handleDeleteItem}
+				onToggleItem={handleUpdateItem}
+			/>
 			<Stats />
 		</div>
 	);
@@ -48,7 +60,12 @@ function Form({ onAddItems }) {
 			alert("Enter item name!");
 		}
 
-		const newItem = { id: Date.now(), description, quantity, packed: false };
+		const newItem = {
+			id: Date.now(),
+			description,
+			quantity,
+			packed: false,
+		};
 		onAddItems(newItem);
 
 		// Setting the description state back to its initial state.
@@ -82,22 +99,32 @@ function Form({ onAddItems }) {
 	);
 }
 
-function PackingList({ items, onDelItem }) {
+function PackingList({ items, onDelItem, onToggleItem }) {
 	return (
 		<div className="list">
 			<ul>
 				{items.map((item) => (
-					<Item key={item.id} listItems={item} onDelItem={onDelItem} />
+					<Item
+						key={item.id}
+						listItems={item}
+						onDelItem={onDelItem}
+						onToggleItem={onToggleItem}
+					/>
 				))}
 			</ul>
 		</div>
 	);
 }
 
-function Item({ listItems, onDelItem }) {
+function Item({ listItems, onDelItem, onToggleItem }) {
 	const { id, description, quantity, packed } = listItems;
 	return (
 		<li className="list-item">
+			<input
+				type="checkbox"
+				value={packed}
+				onChange={() => onToggleItem(id)}
+			/>
 			<span
 				style={packed ? { textDecoration: "line-through" } : { color: "gold" }}
 			>

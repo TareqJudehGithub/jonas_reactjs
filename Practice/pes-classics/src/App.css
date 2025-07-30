@@ -11,8 +11,11 @@
 	background-position: center top;
 	background-repeat: no-repeat;
 	background-size: cover;
-	background-blend-mode: luminosity;
+	background-color: rgba(12, 83, 235, 0.6);
+	background-blend-mode: normal;
 	box-shadow: 0px 3px 5px rgba(96, 137, 226);
+	min-height: 100vh;
+	max-height: 200vh;
 }
 .form-comp {
 	padding: 10px;
@@ -45,14 +48,17 @@ li {
 .player-card {
 	width: 15rem;
 	margin: 10px auto;
+	align-items: center;
 }
 .player-card:hover {
-	box-shadow: 4px 4px 5px rgba(12, 83, 235, 0.445);
+	box-shadow: 5px 5px 10px rgba(12, 83, 235, 0.712);
 	background-color: rgba(12, 83, 235, 0.233);
 }
 .card-body {
 	height: 300px;
-	background-color: rgba(12, 83, 235, 0.144);
+	/* background-color: rgba(12, 83, 235, 0.096); */
+}
+.card-body:hover {
 }
 .card-body img {
 	width: 200px;
@@ -63,8 +69,12 @@ li {
 .card-title,
 .card-body span {
 	font-size: 20px;
-	color: rgb(104, 126, 10);
+	color: rgb(240, 240, 120);
+	text-shadow: 1px 1px 1px black;
 }
-.Button {
+
+.Button:hover,
+.btn-warning:hover {
+	background-color: rgba(12, 83, 235, 0.233);
 	color: blue;
 }

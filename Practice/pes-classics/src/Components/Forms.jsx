@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import playersData from "../data";
-import { FormControl, Button } from "react-bootstrap";
+import { FormControl, Button, Alert } from "react-bootstrap";
 
 function Form({ onAddPlayer }) {
 	const [name, setName] = useState("");
@@ -9,31 +9,37 @@ function Form({ onAddPlayer }) {
 	const [playerImage, setPlayerImage] = useState("");
 
 	// Handlers
-
 	function handleSubmit(e) {
 		e.preventDefault();
-
 		if (!name) return alert("Enter a name!");
 
-		console.log(`${name} ${country} ${cardImage} ${playerImage}`);
+		var uniqueKey; // a variable to save key value
+		do {
+			alert("Press Ok button to add a new player");
+			uniqueKey = Math.trunc(Math.random() * 2000000 + 1);
+			if (playersData.map((player) => player.id).includes(uniqueKey)) {
+				console.log("Key duplicate found!");
+				alert("Key duplicate found!");
+			}
+		} while (playersData.map((player) => player.id).includes(uniqueKey));
 
 		// Build/create the new object after submitting the form
+		console.log("Adding new Player!");
 		const newPlayer = {
-			id: playersData.length + 1,
+			id: uniqueKey,
 			playerName: name,
 			playerCountry: country,
 			CardImg: cardImage,
 			playerImg: playerImage,
 		};
-		console.log(`New Player Data: ${newPlayer}`);
 		onAddPlayer(newPlayer);
-		console.log(`Original Data: ${playersData}`);
 
 		// Reset field values
 		setName("");
 		setCountry("");
 		setPlayerImage("");
 	}
+
 	return (
 		<div className="form-comp">
 			<h1>Legends Draw</h1>
