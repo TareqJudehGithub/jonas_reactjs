@@ -1,0 +1,44 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+.nav {
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 40px;
+	padding: 20px 10px;
+	background-color: rgb(44, 43, 42);
+	color: white;
+}
+
+li,
+.link {
+	list-style: none;
+	color: whitesmoke;
+}
+link:active,
+.link:hover {
+	color: white;
+}
+
+.input-form {
+	margin-bottom: 30px;
+}
+
+.input-row {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+}
+.input-label {
+	padding: 10px;
+}
+
+.thead .table-header {
+	background-color: rgb(44, 43, 42);
+}

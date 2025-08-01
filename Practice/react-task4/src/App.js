@@ -6,7 +6,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 
 function App() {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+	const name = "John Smith";
 	// Handles
 	function handleToggleLogIn() {
 		console.log(isLoggedIn);
@@ -18,14 +18,13 @@ function App() {
 				{isLoggedIn ? <Navigate to={"/home"} /> : <Navigate to={"/login"} />}
 
 				<Routes>
-					<Route path="/" Component={App} />
 					<Route
 						path="/login"
-						element={<Login onToggleLogin={handleToggleLogIn} />}
+						element={<Login onToggleLogin={handleToggleLogIn} name={name} />}
 					/>
 					<Route
 						path="/home"
-						element={<Home onToggleLogin={handleToggleLogIn} />}
+						element={<Home onToggleLogin={handleToggleLogIn} name={name} />}
 					/>
 				</Routes>
 			</div>

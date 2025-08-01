@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 
-function Login({ onToggleLogin }) {
+function Login({ onToggleLogin, name }) {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 
@@ -11,10 +11,8 @@ function Login({ onToggleLogin }) {
 		},
 	];
 
-	const name = "John Smith";
-	const inputRef = useRef(null);
-
 	// Autofocus first input field in the form
+	const inputRef = useRef(null);
 	useEffect(() => {
 		return inputRef.current.focus();
 	}, []);

@@ -32,3 +32,7 @@ State
   - useState should only be used in a top level of a function under App(), not in a component 
     function, not conditionally, or a loop.
   -  *** We should only update a state in the useState hook, and not manually.
+ 
+  What is a Controlled Element?
+   - An element that has it's value defined by a state, and it also had an event handler
+     that listens to any change, and update the state accordingly.
