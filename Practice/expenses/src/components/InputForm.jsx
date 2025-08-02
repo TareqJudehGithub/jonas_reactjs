@@ -1,22 +1,57 @@
-import { useState } from "react";
-import { Form, FormControl, Row, Button } from "react-bootstrap";
+import { useState, useRef, useEffect } from "react";
+import { FormControl, Row, Button } from "react-bootstrap";
+import expenses from "../data";
 
-function InputForm() {
-	// States
+function InputForm({ onAddItem, onUpdateTotal, onUpdateItem }) {
+	// Formatting date to yyyy/mm/dd
 	const timeElapsed = Date.now();
 	const dateToday = new Date(timeElapsed);
 
+	// Autofocus Transaction input
+	const focusInput = useRef(null);
+	useEffect(() => {
+		return focusInput.current.focus();
+	}, []);
+	// States
 	const [date, setDate] = useState(dateToday.toLocaleDateString());
 	const [description, setDescription] = useState("");
-	const [amount, setAmount] = useState(null);
+	const [amount, setAmount] = useState("");
 
 	// Handler
 	function handleSubmit(e) {
 		e.preventDefault();
+
+		const idGenerator = () => Math.trunc(Math.random() * 1000000 + 1);
+		let uniqueKey;
+		let duplicateId = expenses.map((map) => map.id).includes(uniqueKey);
+		console.log(duplicateId);
+
+		do {
+			uniqueKey = idGenerator();
+			if (duplicateId) {
+				alert("Item Id Duplicate creating new Id");
+			}
+		} while (duplicateId);
+
+		const newItem = {
+			id: uniqueKey,
+			date: date,
+			description: description,
+			amount: amount,
+		};
+		console.log(`Adding new item: ${newItem.description}`);
+		onAddItem(newItem);
+		onUpdateTotal(amount);
+
+		// reset input fields
+		setDate(dateToday.toLocaleDateString());
+		setDescription("");
+		setAmount("");
 	}
+
 	return (
 		<div className="container input-form">
-			<Form className="form" onSubmit={handleSubmit}>
+			<form className="form" onSubmit={handleSubmit}>
 				<Row className="row input-row">
 					<div className="col-sm-2">
 						<div className="input-label">
@@ -36,6 +71,7 @@ function InputForm() {
 								placeholder="Transaction"
 								value={description}
 								onChange={(e) => setDescription(e.target.value)}
+								ref={focusInput}
 							/>
 						</div>
 					</div>
@@ -55,14 +91,15 @@ function InputForm() {
 						<div className="input-label">
 							<Button
 								variant="btn btn-secondary"
-								onClick={() => console.log(date, description, amount)}
+								type="submit"
+								onClick={() => console.log(onUpdateTotal(amount))}
 							>
 								Add
 							</Button>
 						</div>
 					</div>
 				</Row>
-			</Form>
+			</form>
 		</div>
 	);
 }

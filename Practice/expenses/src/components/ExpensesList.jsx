@@ -1,4 +1,6 @@
-function ExpensesList() {
+import Expense from "./Expense";
+
+function ExpensesList({ itemsProps, total, onDelItem, onUpdateItem }) {
 	return (
 		<div className="container">
 			<table className="table">
@@ -9,20 +11,20 @@ function ExpensesList() {
 						<th>Description</th>
 						<th>Amount - Jds</th>
 						<th>Manage Transaction</th>
+						<th>Total</th>
 					</tr>
 				</thead>
-
-				<tbody className="tbody">
-					<tr>
-						<td>1</td>
-						<td>Jun 31 2025</td>
-						<td>Leen Salary</td>
-						<td>10</td>
-						<td>
-							<button className="btn btn-outline-warning">Edit</button>
-							<button className="btn btn-outline-danger">Edit</button>
-						</td>
-					</tr>
+				<tbody style={{ verticalAlign: "middle" }}>
+					{itemsProps.map((exp) => (
+						<tr key={exp.id}>
+							<Expense
+								itemsList={exp}
+								total={total}
+								onDelItem={onDelItem}
+								onUpdateItem={onUpdateItem}
+							/>
+						</tr>
+					))}
 				</tbody>
 			</table>
 		</div>
