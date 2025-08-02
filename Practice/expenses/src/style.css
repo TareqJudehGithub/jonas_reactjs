@@ -3,7 +3,9 @@
 	padding: 0;
 	box-sizing: border-box;
 }
-
+body {
+	background-color: black;
+}
 .nav {
 	display: flex;
 	flex-wrap: wrap;
@@ -43,4 +45,7 @@ link:active,
 }
 .tbody {
 	vertical-align: middle;
+}
+button {
+	padding-right: 3px;
 }

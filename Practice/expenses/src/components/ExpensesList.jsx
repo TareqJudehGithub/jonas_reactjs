@@ -1,9 +1,9 @@
 import Expense from "./Expense";
-
-function ExpensesList({ itemsProps, total, onDelItem, onUpdateItem }) {
+import Stats from "./Stats";
+function ExpensesList({ itemsProps, onDelItem }) {
 	return (
 		<div className="container">
-			<table className="table">
+			<table className="table table-dark">
 				<thead className="table-header">
 					<tr className="">
 						<th className="">#</th>
@@ -17,12 +17,7 @@ function ExpensesList({ itemsProps, total, onDelItem, onUpdateItem }) {
 				<tbody style={{ verticalAlign: "middle" }}>
 					{itemsProps.map((exp) => (
 						<tr key={exp.id}>
-							<Expense
-								itemsList={exp}
-								total={total}
-								onDelItem={onDelItem}
-								onUpdateItem={onUpdateItem}
-							/>
+							<Expense itemsList={exp} onDelItem={onDelItem} />
 						</tr>
 					))}
 				</tbody>

@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { FormControl, Row, Button } from "react-bootstrap";
 import expenses from "../data";
 
-function InputForm({ onAddItem, onUpdateTotal, onUpdateItem }) {
+function InputForm({ onAddItem }) {
 	// Formatting date to yyyy/mm/dd
 	const timeElapsed = Date.now();
 	const dateToday = new Date(timeElapsed);
@@ -24,7 +24,6 @@ function InputForm({ onAddItem, onUpdateTotal, onUpdateItem }) {
 		const idGenerator = () => Math.trunc(Math.random() * 1000000 + 1);
 		let uniqueKey;
 		let duplicateId = expenses.map((map) => map.id).includes(uniqueKey);
-		console.log(duplicateId);
 
 		do {
 			uniqueKey = idGenerator();
@@ -41,7 +40,6 @@ function InputForm({ onAddItem, onUpdateTotal, onUpdateItem }) {
 		};
 		console.log(`Adding new item: ${newItem.description}`);
 		onAddItem(newItem);
-		onUpdateTotal(amount);
 
 		// reset input fields
 		setDate(dateToday.toLocaleDateString());
@@ -89,11 +87,7 @@ function InputForm({ onAddItem, onUpdateTotal, onUpdateItem }) {
 
 					<div className="col-sm-2 ">
 						<div className="input-label">
-							<Button
-								variant="btn btn-secondary"
-								type="submit"
-								onClick={() => console.log(onUpdateTotal(amount))}
-							>
+							<Button variant="btn btn-outline-secondary" type="submit">
 								Add
 							</Button>
 						</div>
