@@ -43,6 +43,9 @@ link:active,
 .thead .table-header {
 	background-color: rgb(44, 43, 42);
 }
+.amount-header {
+	cursor: pointer;
+}
 .tbody {
 	vertical-align: middle;
 }

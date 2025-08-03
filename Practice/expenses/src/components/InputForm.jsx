@@ -7,13 +7,15 @@ function InputForm({ onAddItem }) {
 	const timeElapsed = Date.now();
 	const dateToday = new Date(timeElapsed);
 
+	const newDate = new Date("7/25/2026").toLocaleDateString();
+	//new Date("7/29/2025").toLocaleDateString();
 	// Autofocus Transaction input
 	const focusInput = useRef(null);
 	useEffect(() => {
 		return focusInput.current.focus();
 	}, []);
 	// States
-	const [date, setDate] = useState(dateToday.toLocaleDateString());
+	const [date, setDate] = useState(newDate);
 	const [description, setDescription] = useState("");
 	const [amount, setAmount] = useState("");
 
@@ -55,7 +57,7 @@ function InputForm({ onAddItem }) {
 						<div className="input-label">
 							<FormControl
 								className="input-field"
-								type="date"
+								type="text"
 								value={date}
 								onChange={(e) => setDate(e.target.value)}
 							/>
