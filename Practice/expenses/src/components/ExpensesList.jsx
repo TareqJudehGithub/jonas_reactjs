@@ -24,22 +24,29 @@ function ExpensesList({ itemsProps, onDelItem }) {
 			.sort((a, b) => Number(a.amount) - Number(b.amount));
 	}
 
-	// Handlers
-	function handleSortAmount() {
-		sortedItems = itemsProps.sort((a, b) => {
-			if (sortAmountOrder === "asc") {
-				console.log("Sorting ASC");
-
-				return Number(a.amount) - Number(b.amount);
-			} else {
-				console.log("Sorting DSC");
-				return Number(b.amount) - Number(a.amount);
-			}
-		});
-		setSortAmountOrder(sortAmountOrder === "asc" ? "dsc" : "asc");
+	// Bonus - Clicking on Amount tab sorts asc/dsc
+	else if (sortAmountOrder === "asc") {
+		sortedItems = itemsProps
+			.slice()
+			.sort((a, b) => Number(a.amount) - Number(b.amount));
+	} else if (sortAmountOrder === "dsc") {
+		sortedItems = [...itemsProps].sort(
+			(a, b) => Number(b.amount) - Number(a.amount)
+		);
 	}
 
-	console.log(sortedItems.map((item) => item.amount));
+	// Handlers
+	function handleSortAmount() {
+		if (sortAmountOrder === "asc") {
+			console.log("Sorting ASC");
+		} else {
+			console.log("Sorting DSC");
+		}
+
+		setSortAmountOrder(sortAmountOrder === "asc" ? "dsc" : "asc");
+		// I'm missing something here... UI is not rendering 🤔
+	}
+
 	return (
 		<div className="container">
 			<table className="table table-dark">
@@ -49,7 +56,7 @@ function ExpensesList({ itemsProps, onDelItem }) {
 						<th>Date</th>
 						<th>Description</th>
 						<th className="amount-header" onClick={handleSortAmount}>
-							Amount - Jds
+							Amount
 						</th>
 						<th>Manage Transaction</th>
 						<th>Total</th>

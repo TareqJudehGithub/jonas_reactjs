@@ -58,6 +58,7 @@ function InputForm({ onAddItem }) {
 							<FormControl
 								className="input-field"
 								type="text"
+								placeholder=""
 								value={date}
 								onChange={(e) => setDate(e.target.value)}
 							/>
