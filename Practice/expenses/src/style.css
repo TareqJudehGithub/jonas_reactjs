@@ -43,12 +43,23 @@ link:active,
 .thead .table-header {
 	background-color: rgb(44, 43, 42);
 }
-.amount-header {
+.amount-header,
+.date-header,
+.desc-header {
 	cursor: pointer;
 }
 .tbody {
 	vertical-align: middle;
 }
+.check-item {
+	text-decoration: line-through;
+	color: grey;
+}
 button {
 	padding-right: 3px;
+}
+.link,
+.link-edit:active,
+.link-edit:visited {
+	color: whitesmoke;
 }

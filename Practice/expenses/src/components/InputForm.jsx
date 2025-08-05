@@ -7,7 +7,7 @@ function InputForm({ onAddItem }) {
 	const timeElapsed = Date.now();
 	const dateToday = new Date(timeElapsed);
 
-	const newDate = new Date("7/25/2026").toLocaleDateString();
+	const newDate = new Date("8/5/2025").toLocaleDateString();
 	//new Date("7/29/2025").toLocaleDateString();
 	// Autofocus Transaction input
 	const focusInput = useRef(null);

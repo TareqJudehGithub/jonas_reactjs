@@ -1,50 +1,64 @@
 import { useState } from "react";
 import Expense from "./Expense";
-function ExpensesList({ itemsProps, onDelItem }) {
+function ExpensesList({ itemsProps, onDelItem, onPayItem }) {
 	// States
 	// Sort by column
-	const [sortedBy, setSortedBy] = useState("date");
-
-	// Sorting order - switch between asc and dsc
-	const [sortAmountOrder, setSortAmountOrder] = useState("asc");
+	let [sortedBy, setSortedBy] = useState("input");
+	let [sortDateBy, setSortDateBy] = useState("asc");
+	let [sortDescBy, setSortDescBy] = useState("asc");
+	let [sortAmountBy, setSortAmountBy] = useState("asc");
 
 	let sortedItems;
+	// Default sorting order
+	if (sortedBy === "input") sortedItems = itemsProps;
 
+	// Drop down sort menu
 	if (sortedBy === "date")
 		sortedItems = itemsProps
 			.slice()
 			.sort((a, b) => b.date.localeCompare(a.date));
-	else if (sortedBy === "description") {
+	if (sortedBy === "date" && sortDateBy === "dsc")
+		sortedItems = itemsProps
+			.slice()
+			.sort((a, b) => a.date.localeCompare(b.date));
+
+	if (sortedBy === "description") {
 		sortedItems = itemsProps
 			.slice()
 			.sort((a, b) => a.description.localeCompare(b.description));
-	} else if (sortedBy === "amount") {
+	}
+	if (sortedBy === "description" && sortDescBy === "dsc") {
 		sortedItems = itemsProps
 			.slice()
-			.sort((a, b) => Number(a.amount) - Number(b.amount));
+			.sort((a, b) => b.description.localeCompare(a.description));
 	}
 
-	// Bonus - Clicking on Amount tab sorts asc/dsc
-	else if (sortAmountOrder === "asc") {
+	if (sortedBy === "amount") {
+		sortedItems = itemsProps
+			.slice()
+			.sort((a, b) => Number(b.amount) - Number(a.amount));
+	}
+	if (sortedBy === "amount" && sortAmountBy === "dsc") {
 		sortedItems = itemsProps
 			.slice()
 			.sort((a, b) => Number(a.amount) - Number(b.amount));
-	} else if (sortAmountOrder === "dsc") {
-		sortedItems = [...itemsProps].sort(
-			(a, b) => Number(b.amount) - Number(a.amount)
-		);
 	}
 
 	// Handlers
-	function handleSortAmount() {
-		if (sortAmountOrder === "asc") {
-			console.log("Sorting ASC");
-		} else {
-			console.log("Sorting DSC");
-		}
-
-		setSortAmountOrder(sortAmountOrder === "asc" ? "dsc" : "asc");
-		// I'm missing something here... UI is not rendering 🤔
+	function handleSortByDate() {
+		setSortedBy((sortedBy = "date"));
+		setSortDateBy(sortDateBy === "asc" ? "dsc" : "asc");
+		console.log(sortedBy, sortDateBy);
+	}
+	function handleSortByDesc() {
+		setSortedBy((sortedBy = "description"));
+		setSortDescBy(sortDescBy === "asc" ? "dsc" : "asc");
+		console.log(sortedBy, sortDescBy);
+	}
+	function handleSortByAmount() {
+		setSortedBy((sortedBy = "amount"));
+		setSortAmountBy(sortAmountBy === "asc" ? "dsc" : "asc");
+		console.log(sortedBy, sortAmountBy);
 	}
 
 	return (
@@ -52,20 +66,27 @@ function ExpensesList({ itemsProps, onDelItem }) {
 			<table className="table table-dark">
 				<thead className="table-header">
 					<tr className="">
-						<th className="">#</th>
-						<th>Date</th>
-						<th>Description</th>
-						<th className="amount-header" onClick={handleSortAmount}>
+						<th className="date-header" onClick={handleSortByDate}>
+							Date
+						</th>
+						<th className="desc-header" onClick={handleSortByDesc}>
+							Description
+						</th>
+						<th className="amount-header" onClick={handleSortByAmount}>
 							Amount
 						</th>
+						<th>Status</th>
 						<th>Manage Transaction</th>
-						<th>Total</th>
 					</tr>
 				</thead>
 				<tbody style={{ verticalAlign: "middle" }}>
 					{sortedItems.map((exp) => (
 						<tr key={exp.id}>
-							<Expense itemsList={exp} onDelItem={onDelItem} />
+							<Expense
+								itemsList={exp}
+								onDelItem={onDelItem}
+								onPayItem={onPayItem}
+							/>
 						</tr>
 					))}
 				</tbody>
