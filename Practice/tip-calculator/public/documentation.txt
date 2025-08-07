@@ -1,0 +1,33 @@
+// Build diff components for each operation:
+ - Bill component 
+    Responsible for the user bill value input
+ - SelectPercentage component
+    Responsible the user review percentage.
+    Reuse same component for the user's friend review percentage.
+    
+ - Output component
+  Calculate the  tip based on the average between the two percentages,
+  and add that to the total paid.
+
+
+UI structure
+
+ How much was the bill? [input]
+ How did you like the service?
+                Dropdown menu:
+                        Dissatisfied (0%)
+                        It was okay (5%)
+                        It was good (10%)
+                        Absolutely amazing! (20%)
+
+How did your friend like the service?
+                Dropdown menu:
+                        Dissatisfied (0%)
+                        It was okay (5%)
+                        It was good (10%)
+                        Absolutely amazing! (20%)
+
+You pay ${Total amount}  (${bill} + ${tipAvg})
+
+
+<Reset Button>

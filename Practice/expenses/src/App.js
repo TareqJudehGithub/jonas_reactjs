@@ -58,7 +58,7 @@ function App() {
 					}
 				/>
 				<Route
-					path="ExpenseDetails"
+					path="ExpenseDetails:id"
 					element={
 						<ExpenseDetails
 							itemsProps={data}
