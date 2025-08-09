@@ -1,13 +1,10 @@
-import { useState } from "react";
-
-function SelectPercentage({ label, myPercentage, onMyPercentage }) {
+function SelectPercentage({ children, percentage, onPercentage }) {
 	return (
 		<form>
-			<label htmlFor="my-perc">{label} </label>
+			<label>{children} </label>
 			<select
-				name="my-perc"
-				defaultValue={myPercentage}
-				onChange={(e) => onMyPercentage(Number(e.target.value))}
+				value={percentage}
+				onChange={(e) => onPercentage(Number(e.target.value))}
 			>
 				<option value="0">Poor (0%)</option>
 				<option value="5">Okay (5%)</option>

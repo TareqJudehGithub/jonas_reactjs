@@ -1,4 +1,4 @@
-function Output({ bill, tip, total, onTotal }) {
+function Output({ bill, tip, total, onTotal, onReset }) {
 	return (
 		<>
 			{/* You pay ${total} (${bill} + ${tip}) */}
@@ -9,6 +9,7 @@ function Output({ bill, tip, total, onTotal }) {
 			)}
 
 			<button onClick={onTotal}>Calculate Total</button>
+			<button onClick={onReset}>Reset</button>
 		</>
 	);
 }

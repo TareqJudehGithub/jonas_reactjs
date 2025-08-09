@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-function BillInput({ bill, onBill }) {
+function BillInput({ bill, onSetBill }) {
 	const billFocus = useRef(null);
 	useEffect(() => {
 		return billFocus.current.focus();
@@ -18,7 +18,7 @@ function BillInput({ bill, onBill }) {
 					name="bill"
 					placeholder="Enter bill amount"
 					value={bill}
-					onChange={(e) => onBill(e.target.value)}
+					onChange={(e) => onSetBill(Number(e.target.value))}
 					required
 					ref={billFocus}
 				/>

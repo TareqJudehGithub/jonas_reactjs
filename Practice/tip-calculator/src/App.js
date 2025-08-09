@@ -8,37 +8,42 @@ function App() {
 	const [bill, setBill] = useState("");
 	const [myPercentage, setMyPercentage] = useState(0);
 	const [friendsPercentage, setFriendsPercentage] = useState(0);
-	//const [tip, setTip] = useState(0);
 	const [total, setTotal] = useState(0);
 
-	const tipTotal = (myPercentage + friendsPercentage) / 2 / 100;
-	//setTip((tip) => (tip = Number(myPercentage) + Number(friendsPercentage)));
+	let tipTotal = (myPercentage + friendsPercentage) / 2 / 100;
 
 	// Handles
 	function calculateTotal() {
-		setTotal(Number(bill) + Number(bill) * Number(tipTotal));
+		setTotal(Number(bill) + Number(bill) * tipTotal);
 		return total;
+	}
+	function resetInputs() {
+		setBill("");
+		setMyPercentage(0);
+		setFriendsPercentage(0);
+		setTotal(0);
 	}
 
 	return (
 		<div>
-			<BillInput bill={bill} onBill={setBill} />
+			<BillInput bill={bill} onSetBill={setBill} />
 			<SelectPercentage
-				myPercentage={myPercentage}
-				onMyPercentage={setFriendsPercentage}
-				label={"How did you like the service?"}
+				percentage={myPercentage}
+				onPercentage={setMyPercentage}
+				children={"How did you like the service?"}
 			></SelectPercentage>
 
 			<SelectPercentage
-				myPercentage={myPercentage}
-				onMyPercentage={setMyPercentage}
-				label={"How did your friends like the service?"}
+				percentage={friendsPercentage}
+				onPercentage={setFriendsPercentage}
+				children={"How did your friends like the service?"}
 			></SelectPercentage>
 			<Output
 				bill={bill}
 				tip={tipTotal}
 				total={total}
 				onTotal={calculateTotal}
+				onReset={resetInputs}
 			/>
 		</div>
 	);
