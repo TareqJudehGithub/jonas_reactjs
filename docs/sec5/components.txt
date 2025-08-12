@@ -26,3 +26,34 @@ One-way data flow benefits
   - Makes applications more predictable and easier to understand.
   - Makes applications easier to debug, as we have more control over the data.
   - One-way data flow is more performant.
+
+
+Component Types
+
+ - Structural (stateful) component
+  - Responsible for the Structure or the layout of the app.
+
+ - Presentational (stateless) component
+  - Responsible for presenting part of the UI (like a logo).
+      - Does not have any state in it.
+
+Component Composition
+ - To include a component inside another component as a children props
+ - Creates highly reusable and flexiable components
+ - Fixes prop drilling problem.
+
+ function Modal({children})
+ {
+  return (
+    <>
+      {children}    
+    </>
+  )
+ }
+
+ // Child component
+ function Success()
+
+ {
+  return <p>Well Done!<p/>
+ }

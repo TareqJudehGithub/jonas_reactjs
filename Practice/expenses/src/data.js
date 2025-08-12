@@ -125,6 +125,13 @@ let expenses = [
 		amount: 60,
 		isPaid: false,
 	},
+	{
+		id: 19,
+		date: new Date("8/10/2025").toLocaleDateString(),
+		description: "Leen's twin-friends birthday gift",
+		amount: 23,
+		isPaid: false,
+	},
 ];
 export default expenses;
 

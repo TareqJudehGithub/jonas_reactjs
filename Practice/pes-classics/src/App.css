@@ -12,7 +12,7 @@
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-color: rgba(12, 83, 235, 0.6);
-	background-blend-mode: normal;
+	background-blend-mode: darken;
 	box-shadow: 0px 3px 5px rgba(96, 137, 226);
 	min-height: 100vh;
 	max-height: 200vh;
@@ -27,7 +27,7 @@
 	opacity: 0.9;
 }
 .form-comp h1 {
-	font-size: 64px;
+	font-size: 72px;
 	padding: 20px;
 	margin: 40px 0;
 }
@@ -49,17 +49,30 @@ li {
 	width: 15rem;
 	margin: 10px auto;
 	align-items: center;
+
+	background-image: url("card-stad2.jpg");
+	background-position: center top;
+	background-repeat: no-repeat;
+	background-size: cover;
+
+	border-radius: 10px;
 }
 .player-card:hover {
 	box-shadow: 5px 5px 10px rgba(12, 83, 235, 0.712);
 	background-color: rgba(12, 83, 235, 0.233);
+	cursor: pointer;
 }
 .card-body {
 	height: 300px;
-	/* background-color: rgba(12, 83, 235, 0.096); */
+	width: 100%;
+	border-radius: 10px;
+
+	/* background-image: url("card-stad2.jpg");
+	background-position: center top;
+	background-repeat: no-repeat;
+	background-size: cover; */
 }
-.card-body:hover {
-}
+
 .card-body img {
 	width: 200px;
 	height: 250px;
@@ -68,13 +81,26 @@ li {
 .CardTitle,
 .card-title,
 .card-body span {
-	font-size: 20px;
+	font-size: 24px;
 	color: rgb(240, 240, 120);
 	text-shadow: 1px 1px 1px black;
 }
 
-.Button:hover,
-.btn-warning:hover {
-	background-color: rgba(12, 83, 235, 0.233);
-	color: blue;
+.btn-withdraw {
+	opacity: 0.8;
+	color: whitesmoke;
+	font-weight: bold;
+	background-color: rgb(218, 179, 6);
+	padding: 5px;
+	border-radius: 10px;
+	border: none;
+	margin: 3px 0px;
+	text-shadow: 1px 1px 0.5px rgb(75, 74, 74, 0.5);
+	opacity: 0;
+}
+
+.btn-withdraw:hover {
+	box-shadow: rgba(12, 83, 235, 0.233);
+	transition: all 0.5s;
+	opacity: 1;
 }

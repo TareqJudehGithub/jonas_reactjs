@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import playersData from "../data";
-import { FormControl, Button, Alert } from "react-bootstrap";
+import { FormControl, Button } from "react-bootstrap";
 
 function Form({ onAddPlayer }) {
 	const [name, setName] = useState("");
 	const [country, setCountry] = useState("");
-	const [cardImage, setCardImage] = useState("images/cards/card-stad2.jpg");
+
 	const [playerImage, setPlayerImage] = useState("");
 
 	// Handlers
@@ -29,7 +29,6 @@ function Form({ onAddPlayer }) {
 			id: uniqueKey,
 			playerName: name,
 			playerCountry: country,
-			CardImg: cardImage,
 			playerImg: playerImage,
 		};
 		onAddPlayer(newPlayer);
@@ -66,10 +65,13 @@ function Form({ onAddPlayer }) {
 						<FormControl
 							type="file"
 							accept="image/png"
-							value={playerImage}
-							onChange={(e) => setPlayerImage(e.target.value)}
+							onChange={(e) => {
+								setPlayerImage(URL.createObjectURL(e.target.files[0]));
+							}}
+							placeholder="Player Image"
 						/>
 					</div>
+
 					<div className="mb-3 col-sm-1">
 						<Button className="btn-warning" type="submit">
 							Add

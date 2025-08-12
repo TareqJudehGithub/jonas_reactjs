@@ -1,4 +1,30 @@
 Rendering Lists
   - Rending list in React is done using .map() array method.
   - Each rendered list requires a unique key.
-  
+
+  Rendering a list in action:
+
+function ParentComponent() {
+
+
+  return (
+
+    <parent element>
+      {
+        array.map((el) el => (
+          <Child Component key={el.id} props={el}/>
+        ))
+      }
+    </parent element>
+  )
+  </parent>
+}
+
+function ChildComponent({props}) {
+  return (
+    <parent element>
+      <h3>{props.name}</h3>
+      <h4>{props.email}</h4>
+    </parent element>
+  )
+}

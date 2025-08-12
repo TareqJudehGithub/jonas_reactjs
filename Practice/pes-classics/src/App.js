@@ -30,10 +30,12 @@ function App() {
 // Child Components
 // Players List Container
 function PlayersList({ data, onDelPlayer }) {
+	const playersList = data;
+
 	return (
 		<Container className="container text-center">
 			<ul className="row justify-content-evenly align-items-center">
-				{data.map((player) => (
+				{playersList.map((player) => (
 					<PlayerCard
 						key={player.id}
 						playerObj={player}

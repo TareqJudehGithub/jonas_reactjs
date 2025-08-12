@@ -3,7 +3,7 @@ import { useState, Suspense } from "react";
 import { CardImg, Card, CardTitle, CardBody, Button } from "react-bootstrap";
 
 function PlayerCard({ playerObj, onDelPlayer }) {
-	const { playerName, playerImg, playerCountry, cardImg } = playerObj;
+	const { playerName, playerImg, playerCountry } = playerObj;
 	const [selectedCard, setSelectedCard] = useState(null);
 
 	// Handlers
@@ -37,21 +37,15 @@ function PlayerCard({ playerObj, onDelPlayer }) {
 						</CardBody>
 					</Suspense>
 				) : (
-					<CardBody className="card-body">
-						<CardImg
-							className="rounded img-thumbnail"
-							src={cardImg}
-							alt="card"
-						/>
-					</CardBody>
+					<CardBody className="card-body"></CardBody>
 				)}
-				<Button
-					className="btn btn-sm btn-warning"
+				<button
+					className="btn-withdraw"
 					onClick={() => onDelPlayer(playerObj.id)}
-					style={{ opacity: "0.8", color: "whitesmoke", fontWeight: "bold" }}
+					// style={{ opacity: "0.8", color: "whitesmoke", fontWeight: "bold" }}
 				>
 					Withdraw
-				</Button>
+				</button>
 			</Card>
 		</li>
 	);
