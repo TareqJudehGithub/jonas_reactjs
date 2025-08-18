@@ -66,6 +66,8 @@ function App() {
 				<FormSplitBill
 					selectedFriend={selectedFriend}
 					onSplitBill={handleSplitBill}
+					// Adding this key will RESET the state after selecting a new friend
+					key={selectedFriend.id}
 				/>
 			)}
 		</div>

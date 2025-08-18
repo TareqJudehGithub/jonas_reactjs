@@ -134,7 +134,7 @@ let expenses = [
 	},
 	{
 		id: 20,
-		date: new Date("8/14/2025"),
+		date: new Date("8/14/2025").toLocaleDateString(),
 		description: "Dina - Leen's school bag + Nadi dinner",
 		amount: 40,
 		isPaid: false,
@@ -158,6 +158,27 @@ let expenses = [
 		date: new Date("8/16/2025").toLocaleDateString(),
 		description: "Leen - Book - novel",
 		amount: 20,
+		isPaid: false,
+	},
+	{
+		id: 24,
+		date: new Date("8/17/2025").toLocaleDateString(),
+		description: "Dina - Makeup - Original Brands",
+		amount: 40,
+		isPaid: false,
+	},
+	{
+		id: 25,
+		date: new Date("8/17/2025").toLocaleDateString(),
+		description: "Leen - School stationary",
+		amount: 11,
+		isPaid: false,
+	},
+	{
+		id: 26,
+		date: new Date("8/7/2025").toLocaleDateString(),
+		description: "Dina - Birthday shipping fees - Aramex",
+		amount: 35,
 		isPaid: false,
 	},
 ];
