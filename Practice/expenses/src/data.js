@@ -181,6 +181,13 @@ let expenses = [
 		amount: 35,
 		isPaid: false,
 	},
+	{
+		id: 27,
+		date: new Date("8/18/2025").toLocaleDateString(),
+		description: "Dina & Leen - City Mall Monday Night Movie",
+		amount: 20,
+		isPaid: false,
+	},
 ];
 export default expenses;
 

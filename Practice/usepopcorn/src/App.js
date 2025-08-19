@@ -1,84 +1,109 @@
 import { useEffect, useState } from "react";
 
-import tempMovieData from "./tempMovieData";
-import tempWatchedData from "./tempWatchedData";
-
 import NavBar from "./components/Navbar";
-import MainComponent from "./components/MainComponent";
-
 import Search from "./components/Search";
 import NumResults from "./components/NumResults";
-import Box from "./components/Box.jsx";
 
+import MainComponent from "./components/MainComponent";
+import Box from "./components/Box.jsx";
 import MovieList from "./components/MovieList";
+
 import WatchedSummary from "./components/WatchedSummary.jsx";
 import WatchedMovieList from "./components/WatchedMovieList.jsx";
 
+import Loader from "./components/Loader.jsx";
+import ErrorMessage from "./components/ErrorMessage.jsx";
+
+// Constant variables
 const KEY = `deec4c57`;
 
 export default function App() {
+	// States
 	const [movies, setMovies] = useState([]);
 	const [watched, setWatched] = useState([]);
 
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState("");
+
+	const [query, setQuery] = useState("");
+
+	// Hooks
+	// Fetch movies data effect
 	useEffect(() => {
+		const url = `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`;
+
 		async function getData() {
 			try {
-				const url = `http://www.omdbapi.com/?apikey=${KEY}&s=aliens`;
+				setIsLoading(true);
+
+				// Reset Errors
+				setError("");
+
 				const response = await fetch(url);
-				const data = response.json();
+
+				if (!response.ok) {
+					console.log(`We received response number: ${response.status}`);
+					throw new Error("Error fetching data!");
+				}
+
+				const data = await response.json();
+
+				// Movie/title not found
+				if (data.Response === "False") {
+					console.log("No movie(s) were found");
+					throw new Error("Movie not found!");
+				}
 
 				// .Search object is any array in data object (the OMDB API object)
-				data.then((data) => setMovies(data.Search));
+				setMovies(data.Search);
 
-				//	data.then((data) => setMovies(data.Search));
-			} catch (error) {
-				console.error("Error fetching data: ", error);
+				setIsLoading(false);
+			} catch (err) {
+				setError(err.message); // The Error set in the if statement block.
+			} finally {
+				setIsLoading(false);
 			}
 		}
-		getData();
 
-		async function getUsers() {
-			const res = await fetch("https://jsonplaceholder.typicode.com/users");
-			const usersData = res.json();
-			usersData.then((data) => console.log(data.at(0).name));
+		if (query.length === 0) {
+			setMovies([]);
+			setError("");
+
+			return;
 		}
-		getUsers();
-	}, []);
 
-	// Promises -  s= for search
-	// fetch(`http://www.omdbapi.com/?apikey=${KEY}&s=aliens`)
-	// 	.then((res) => res.json())
-	// 	.then((data) => console.log(data));
+		getData();
+	}, [query]);
 
-	// async await - s= for search
-
-	// async function getData() {
-	// 	try {
-	// 		const url = `http://www.omdbapi.com/?apikey=${KEY}&s=aliens`;
-	// 		const response = await fetch(url);
-	// 		const data = response.json();
-
-	// 		data.then((data) => console.log(data.Search));
-
-	// 		// Search is any array in data object (the OMDB API object)
-	// 		//	data.then((data) => setMovies(data.Search));
-	// 	} catch (error) {
-	// 		console.error("Error fetching data: ", error);
-	// 	}
-	// }
-	// getData();
+	// Handlers
+	function handleQueryState(query) {
+		setQuery(query);
+		console.log(query);
+	}
 
 	return (
 		<>
 			{/* Component Composition technique */}
 			<NavBar>
-				<Search />
+				<Search query={query} onSetQuery={handleQueryState} />
 				<NumResults movies={movies} />
 			</NavBar>
 
 			<MainComponent>
 				<Box>
-					<MovieList movies={movies} />
+					{/* Ternary  */}
+					{/* {error ? (
+						<ErrorMessage message={error} />
+					) : isLoading ? (
+						<Loader loading={isLoading} />
+					) : (
+						<MovieList movies={movies} />
+					) } */}
+
+					{/* Short circuiting - cleaner */}
+					{isLoading && <Loader loading={isLoading} />}
+					{!isLoading && !error && <MovieList movies={movies} />}
+					{error && <ErrorMessage message={error} />}
 				</Box>
 
 				<Box>
@@ -89,3 +114,26 @@ export default function App() {
 		</>
 	);
 }
+
+// Promises -  s= for search
+// fetch(`http://www.omdbapi.com/?apikey=${KEY}&s=aliens`)
+// 	.then((res) => res.json())
+// 	.then((data) => console.log(data));
+
+// async await - s= for search
+
+// async function getData() {
+// 	try {
+// 		const url = `http://www.omdbapi.com/?apikey=${KEY}&s=aliens`;
+// 		const response = await fetch(url);
+// 		const data = response.json();
+
+// 		data.then((data) => console.log(data.Search));
+
+// 		// Search is any array in data object (the OMDB API object)
+// 		//	data.then((data) => setMovies(data.Search));
+// 	} catch (error) {
+// 		console.error("Error fetching data: ", error);
+// 	}
+// }
+// getData();
