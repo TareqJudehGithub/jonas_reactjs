@@ -1,8 +1,8 @@
 function Star({ onRate, full, onHoverIn, onHoverOut, color, size }) {
 	// Styles
 	const starStyle = {
-		width: "40px",
-		height: "48px",
+		width: `${size}px`,
+		height: `${size}px`,
 		display: "block",
 		cursor: "pointer",
 	};

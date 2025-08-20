@@ -13,6 +13,7 @@ import WatchedMovieList from "./components/WatchedMovieList.jsx";
 
 import Loader from "./components/Loader.jsx";
 import ErrorMessage from "./components/ErrorMessage.jsx";
+import MovieDetails from "./components/MovieDetails.jsx";
 
 // Constant variables
 const KEY = `deec4c57`;
@@ -24,8 +25,10 @@ export default function App() {
 
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState("");
-
+	// Search bar state
 	const [query, setQuery] = useState("");
+	// Selected movie state
+	const [selectedId, setSelectedId] = useState(null);
 
 	// Hooks
 	// Fetch movies data effect
@@ -56,7 +59,7 @@ export default function App() {
 
 				// .Search object is any array in data object (the OMDB API object)
 				setMovies(data.Search);
-
+				console.log(data.Search);
 				setIsLoading(false);
 			} catch (err) {
 				setError(err.message); // The Error set in the if statement block.
@@ -77,8 +80,20 @@ export default function App() {
 
 	// Handlers
 	function handleQueryState(query) {
+		// Search bar event handler
 		setQuery(query);
-		console.log(query);
+	}
+
+	function handleSelectMovie(id) {
+		// MovieDetails event handler.
+		// By clicking same movie, MovieDetails closes.
+		setSelectedId((selectedId) => (id === selectedId ? null : id));
+	}
+
+	function handleCloseMovie() {
+		// MovieDetails - Close button event handler
+		console.log("Closing selected movie.");
+		setSelectedId(null);
 	}
 
 	return (
@@ -102,13 +117,29 @@ export default function App() {
 
 					{/* Short circuiting - cleaner */}
 					{isLoading && <Loader loading={isLoading} />}
-					{!isLoading && !error && <MovieList movies={movies} />}
+					{!isLoading && !error && (
+						<MovieList
+							movies={movies}
+							onSelectedMovie={handleSelectMovie}
+							selectedId={selectedId}
+						/>
+					)}
 					{error && <ErrorMessage message={error} />}
 				</Box>
 
 				<Box>
-					<WatchedSummary watched={watched} />
-					<WatchedMovieList watched={watched} />
+					{selectedId ? (
+						<MovieDetails
+							selectedId={selectedId}
+							onCloseMovie={handleCloseMovie}
+							KEY={KEY}
+						/>
+					) : (
+						<>
+							<WatchedSummary watched={watched} />
+							<WatchedMovieList watched={watched} />
+						</>
+					)}
 				</Box>
 			</MainComponent>
 		</>
