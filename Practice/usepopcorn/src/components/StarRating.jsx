@@ -44,7 +44,6 @@ function StarRating({
 		add 1 because arrays are 0 indexing, while rating starts with 1 */
 		setRating(rating);
 		console.log(`Rating is set to ${rating}`);
-
 		onSetRating && onSetRating(rating); // passing set handler to another component
 	}
 	// Styles
@@ -64,11 +63,11 @@ function StarRating({
 						onRate={() => handleRating(index + 1)}
 						onHoverIn={() => setTempRating(index + 1)}
 						onHoverOut={() => setTempRating(0)}
+						color={color}
+						size={size}
 						// Check if a star is full or empty. If true, the full
 						// star will be rendered. False? then empty star will be
 						// rendered instead.
-						color={color}
-						size={size}
 						full={tempRating ? tempRating >= index + 1 : rating >= index + 1}
 					/>
 				))}

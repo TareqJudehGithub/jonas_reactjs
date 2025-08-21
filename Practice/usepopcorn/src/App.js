@@ -25,6 +25,7 @@ export default function App() {
 
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState("");
+
 	// Search bar state
 	const [query, setQuery] = useState("");
 	// Selected movie state
@@ -59,7 +60,6 @@ export default function App() {
 
 				// .Search object is any array in data object (the OMDB API object)
 				setMovies(data.Search);
-				console.log(data.Search);
 				setIsLoading(false);
 			} catch (err) {
 				setError(err.message); // The Error set in the if statement block.
@@ -94,6 +94,12 @@ export default function App() {
 		// MovieDetails - Close button event handler
 		console.log("Closing selected movie.");
 		setSelectedId(null);
+	}
+
+	// add new item to the watchedMovie array handler
+	function handleAddWatched(movie) {
+		setWatched((movies) => [...movies, movie]);
+		console.log(watched);
 	}
 
 	return (
@@ -133,6 +139,8 @@ export default function App() {
 							selectedId={selectedId}
 							onCloseMovie={handleCloseMovie}
 							KEY={KEY}
+							watched={watched}
+							onAddWatched={handleAddWatched}
 						/>
 					) : (
 						<>
