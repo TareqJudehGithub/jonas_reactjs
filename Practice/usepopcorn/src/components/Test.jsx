@@ -13,7 +13,7 @@ function Test() {
 				size={22}
 			/>
 			<p style={{ fontSize: "22px" }}>
-				This movie was rated {movieRating} starts
+				This movie was rated {movieRating} stars
 			</p>
 		</div>
 	);

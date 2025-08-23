@@ -54,7 +54,6 @@ export default function App() {
 
 				// Movie/title not found
 				if (data.Response === "False") {
-					console.log("No movie(s) were found");
 					throw new Error("Movie not found!");
 				}
 
@@ -99,7 +98,11 @@ export default function App() {
 	// add new item to the watchedMovie array handler
 	function handleAddWatched(movie) {
 		setWatched((movies) => [...movies, movie]);
-		console.log(watched);
+	}
+	// Handle remove Add
+	function handleRemove(id) {
+		watched.filter((movie) => movie.imdbID !== id);
+		console.log(`Removed ${watched.title}`);
 	}
 
 	return (
@@ -145,7 +148,11 @@ export default function App() {
 					) : (
 						<>
 							<WatchedSummary watched={watched} />
-							<WatchedMovieList watched={watched} />
+							<WatchedMovieList
+								watched={watched}
+								selectedId={selectedId}
+								onRemWatched={handleRemove}
+							/>
 						</>
 					)}
 				</Box>

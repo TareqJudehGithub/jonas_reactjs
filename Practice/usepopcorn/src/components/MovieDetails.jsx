@@ -26,6 +26,12 @@ function MovieDetails({
 		Director: director,
 		Genre: genre,
 	} = movie;
+	console.log(`Runtime: ${runTime}`);
+	// Derived states
+	const isWatched = watched.map((movie) => movie.imdbID).includes(imdbID);
+	const movieUserRating = watched.map((movie) =>
+		movie.imdbID === selectedId ? movie.userRating : ""
+	);
 
 	// Each time the component renders, or the user selects a movie, fetch
 	// the movie details according to the selected Id.
@@ -48,7 +54,6 @@ function MovieDetails({
 	// Handlers
 	// Add a movie to watched list
 
-	// console.log(`watched state from MovieDetails:\n${}`);
 	function handleAdd() {
 		// 		onCloseMovie()
 		const newWatchedMove = {
@@ -56,22 +61,22 @@ function MovieDetails({
 			poster: poster,
 			title: title,
 			released: released,
-			Runtime: Number(runTime.split("").at(0)), // in API data, Runtime is in minutes format, so we need it in hours.
+			runtime: Number(runTime.split("").at(0)), // in API data, Runtime is in minutes format, so we need it in hours.
 			genre: genre,
 			imdbRating: Number(imdbRating),
 			plot: plot,
-			Actors: actors,
+			actors: actors,
 			director: director,
 			userRating,
 		};
-		//alert(`Movie: ${movie.title} is already in your Watched List.`);
+		console.log(`Added movie: ${title}`);
+		console.log(imdbID);
 		onAddWatched(newWatchedMove);
 		onCloseMovie();
-		console.log("Added a new movie to Watched list.");
 	}
+
 	function handleUserRating(userRating) {
 		setUserRating(userRating);
-		console.log(userRating);
 	}
 
 	return (
@@ -95,20 +100,16 @@ function MovieDetails({
 								<span>⭐</span>
 								{imdbRating} IMDB rating
 							</p>
-							{watched.map((watchedMov) =>
-								watchedMov.imdbID === movie.imdbID
-									? userRating > 0 && (
-											<button disabled className="btn-add" onClick={handleAdd}>
-												Cannot Add
-											</button>
-									  )
-									: userRating > 0 && (
-											<button className="btn-add" onClick={handleAdd}>
-												Add
-											</button>
-									  )
+
+							{isWatched && (
+								<p>
+									<em>
+										You watched and rated {title} as ⭐ {movieUserRating}{" "}
+										ratings
+									</em>
+								</p>
 							)}
-							{userRating > 0 && (
+							{!isWatched && userRating > 0 && (
 								<button className="btn-add" onClick={handleAdd}>
 									Add
 								</button>
@@ -116,15 +117,17 @@ function MovieDetails({
 						</div>
 					</header>
 					<section>
-						<div className="rating">
-							<StarRating
-								maxRating={10}
-								size={24}
-								defaultRating={0}
-								messages={["Terrible", "Bad", "Okay", "Good", "Amazing!"]}
-								onSetRating={handleUserRating}
-							/>
-						</div>
+						{!isWatched && (
+							<div className="rating">
+								<StarRating
+									maxRating={10}
+									size={24}
+									defaultRating={0}
+									messages={["Terrible", "Bad", "Okay", "Good", "Amazing!"]}
+									onSetRating={handleUserRating}
+								/>
+							</div>
+						)}
 						<p>
 							<em>{plot}</em>
 						</p>
