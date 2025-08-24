@@ -32,9 +32,14 @@ export default function App() {
 	const [selectedId, setSelectedId] = useState(null);
 
 	// Hooks
+
 	// Fetch movies data effect
 	useEffect(() => {
 		const url = `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`;
+
+		// Abort controller for cleaning up fetch api data.
+		// This is a browser API, which has nothing to do with React.
+		const controller = new AbortController();
 
 		async function getData() {
 			try {
@@ -43,7 +48,8 @@ export default function App() {
 				// Reset Errors
 				setError("");
 
-				const response = await fetch(url);
+				// Connecting our controller with the fetch request.
+				const response = await fetch(url, { signal: controller.signal });
 
 				if (!response.ok) {
 					console.log(`We received response number: ${response.status}`);
@@ -60,8 +66,14 @@ export default function App() {
 				// .Search object is any array in data object (the OMDB API object)
 				setMovies(data.Search);
 				setIsLoading(false);
+				setError("");
 			} catch (err) {
 				setError(err.message); // The Error set in the if statement block.
+
+				if (err.name !== "AbortError") {
+					// Ignore abort controller error
+					setError(err.message);
+				}
 			} finally {
 				setIsLoading(false);
 			}
@@ -70,11 +82,15 @@ export default function App() {
 		if (query.length === 0) {
 			setMovies([]);
 			setError("");
-
 			return;
 		}
 
 		getData();
+
+		// Cleanup function - cleaning fetched API data
+		return function () {
+			controller.abort();
+		};
 	}, [query]);
 
 	// Handlers
@@ -100,9 +116,8 @@ export default function App() {
 		setWatched((movies) => [...movies, movie]);
 	}
 	// Handle remove Add
-	function handleRemove(id) {
-		watched.filter((movie) => movie.imdbID !== id);
-		console.log(`Removed ${watched.title}`);
+	function handleRemoveWatched(id) {
+		setWatched((watched) => watched.filter((movie) => movie.imdbID !== id));
 	}
 
 	return (
@@ -150,8 +165,7 @@ export default function App() {
 							<WatchedSummary watched={watched} />
 							<WatchedMovieList
 								watched={watched}
-								selectedId={selectedId}
-								onRemWatched={handleRemove}
+								onRemWatched={handleRemoveWatched}
 							/>
 						</>
 					)}

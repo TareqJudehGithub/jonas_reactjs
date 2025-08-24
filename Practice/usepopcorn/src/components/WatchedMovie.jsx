@@ -1,26 +1,28 @@
-function WatchedMovie({ movie, selectedId, onRemWatched }) {
-	console.log(`WatchedMovie:  runtime is ${movie.runTime}`);
-
-	// Handle Remove movie from Watched list
-
+function WatchedMovie({ watchedMovie, onRemWatched }) {
+	console.log(watchedMovie.imdbID);
 	return (
 		<>
-			<img src={movie.poster} alt={`${movie.title} poster`} />
-			<h3>{movie.title}</h3>
+			<img src={watchedMovie.poster} alt={`${watchedMovie.title} poster`} />
+			<h3>{watchedMovie.title}</h3>
 			<div>
 				<p>
 					<span>⭐️</span>
-					<span>{movie.imdbRating}</span>
+					<span>{watchedMovie.imdbRating}</span>
 				</p>
 				<p>
 					<span>🌟</span>
-					<span>{movie.userRating}</span>
+					<span>{watchedMovie.userRating}</span>
 				</p>
 				<p>
 					<span>⏳</span>
-					<span>{movie.runtime} min</span>
+					<span>{watchedMovie.runtime} min</span>
 				</p>
-				<button onClick={() => onRemWatched(selectedId)}>❌</button>
+				<button
+					className="btn-delete"
+					onClick={() => onRemWatched(watchedMovie.imdbID)}
+				>
+					❌
+				</button>
 			</div>
 		</>
 	);

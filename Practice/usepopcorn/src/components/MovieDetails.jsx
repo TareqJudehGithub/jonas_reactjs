@@ -18,7 +18,7 @@ function MovieDetails({
 		imdbID,
 		Title: title,
 		Poster: poster,
-		Runtime: runTime,
+		Runtime: runtime,
 		imdbRating,
 		Plot: plot,
 		Released: released,
@@ -26,7 +26,7 @@ function MovieDetails({
 		Director: director,
 		Genre: genre,
 	} = movie;
-	console.log(`Runtime: ${runTime}`);
+
 	// Derived states
 	const isWatched = watched.map((movie) => movie.imdbID).includes(imdbID);
 	const movieUserRating = watched.map((movie) =>
@@ -42,7 +42,6 @@ function MovieDetails({
 			setIsLoading((isLoading) => !isLoading);
 			const response = await fetch(url);
 			const data = await response.json();
-
 			setMovie(data);
 			setIsLoading((isLoading) => !isLoading);
 		}
@@ -50,6 +49,21 @@ function MovieDetails({
 	}, [selectedId]); // Without including selectedId as dependency, the movie state
 	// won't change upon directly selecting another movie after
 	// selecting another right away.
+
+	useEffect(
+		function () {
+			// Avoid "undefined title"
+			if (!title) return;
+
+			document.title = `Movie: ${title}`;
+
+			// Cleanup function - Remove selected movie title
+			return function () {
+				document.title = "usePopcorn";
+			};
+		},
+		[title]
+	);
 
 	// Handlers
 	// Add a movie to watched list
@@ -61,7 +75,8 @@ function MovieDetails({
 			poster: poster,
 			title: title,
 			released: released,
-			runtime: Number(runTime.split("").at(0)), // in API data, Runtime is in minutes format, so we need it in hours.
+			runtime: Number(runtime.split(" ").at(0)), // in API data, Runtime is in minutes format, so we need it in hours.
+
 			genre: genre,
 			imdbRating: Number(imdbRating),
 			plot: plot,
@@ -70,11 +85,30 @@ function MovieDetails({
 			userRating,
 		};
 		console.log(`Added movie: ${title}`);
-		console.log(imdbID);
 		onAddWatched(newWatchedMove);
 		onCloseMovie();
 	}
+	// Global keystroke event effect - Escape button to close selected movie
+	// without accumulated rendering.
+	// Each time the component re-renders, we will remove the eventListener from the
+	// document.
+	useEffect(
+		function () {
+			// If the user presses "Escape", call the handleCloseMovie handler
+			function callback(e) {
+				if (e.code === "Escape") {
+					onCloseMovie();
+				}
+			}
+			document.addEventListener("keydown", callback);
+			return function () {
+				document.removeEventListener("keydown", callback);
+			};
+		},
+		[onCloseMovie]
+	);
 
+	// Handlers
 	function handleUserRating(userRating) {
 		setUserRating(userRating);
 	}
@@ -93,7 +127,7 @@ function MovieDetails({
 						<div className="details-overview">
 							<p>{title}</p>
 							<p>
-								{released} &bull; {runTime}
+								{released} &bull; {runtime}
 							</p>
 							<p>{genre}</p>
 							<p>
