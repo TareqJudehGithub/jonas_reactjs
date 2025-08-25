@@ -43,7 +43,7 @@ function StarRating({
 		/* This handle updates the rating state by clicking on the star index. We
 		add 1 because arrays are 0 indexing, while rating starts with 1 */
 		setRating(rating);
-		console.log(`Rating is set to ${rating}`);
+
 		onSetRating && onSetRating(rating); // passing set handler to another component
 	}
 	// Styles

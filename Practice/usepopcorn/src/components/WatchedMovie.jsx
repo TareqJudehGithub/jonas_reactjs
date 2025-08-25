@@ -1,5 +1,4 @@
 function WatchedMovie({ watchedMovie, onRemWatched }) {
-	console.log(watchedMovie.imdbID);
 	return (
 		<>
 			<img src={watchedMovie.poster} alt={`${watchedMovie.title} poster`} />

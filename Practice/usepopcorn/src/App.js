@@ -52,7 +52,6 @@ export default function App() {
 				const response = await fetch(url, { signal: controller.signal });
 
 				if (!response.ok) {
-					console.log(`We received response number: ${response.status}`);
 					throw new Error("Error fetching data!");
 				}
 
@@ -84,6 +83,8 @@ export default function App() {
 			setError("");
 			return;
 		}
+		// Close the current selected movie
+		handleCloseMovie();
 
 		getData();
 
@@ -107,7 +108,7 @@ export default function App() {
 
 	function handleCloseMovie() {
 		// MovieDetails - Close button event handler
-		console.log("Closing selected movie.");
+
 		setSelectedId(null);
 	}
 

@@ -84,7 +84,7 @@ function MovieDetails({
 			director: director,
 			userRating,
 		};
-		console.log(`Added movie: ${title}`);
+
 		onAddWatched(newWatchedMove);
 		onCloseMovie();
 	}
