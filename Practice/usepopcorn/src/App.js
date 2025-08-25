@@ -21,7 +21,6 @@ const KEY = `deec4c57`;
 export default function App() {
 	// States
 	const [movies, setMovies] = useState([]);
-	const [watched, setWatched] = useState([]);
 
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState("");
@@ -31,7 +30,51 @@ export default function App() {
 	// Selected movie state
 	const [selectedId, setSelectedId] = useState(null);
 
+	// Call back function to call stored data in localStorage
+	//const [watched, setWatched] = useState([]);
+	const [watched, setWatched] = useState(function () {
+		const storedValue = localStorage.getItem("watched");
+		// Convert back data to JSON format
+		return JSON.parse(storedValue);
+	});
+
+	// Handlers
+	function handleQueryState(query) {
+		// Search bar event handler
+		setQuery(query);
+	}
+
+	function handleSelectMovie(id) {
+		// MovieDetails event handler.
+		// By clicking same movie, MovieDetails closes.
+		setSelectedId((selectedId) => (id === selectedId ? null : id));
+	}
+
+	function handleCloseMovie() {
+		// MovieDetails - Close button event handler
+
+		setSelectedId(null);
+	}
+
+	// add new item to the watchedMovie array handler
+	function handleAddWatched(movie) {
+		setWatched((movies) => [...movies, movie]);
+	}
+	// Handle remove Add
+	function handleRemoveWatched(id) {
+		setWatched((watched) => watched.filter((movie) => movie.imdbID !== id));
+	}
+
 	// Hooks
+
+	// Run each time WatchedMovies is updated
+	useEffect(
+		function () {
+			// Store data into localStorage using setItem(key, JSON.stringify(state))
+			localStorage.setItem("watched", JSON.stringify(watched));
+		},
+		[watched]
+	);
 
 	// Fetch movies data effect
 	useEffect(() => {
@@ -93,33 +136,6 @@ export default function App() {
 			controller.abort();
 		};
 	}, [query]);
-
-	// Handlers
-	function handleQueryState(query) {
-		// Search bar event handler
-		setQuery(query);
-	}
-
-	function handleSelectMovie(id) {
-		// MovieDetails event handler.
-		// By clicking same movie, MovieDetails closes.
-		setSelectedId((selectedId) => (id === selectedId ? null : id));
-	}
-
-	function handleCloseMovie() {
-		// MovieDetails - Close button event handler
-
-		setSelectedId(null);
-	}
-
-	// add new item to the watchedMovie array handler
-	function handleAddWatched(movie) {
-		setWatched((movies) => [...movies, movie]);
-	}
-	// Handle remove Add
-	function handleRemoveWatched(id) {
-		setWatched((watched) => watched.filter((movie) => movie.imdbID !== id));
-	}
 
 	return (
 		<>
