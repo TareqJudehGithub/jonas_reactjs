@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Loader from "./Loader";
 import StarRating from "./StarRating";
 
@@ -13,6 +13,9 @@ function MovieDetails({
 	const [movie, setMovie] = useState({});
 	const [isLoading, setIsLoading] = useState(false);
 	const [userRating, setUserRating] = useState(0);
+
+	// Count how many times we the user rated movies
+	const countRef = useRef(0);
 
 	const {
 		imdbID,
@@ -36,6 +39,15 @@ function MovieDetails({
 	// Each time the component renders, or the user selects a movie, fetch
 	// the movie details according to the selected Id.
 	const url = `http://www.omdbapi.com/?apikey=${KEY}&i=${selectedId}`;
+
+	// Update the ref, each time the user add/rates a movie.
+	// Each time userRating state updates.
+	useEffect(() => {
+		if (userRating) {
+			// Only update countRef if that states updates, and not before.
+			countRef.current += 1;
+		}
+	}, [userRating]);
 
 	useEffect(() => {
 		async function getMovieDetails() {
@@ -83,6 +95,7 @@ function MovieDetails({
 			actors: actors,
 			director: director,
 			userRating,
+			countRatingDecisions: countRef.current, // Adding a new property for countRef
 		};
 
 		onAddWatched(newWatchedMove);

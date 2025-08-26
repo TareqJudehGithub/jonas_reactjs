@@ -195,6 +195,27 @@ let expenses = [
 		amount: 56.125,
 		isPaid: false,
 	},
+	{
+		id: 29,
+		date: new Date("8/24/2025").toLocaleDateString(),
+		description: "Family - GMC registration",
+		amount: 366,
+		isPaid: false,
+	},
+	{
+		id: 30,
+		date: new Date("8/24/2025").toLocaleDateString(),
+		description: "Family - GMC maintenance",
+		amount: 207,
+		isPaid: false,
+	},
+	{
+		id: 31,
+		date: new Date("8/24/2025").toLocaleDateString(),
+		description: "Family - GMC fuel",
+		amount: 20,
+		isPaid: false,
+	},
 ];
 export default expenses;
 
