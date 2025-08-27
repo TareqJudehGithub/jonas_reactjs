@@ -1,0 +1,37 @@
+The useRef() hook
+ - React remembers Ref data between re-renders, but does not cause a UI  re-render when 
+   updating them. And that's the main difference between Refs and states.
+ - States are immutable, but Refs are not. Refs are like a box, that can hold any value.
+ - States update are asynchronous, Refs are not.
+
+ - Using Refs
+  
+  1. define a new variable: 
+  2. pass the declared variable as an attribute to the target element.
+  3. We are not allowed to mutate the useRef in render login, so instead we use or
+   add the ref variable to a useEffect.
+  
+
+ import { useEffect, useRef } from "react";
+
+function Search({ query, onSetQuery }) {
+	const autoFocus = useRef(null);
+
+	useEffect(() => {
+		return autoFocus.current.focus();
+	}, []);
+
+	return (
+		<input
+			className="search"
+			type="text"
+			placeholder="Search movies..."
+			value={query}
+			onChange={(e) => onSetQuery(e.target.value)}
+			ref={autoFocus}
+		/>
+	);
+}
+export default Search;
+
+- We can read the property we need to manipulate using .current method.

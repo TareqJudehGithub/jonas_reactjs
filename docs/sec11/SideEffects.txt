@@ -1,0 +1,35 @@
+Side Effects
+    - Interaction with the outside world. Like mutating external variables, 
+      HTTP requests, and also writing to DOM.
+    - Any modification of any data outside the function scope it self.
+    - Fetching data (from any API source for example) is a side effect in React.
+
+  Pure function, is a function that has no side effect.
+    - A pure function does not change any variable outside its scope.
+    - A pure function always returns the same output as the same input given.
+
+  In React, there are rules for render logic
+    - Components must be pure when it comes to render logic.
+    - Render logic must not produce any side effect. No interaction with the 
+      outside world is allowed.
+      - No API calls
+      - No for starting timers
+      - Do not use DOM API
+      - Must not mutate objects or variable that live outside the function scope.
+      - Not allowed to update states, this will create an infinite loop.
+
+  Side effects can be handled using useEffect hook and in the event handler functions.
+
+  - We can fetch data (produce side effects in React) using: 
+    1. Event handlers
+        - Executed when an event happens.
+        - Event handlers are always the preferred way for creating side effects.
+
+
+    2. useEffect hook
+        - Executed after the Component mounts (initial render), and after 
+          subsequent re-renders.
+        - Whenever possible we should NOT overuse the useEffect hook. 
+        - More on sec12 useEffect.txt file.
+
+  

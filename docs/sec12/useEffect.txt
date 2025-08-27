@@ -1,0 +1,86 @@
+useEffect()
+
+  The useEffect() hook is used in React to handle side effects.
+
+  The useEffect code runs not when the component renders, but actually
+  'AFTER' it has been painted into the screen by the browser (after the component has been
+  rendered).
+  
+  - useEffect is a synchronization mechanism to sync effects with the state in
+    the application.
+
+
+  useEffect(() => {
+    // write your code here.. fetched data.. etc
+
+  }, [ ]);
+
+  Dependency Array [ ]
+  [] or the dependency (empty) array, means this effect we specified here will
+   will only run or be executed ONCE only after the component first mounts (mount stage) or
+   re-renders (but only if any dependency inside the dependency array were affected/updated.).
+   - When the component renders for the very first time. So the dependency array
+     will prevent the effect from running/being executed each time the component
+     renders.
+   - Without the dependency array, React doesn't know WHEN to run the effect.  
+   - What are those dependencies exactly? They are the state variables and props used 
+     inside the effect.
+   - Each time on of the dependencies changes, the effect will be Executed again, which 
+     will lead to a component re-render.
+   - Every state variable and prop used inside the effect MUST be included in the 
+     dependency array.
+   - We need to tell React about those dependencies, by including them in the dependency 
+     array, so that the  effect function depends on them to do it's work. otherwise and
+     case those dependencies change at some point, React will not know about these 
+     changes, which can cause a bug known as state stale closure.
+
+   - Empty array means the effect synchronizes with no state or props (no dependencies),
+     and therefor the effect will only run on mount.
+   - If the effect has no [] at all, then it will run at every render.. and that is bad 
+     practice. That basically means the  effect will synchronize with everything, so
+     essentially every state and prop in the component will be a dependency in this case.
+
+   - layoutEffect. The layoutEffect runs before the browser actually paints the new 
+     screen. But we almost never use it. The React team discourages the usage of 
+     layoutEffect.
+
+
+
+
+
+	// Only runs at Mount stage, and if the dependency it self were affected.
+	useEffect(() => {
+		console.log("A - After initial render");
+	}, []);
+
+	// No dependency array, therefor it is synced with the component each time the later
+	// renders.
+	useEffect(() => {
+		console.log("B - During render");
+	});
+
+	useEffect(() => {
+		console.log("D - Executes whenever the state inside the effect updates.");
+	}, [query]);
+
+	console.log("C - During render"); // Runs every time the component renders.
+
+Cleanup functions
+ - A function that we can (optional) return from an effect.
+ -  Optional means that we can choose not to return a cleanup function.
+ - A cleanup function runs on two different occasions:
+   1. Before the effect is executed. In order to clean up the results of a previous 
+      function effect.
+   2. After a component has unmounted, in order to reset side effects that we created.
+
+ - When should we cleanup?
+  - After HTTP requests       ==> Cancel request
+  - API subscription          ==> Cancel subscription
+  - Start Timer               ==> Stop Timer
+  - Add event listener        ==> Remove listener
+
+ - Each cleanup should do one thing only.
+
+ - Multiple useEffect is totally normal and recommended. It makes the cleanup process 
+   more effective and easier.
+   

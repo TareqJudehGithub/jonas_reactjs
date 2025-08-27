@@ -1,0 +1,19 @@
+
+Component Lifecycle
+
+  1- Mount/Initial Render
+      - Component instance render for the first time (born)
+      - Fresh state and props are created
+    
+  1A- Re-Render (optional)
+      - Happens when:
+        - State changes
+        - Props change
+        - Parent re-renders
+        - Context changes
+  
+  2- Unmounted 
+      - Component instance is destroyed and removed
+      - State and props are destroyed
+      - 
+

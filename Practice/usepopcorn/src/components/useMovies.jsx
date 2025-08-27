@@ -5,7 +5,6 @@ function useMovies(query) {
 
 	// States
 	const [movies, setMovies] = useState([]);
-
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState("");
 
@@ -48,8 +47,8 @@ function useMovies(query) {
 			} catch (err) {
 				setError(err.message); // The Error set in the if statement block.
 
+				// Ignore abort controller error
 				if (err.name !== "AbortError") {
-					// Ignore abort controller error
 					setError(err.message);
 				}
 			} finally {
@@ -62,7 +61,7 @@ function useMovies(query) {
 			setError("");
 			return;
 		}
-		// Close the current selected movie
+		// Close the current selected movie - That's the useMovie custom hook job now.
 		// handleCloseMovie();
 
 		getData();

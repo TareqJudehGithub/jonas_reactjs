@@ -1,0 +1,19 @@
+React Hooks
+ - Special built-in fnuctions that allow us to "hook" into React internals
+  - Creating and accessing state from Fiber tree
+  - Registering side effects in Fiber tree
+  - Manual DOM selections
+  - Always start with "use"
+
+ - Hooks should always be called in the top level of it's component.
+
+- Always use a callback state to update a state
+
+ const [state, setState] = useState("");
+
+
+ setState(s => s = 10 + 5);
+
+
+- Initializing a state with a  callback (Lazy initial state)
+

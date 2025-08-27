@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import Loader from "./Loader";
 import StarRating from "./StarRating";
+import useKey from "./useKey";
 
 function MovieDetails({
 	selectedId,
@@ -105,21 +106,25 @@ function MovieDetails({
 	// without accumulated rendering.
 	// Each time the component re-renders, we will remove the eventListener from the
 	// document.
-	useEffect(
-		function () {
-			// If the user presses "Escape", call the handleCloseMovie handler
-			function callback(e) {
-				if (e.code === "Escape") {
-					onCloseMovie();
-				}
-			}
-			document.addEventListener("keydown", callback);
-			return function () {
-				document.removeEventListener("keydown", callback);
-			};
-		},
-		[onCloseMovie]
-	);
+	useKey("Escape", onCloseMovie);
+
+	// Old code - before using the useKey custom hook
+	// useEffect(
+	// 	function () {
+	// 		// If the user presses "Escape", call the handleCloseMovie handler
+	// 		function callback(e) {
+	// 			if (e.code === "Escape") {
+	// 				onCloseMovie();
+	// 			}
+	// 		}
+	// 		document.addEventListener("keydown", callback);
+
+	// 		return function () {
+	// 			document.removeEventListener("keydown", callback);
+	// 		};
+	// 	},
+	// 	[onCloseMovie]
+	// );
 
 	// Handlers
 	function handleUserRating(userRating) {

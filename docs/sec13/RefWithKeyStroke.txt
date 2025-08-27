@@ -1,0 +1,16 @@
+
+// Define a ref variable
+const autoFocus = useRef(null);
+
+useEffect(
+		function () {
+		// Add an event to focus on Search bar element upon Enter key hit.		
+		function callback(e) {
+				// focus only on Enter key
+			if (e.code === "Enter") {
+				autoFocus.current.focus();
+			}
+		};
+			document.addEventListener("keydown", callback);
+			return () => document.removeEventListener("keydown", callback);
+	}, []);

@@ -1,0 +1,16 @@
+async await  function syntax
+
+
+
+async function functionName()
+{
+  const url = "API address string"
+  const response = await fetch("url");
+  const data = response.json();
+
+  data
+    .then((data => data.someObjectFromTheAPI));
+}
+
+// Call the function
+functionName();

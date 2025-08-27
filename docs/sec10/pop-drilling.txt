@@ -1,0 +1,29 @@
+Pop Drilling 
+ - Pop drilling is the process of passing props from a parent component to a child
+   through one or more component (middlewares).
+
+ - We can fix that problem with Component Composition.
+    
+    Component Composition
+      - To include a component inside another component as a children props
+      - Creates highly reusable and flexible components.
+      - Fixes prop drilling problem.
+
+      function Modal({children})
+      {
+        return (
+          <>
+            {children}    
+          </>
+        )
+      }
+
+      // Child component
+      function Success()
+
+      {
+        return <p>Well Done!<p/>
+      }
+
+
+ 

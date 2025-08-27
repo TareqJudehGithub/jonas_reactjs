@@ -1,0 +1,49 @@
+How Rendering works in React?
+ - Rendering only happens inside React, it does not produce visual changes.
+ - Render is triggered => render phase => commit phase (this is where rendering
+   actually happen) => browser paint.
+
+  Render is triggered
+    - There are two situations that trigger renders:
+      1- Initial render  (the first time the application run)
+      2- State update in one or more component instances (re-render)
+    - The render process is triggered for the entire application. React 
+      looks at the entire tree, whenever a render takes place.
+    - Renders are not triggered immediately, but scheduled for when the JS
+    engine has some "free time". There is also batching of multiple setState
+    calls in event handlers.
+    - Whenever a component renders, all it's child components render as well.
+
+
+  The Virtual DOM
+   - React takes from all instances the component tree, and convert it into the Virtual DOM.
+
+  
+  Reconciliation
+   - Reconciliation is the process of deciding which DOM elements actually need to be 
+   inserted, updated, or deleted in order to reflect the latest state changes.
+   - Reconciler. The engine of React. It's mission is not let React to touch the DOM
+   directly, but instead to tell it whats the next step of UI should look like, based on 
+   the latest state changes.
+   - The current reconciler of React is called Fiber.
+      - Fiber takes the entire React Element Tree (Virtual DOM tree), and based on it, it
+        builds another tree, which is the Fiber tree, A special internal tree where each 
+        component instance and DOM element in the App, there one so called Fiber.
+      - Fiber is never re-created at every render, so the Fiber Tree is not destroyed 
+        with each re-render. It has immutable data structure, and it gets mutated over 
+        and over again in future reconciliation steps.
+      - Fiber is a perfect place for keeping track of:
+          - Current component state
+          - Props
+          - Side Effects 
+          - Used Hooks 
+
+      - The actual state and  props of any component instance that we see on screen 
+        are internally stored in corresponding Fiber in the Fiber Tree.
+
+      - Rendering is done asynchronously. So that rendering process can be split into 
+      chucks, tasks that can be prioritized, and work can be paused, reused, or throw 
+      away.
+
+
+      

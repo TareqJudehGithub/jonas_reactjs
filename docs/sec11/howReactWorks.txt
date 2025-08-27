@@ -1,0 +1,31 @@
+How React works?
+ What happens to the component when we use them?
+
+   - A component is a generic description of the UI, so we could essentially this of 
+   a component as blueprint of a template, where React out of that component can 
+  create one or multiple instances.
+  - The instance is the actual physical manifestation of a component living in the 
+    component tree, while the component is just a function we wrote, before being 
+    called.
+  - Each instance has it's own state, props, and life-cycle. So basically a component
+    can be born, live, until it eventually die.
+
+  - As React execute the code in each of these instances, each of them will return one 
+    or more elements. JSX is converted to React.CreateElement() function calls.
+  - A React element is basically the result of using (calling) one of these elements.
+  - It is simply (a component) a big immutable object kept in memory by React.
+
+  - React element
+    Information necessary to create DOM elements for the current component instance.
+       React element => DOM element(HTML), and then rendered or painted into the screen
+       by the browser.
+    Based on this, the DOM elements are the actual visual representation of the 
+    component instance in the browser. So the React elements are not rendered
+    to the DOM, React elements just live in the React App, they are converted to DOM 
+    elements when they are pained into the screen in the final step.
+  
+   NEVER call a component by it's function:
+      WRONG:  componentName();
+      RIGHT:  <componentName />
+  
+  

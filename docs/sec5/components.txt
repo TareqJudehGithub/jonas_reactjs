@@ -1,4 +1,24 @@
 Components
+ 
+ What are components? Components are what we write in order to describe a piece
+ of the user interface (UI). It is a JS function that returns React elements. So 
+ it returns an element tree. We usually write these elements using JSX syntax.
+ 
+ - A component is a generic description of the UI, so we could essentially this of 
+   a component as blueprint of a template, where React out of that component can 
+  create one or multiple instances.
+  - The instance is the actual physical manifestation of a component living in the 
+    component tree, while the component is just a function we wrote, before being 
+    called.
+  - Each instance has it's own state, props, and life-cycle. So basically a component
+    can be born, live, until it eventually die.
+
+  
+
+
+
+
+
  - Reusable functions for React.
  - Components must be PascalCase, and also must return values.
  - Each component can return one element.
@@ -39,7 +59,7 @@ Component Types
 
 Component Composition
  - To include a component inside another component as a children props
- - Creates highly reusable and flexiable components
+ - Creates highly reusable and flexible components.
  - Fixes prop drilling problem.
 
  function Modal({children})

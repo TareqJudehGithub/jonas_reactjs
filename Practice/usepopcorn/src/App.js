@@ -14,7 +14,9 @@ import WatchedMovieList from "./components/WatchedMovieList.jsx";
 import Loader from "./components/Loader.jsx";
 import ErrorMessage from "./components/ErrorMessage.jsx";
 import MovieDetails from "./components/MovieDetails.jsx";
+
 import useMovies from "./components/useMovies.jsx";
+import useLocalStorageState from "./components/useLocalStorageState.jsx";
 
 // Constant variables
 const KEY = `deec4c57`;
@@ -25,16 +27,19 @@ export default function App() {
 	// Selected movie state
 	const [selectedId, setSelectedId] = useState(null);
 
+	// Custom Hooks
 	// Destructure the returned object(s) from useMovies custom hook.
 	const { movies, isLoading, error } = useMovies(query);
+	const [watched, setWatched] = useLocalStorageState([], "watched");
 
+	// Old code - before custom hook - useLocalStorageState
 	// Call back function to call stored data in localStorage
 	//const [watched, setWatched] = useState([]);
-	const [watched, setWatched] = useState(function () {
-		const storedValue = localStorage.getItem("watched");
-		// Convert back data to JSON format
-		return JSON.parse(storedValue);
-	});
+	// const [watched, setWatched] = useState(function () {
+	// 	const storedValue = localStorage.getItem("watched");
+	// 	// Convert back data to JSON format
+	// 	return JSON.parse(storedValue);
+	// });
 
 	// Handlers
 	function handleQueryState(query) {
@@ -65,14 +70,14 @@ export default function App() {
 
 	// Hooks
 
-	// Run each time WatchedMovies is updated
-	useEffect(
-		function () {
-			// Store data into localStorage using setItem(key, JSON.stringify(state))
-			localStorage.setItem("watched", JSON.stringify(watched));
-		},
-		[watched]
-	);
+	// // Run each time WatchedMovies is updated
+	// useEffect(
+	// 	function () {
+	// 		// Store data into localStorage using setItem(key, JSON.stringify(state))
+	// 		localStorage.setItem("watched", JSON.stringify(watched));
+	// 	},
+	// 	[watched]
+	// );
 
 	return (
 		<>

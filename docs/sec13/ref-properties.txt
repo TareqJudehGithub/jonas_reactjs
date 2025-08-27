@@ -1,0 +1,6 @@
+
+Useful properties
+ .current.focus()
+   - Focus cursor on target input
+ .current.activeElement()
+  - The element that is active (focused). Or the input curser is at.

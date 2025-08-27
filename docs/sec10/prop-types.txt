@@ -1,0 +1,46 @@
+Prop Types
+ - Prop types specify the type and the value of the props to pass in.
+ - Type Checking.  To check each type of prop and what it needs to have.
+
+ - TypeScript is the alternative to Prop Types (Type Checking)
+
+
+
+
+- We import PropType with a capital "P", but we use it as a method
+  for the component with a lowercase "p".
+
+import PropType from "prop-types";
+
+
+ComponentName.propTypes = {
+	maxRating: PropType.number,
+	defaultRating: PropType.number,
+	color: PropType.string,
+	size: PropType.number,
+	messages: PropType.array,
+	className: PropType.string,
+	onSetRating: PropType.func,
+};
+
+function ComponentName(
+  maxRating = 5, 
+  color = "yellow", 
+  size = 24, 
+  messages = [], 
+  className= "", 
+  defaultRating = 3) {
+
+// States
+const [rating, setRating] = useState(defaultRating)
+// handlers
+function handleRating(rating)
+{
+  onSetRating(rating)
+}
+
+
+return (
+  // rendered elements below
+)
+}
