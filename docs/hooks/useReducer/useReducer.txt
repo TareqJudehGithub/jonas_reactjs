@@ -1,0 +1,104 @@
+UseReducer Hook
+ - The useReducer takes the current state and the reducer function (action) as arguments.
+ - An action is an object that describes how to update the state.
+ - useReducer takes the state as the 1st argument, and the dispatch 
+   as the 2nd. So dispatch can be used to update the state.
+ - a Dispatch is a function that triggers state updates, by sending actions from event 
+   handlers to the reducer.  
+ - The dispatch and the current state are always returned by useReducer hook.
+ - The reducer function will have access to the current state and the action that we 
+   pass into the dispatch function.
+ - The reducer function, has a convection to return a type, and a payload (the payload)
+   is optional, in order to pass in a value into the reducer function.
+ - The reducer function takes the current state, and the information from the action to
+   compute the next state (updates it).
+ - Based on the action type, the reducer takes different actions.
+ - The return result/value of the reducer function, will become the next state.
+
+useReducer hook syntax
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+
+const defineCount = function (e) {
+		// set count state - action
+		dispatch({ type: "setCount", payload: e.target.value });
+	};
+1. The value we type in the input fields will become the payload.
+2. The payload/action will be dispatched to the reducer function.
+3. The reducer updates the current state based on that value.
+
+ - In useReducer, the state is always an object.
+   *** put this state outside the function it self (right below import lines).
+  const initialState = {count: 0, step: 1}
+
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  
+
+const dec = function () {
+		// Decrease count - action
+		dispatch({ type: "dec", payload: state.step });
+	};
+
+	const inc = function () {
+		// Increase count - action
+		dispatch({ type: "inc", payload: state.step });
+	};
+
+	const defineCount = function (e) {
+		// set count state - action
+		dispatch({ type: "setCount", payload: Number(e.target.value) });
+	};
+
+	const defineStep = function (e) {
+		dispatch({ type: "setStep", payload: Number(e.target.value) });
+	};
+
+	const reset = function () {
+		dispatch({
+			type: "reset",
+		});
+	};
+
+
+  // reducer function
+function reducer(state, action) {
+	console.log(state, action);
+
+	switch (action.type) {
+		case "dec":
+			return { ...state, count: state.count - action.payload };
+		case "inc":
+			return { ...state, count: state.count + action.payload };
+		case "setCount":
+			return { ...state, count: action.payload };
+		case "setStep":
+			return { ...state, step: action.payload };
+		case "reset":
+			return initialState;
+		default:
+			throw new Error("Unknown action");
+	}
+}
+
+
+// Before turning state into an object
+
+
+	// useReducer hook
+	// const [count, dispatch] = useReducer(reducer, 0);
+  //const [step, dispatchStep] = useReducer(reducer, 1);
+
+
+function reducer(state, action) {
+	if (action.type === "inc") {
+		return state + action.payload;
+	} else if (action.type === "dec") {
+		return state - action.payload;
+	}
+	if (action.type === "setCount") {
+		return action.payload;
+	} else if (action.type === "setStep") {
+		return action.payload;
+	}
+}
