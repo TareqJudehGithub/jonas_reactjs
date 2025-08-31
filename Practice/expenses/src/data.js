@@ -216,6 +216,13 @@ let expenses = [
 		amount: 20,
 		isPaid: false,
 	},
+	{
+		id: 32,
+		date: new Date("8/31/2025").toLocaleDateString(),
+		description: "Dina - Driving lessons - second payment",
+		amount: 20,
+		isPaid: false,
+	},
 ];
 export default expenses;
 

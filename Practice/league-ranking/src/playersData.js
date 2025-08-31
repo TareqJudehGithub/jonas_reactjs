@@ -1,0 +1,36 @@
+const playerData = [
+	{
+		id: 1,
+		playerName: "Yanal",
+		points: 0,
+		wins: 0,
+		draws: 0,
+		losses: 0,
+		goalsFor: 0,
+		goalsAgainst: 0,
+		goalDifference: 0,
+	},
+	{
+		id: 2,
+		playerName: "Amjad",
+		points: 0,
+		wins: 0,
+		draws: 0,
+		losses: 0,
+		goalsFor: 0,
+		goalsAgainst: 0,
+		goalDifference: 0,
+	},
+	{
+		id: 3,
+		playerName: "Tareq",
+		points: 0,
+		wins: 0,
+		draws: 0,
+		losses: 0,
+		goalsFor: 0,
+		goalsAgainst: 0,
+		goalDifference: 0,
+	},
+];
+export default playerData;
