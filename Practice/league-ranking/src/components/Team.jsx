@@ -1,6 +1,7 @@
-function Player({ player }) {
+function Team({ team }) {
 	const {
-		playerName,
+		teamName,
+		clubLogo,
 		points,
 		wins,
 		draws,
@@ -8,10 +9,14 @@ function Player({ player }) {
 		goalsFor,
 		goalsAgainst,
 		goalDifference,
-	} = player;
+	} = team;
+
 	return (
 		<tr>
-			<td className="team-name">{playerName}</td>
+			<td className="team-name">
+				<img className="club-img" src={clubLogo} alt={teamName} />
+				{teamName}
+			</td>
 			<td>{points}</td>
 			<td>{wins}</td>
 			<td>{draws}</td>
@@ -23,4 +28,4 @@ function Player({ player }) {
 	);
 }
 
-export default Player;
+export default Team;

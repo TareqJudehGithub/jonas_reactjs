@@ -1,66 +1,94 @@
 import { useState } from "react";
 import Header from "./components/Header";
-import PlayersList from "./components/PlayersList";
-import playerData from "./playersData";
-
+import TeamsList from "./components/TeamsList";
 import ScoreForm from "./components/ScoreForm";
-import scoresData from "./components/scoresData";
+import ScoreBoard from "./components/ScoresBoard";
+
+import teamsData from "./playersData";
 
 function App() {
 	// States
-	const [ranking, setRanking] = useState(playerData);
-	const [Player1Score, setPlayer1Score] = useState(0);
-	const [Player2Score, setPlayer2Score] = useState(0);
-	const [scoreBoard, setScoreBoard] = useState(scoresData);
+	const [club, setClub] = useState(teamsData);
+	const [ranking, setRanking] = useState([]);
+	const [scoreBoard, setScoreBoard] = useState([]);
+
+	const [team1Score, setTeam1Score] = useState(0);
+	const [team2Score, setTeam2Score] = useState(0);
+
 	const [homeTeam, setHomeTeam] = useState("");
 	const [awayTeam, setAwayTeam] = useState("");
 
-	const [Player1Name, setPlayer1Name] = useState("");
-	const [Player2Name, setPlayer2Name] = useState("");
-	const [points, setPoints] = useState("");
-	const [win, setWin] = useState("");
-	const [draw, setDraw] = useState("");
-	const [loss, setLoss] = useState("");
-	const [goalsFor, setGoalsFor] = useState("");
-	const [goalsAgainst, setGoalsAgainst] = useState("");
-	const [goalsDifference, setGoalsDifference] = useState("");
-	// Handles
+	const [team1, setTeam1] = useState("");
+	const [team2, setTeam2] = useState("");
 
+	// Handles
+	function handleSelectClub() {
+		setClub(club);
+	}
+	function handleAddTeam(team) {
+		setRanking((teams) => [...teams, team]);
+	}
 	function handleSelectPlayer1(p1) {
-		setPlayer1Name(p1);
+		setTeam1(p1);
 	}
 	function handleSelectPlayer2(p2) {
-		setPlayer2Name(p2);
+		setTeam2(p2);
 	}
 	function handleAddP1Score(p1Score, homeTeam) {
-		setPlayer1Score(p1Score);
+		setTeam1Score(p1Score);
 		setHomeTeam(homeTeam);
 	}
 	function handleAddP2Score(p2Score, awayTeam) {
-		setPlayer2Score(p2Score);
+		setTeam2Score(p2Score);
 		setAwayTeam(awayTeam);
 	}
 	function handleAddScoreBoard(score) {
 		setScoreBoard((scores) => [...scores, score]);
 	}
+	function handleUpdateRanking(newStats) {
+		setRanking(newStats);
+	}
+	// Update ranking
+	// function handleUpdateRanking(newResult, team1) {
+	// 	const newRanking = ranking.map((team) => {
+	// 		if (team.teamName === team1) {
+	// 			console.log(`Home team: ${team1}`);
+	// 			console.log(`Updated team stats: ${newResult}`);
+	// 			return { ...team, team: newResult };
+	// 		} else {
+	// 			return team;
+	// 		}
+	// 	});
+	// 	setRanking(newRanking);
+	// }
+	function handleRankingRerender() {
+		setRanking((ranking) => ranking);
+	}
 
 	return (
 		<div className="app">
 			<Header />
-			<PlayersList players={ranking} />
+			<TeamsList teams={ranking} />
 			<ScoreForm
-				players={ranking}
-				onSelectPlayer1={handleSelectPlayer1}
-				onSelectPlayer2={handleSelectPlayer2}
-				player1Name={Player1Name}
-				player2Name={Player2Name}
-				player1Score={Player1Score}
-				player2Score={Player2Score}
+				clubs={club}
+				onSelectClub={handleSelectClub}
+				ranking={ranking}
+				onUpdateRanking={handleUpdateRanking}
+				onRankingRender={handleRankingRerender}
+				onSelectTeam1={handleSelectPlayer1}
+				onSelectTeam2={handleSelectPlayer2}
+				homeTeam={homeTeam}
+				awayTeam={awayTeam}
+				team1={team1}
+				team2={team2}
+				team1Score={team1Score}
+				team2Score={team2Score}
 				onAddP1Score={handleAddP1Score}
 				onAddP2Score={handleAddP2Score}
-				scoreBoard={scoreBoard}
 				onAddScore={handleAddScoreBoard}
+				onAddTeam={handleAddTeam}
 			/>
+			<ScoreBoard scoreBoard={scoreBoard} />
 		</div>
 	);
 }

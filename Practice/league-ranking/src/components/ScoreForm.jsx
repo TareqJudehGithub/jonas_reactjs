@@ -1,124 +1,341 @@
+import teamsData from "../playersData";
+import { useState } from "react";
+
+// const clubLogos = teamsData.map((team) => team.clubLogo);
 function ScoreForm({
-	players,
-	player1Name,
-	player2Name,
-	onSelectPlayer1,
-	onSelectPlayer2,
-	player1Score,
-	player2Score,
+	ranking,
+	onRankingRender,
+	onUpdateRanking,
+	homeTeam,
+	awayTeam,
+	team1,
+	team2,
+	onSelectTeam1,
+	onSelectTeam2,
+	team1Score,
+	team2Score,
 	onAddP1Score,
 	onAddP2Score,
-	scoreBoard,
 	onAddScore,
+	onAddTeam,
+	clubs,
+	onSelectClub,
 }) {
-	// handle add result to scoreboard
-	function handleAddResult() {
-		const newResult = {
-			id: Date.now(),
-			homeTeam: player1Name,
-			awayTeam: player2Name,
-			result: player1Score + " : " + player2Score,
-		};
-		onAddScore(newResult);
-		if (scoreBoard.length > 0) {
-			console.log("Added result successfully!");
-		} else {
-			console.log("Adding result did not work :(");
-		}
-	}
-	const playerObj = players.map((player) => player);
-	const {
-		id,
-		playerName,
-		points,
-		wins,
-		draws,
-		losses,
-		goalsFor,
-		goalsAgainst,
-		goalDifference,
-	} = playerObj;
+	// States
+	const [createdTeam, setCreatedTeam] = useState("");
 
+	const [point, setPoints] = useState(0);
+	const [win, setWin] = useState(0);
+	const [draw, setDraw] = useState(0);
+	const [loss, setLoss] = useState(0);
+	const [goalsFor, setGoalsFor] = useState(0);
+	const [goalsAgainst, setGoalsAgainst] = useState(0);
+	let goalsDifference = 0;
+
+	const playerObj = ranking.map((player) => player);
+	const { teamName } = playerObj;
+	const clubsData = clubs.map((club) => club);
+
+	// Handle submit form
 	function handleSubmit(e) {
 		e.preventDefault();
+
+		if (ranking.length < 3) {
+			let clubImg = teamsData.map((team) => team.clubLogo);
+			let clubImgId = 0;
+			const imgIndex = teamsData.map((team) => {
+				if (team.clubName === createdTeam) {
+					clubImgId = team.id - 1;
+				}
+				return clubImgId;
+			});
+			const newTeam = {
+				id: Date.now(),
+				teamName: createdTeam,
+				clubLogo: clubImg[clubImgId],
+				points: 0,
+				wins: 0,
+				draws: 0,
+				losses: 0,
+				goalsFor: 0,
+				goalsAgainst: 0,
+				goalDifference: 0,
+			};
+			if (createdTeam.length > 1) {
+				onAddTeam(newTeam);
+				setCreatedTeam("");
+			} else {
+				alert("Pick a team first, please.");
+			}
+		} else {
+			// Build the new result, and add it into the scoreBoard state/table.
+			const newResult = {
+				id: Date.now(),
+				homeTeam: team1,
+				awayTeam: team2,
+				result: team1Score + " : " + team2Score,
+			};
+			if (team1 && team2) {
+				onAddScore(newResult);
+			} else {
+				alert("Select both teams, please.");
+			}
+			if (newResult) {
+				if (team1Score > team2Score) {
+					const team1NewStats = ranking.map((team) => {
+						if (team1 === team.teamName) {
+							goalsDifference = team1Score - team2Score;
+							return {
+								...team,
+								points: team.points + 3,
+								wins: team.wins + 1,
+								draws: team.draws,
+								losses: team.losses,
+								goalsFor: team.goalsFor + team1Score,
+								goalsAgainst: team.goalsAgainst + team2Score,
+								goalDifference: team.goalDifference + goalsDifference,
+							};
+						} else if (team2 === team.teamName) {
+							goalsDifference = team2Score - team1Score;
+							return {
+								...team,
+								points: team.points,
+								wins: team.wins,
+								draws: team.draws,
+								losses: team.losses + 1,
+								goalsFor: team.goalsFor + team2Score,
+								goalsAgainst: team.goalsAgainst + team1Score,
+								goalDifference: team.goalDifference + goalsDifference,
+							};
+						} else {
+							return team;
+						}
+					});
+					onUpdateRanking(team1NewStats);
+				} else if (team2Score > team1Score) {
+					const team1NewStats = ranking.map((team) => {
+						if (team2 === team.teamName) {
+							goalsDifference = team2Score - team1Score;
+							return {
+								...team,
+								points: team.points + 3,
+								wins: team.wins + 1,
+								draws: team.draws,
+								losses: team.losses,
+								goalsFor: team.goalsFor + team2Score,
+								goalsAgainst: team.goalsAgainst + team1Score,
+								goalDifference: team.goalDifference + goalsDifference,
+							};
+						} else if (team1 === team.teamName) {
+							goalsDifference = team1Score - team2Score;
+							return {
+								...team,
+								points: team.points,
+								wins: team.wins,
+								draws: team.draws,
+								losses: team.losses + 1,
+								goalsFor: team.goalsFor + team1Score,
+								goalsAgainst: team.goalsAgainst + team2Score,
+								goalDifference: team.goalDifference + goalsDifference,
+							};
+						} else {
+							return team;
+						}
+					});
+					onUpdateRanking(team1NewStats);
+				} else if (team1 && team2 && team1Score === team2Score) {
+					const team1NewStats = ranking.map((team) => {
+						if (team1 === team.teamName) {
+							goalsDifference = team1Score - team2Score;
+							return {
+								...team,
+								points: team.points + 1,
+								wins: team.wins,
+								draws: team.draws + 1,
+								losses: team.losses,
+								goalsFor: team.goalsFor + team1Score,
+								goalsAgainst: team.goalsAgainst + team2Score,
+								goalDifference: team.goalDifference + goalsDifference,
+							};
+						} else if (team2 === team.teamName) {
+							goalsDifference = team2Score - team1Score;
+							return {
+								...team,
+								points: team.points + 1,
+								wins: team.wins,
+								draws: team.draws + 1,
+								losses: team.losses,
+								goalsFor: team.goalsFor + team2Score,
+								goalsAgainst: team.goalsAgainst + team1Score,
+								goalDifference: team.goalDifference + goalsDifference,
+							};
+						} else {
+							return team;
+						}
+					});
+					onUpdateRanking(team1NewStats);
+				}
+			} else {
+				console.log("Nothing to update!");
+			}
+			// Re-render Ranking
+			onRankingRender();
+		}
 	}
+
 	return (
 		<div className="scores">
-			<form onSubmit={handleSubmit}>
-				<span>
-					<select
-						defaultValue={"home"}
-						value={playerName}
-						onChange={(e) => onSelectPlayer1(e.target.value)}
-					>
-						<option value="home" disabled>
-							Home Team
-						</option>
-						<option value={playerObj[0].playerName}>
-							{playerObj[0].playerName}
-						</option>
-						<option value={playerObj[1].playerName}>
-							{playerObj[1].playerName}
-						</option>
-						<option value={playerObj[2].playerName}>
-							{playerObj[2].playerName}
-						</option>
-					</select>
-					<input
-						type="number"
-						value={player1Score}
-						onChange={(e) => onAddP1Score(e.target.value)}
-					/>
-				</span>
-				:
-				<span>
-					<select
-						defaultValue={"away"}
-						required
-						value={playerName}
-						onChange={(e) => onSelectPlayer2(e.target.value)}
-					>
-						<option value="away" disabled>
-							Away Team
-						</option>
-						<option value={playerObj[0].playerName}>
-							{playerObj[0].playerName}
-						</option>
-						<option value={playerObj[1].playerName}>
-							{playerObj[1].playerName}
-						</option>
-						<option value={playerObj[2].playerName}>
-							{playerObj[2].playerName}
-						</option>
-					</select>
-					<input
-						type="number"
-						value={player2Score}
-						onChange={(e) => onAddP2Score(e.target.value)}
-					/>
-				</span>
-				<button onClick={handleAddResult}>Add</button>
-			</form>
-			<table className="scores-board">
-				<thead>
-					<tr>
-						<th>id</th>
-						<th>Home Team</th>
-						<th>Result</th>
-						<th>Away Team</th>
-					</tr>
-				</thead>
-				<tbody>
-					{scoreBoard.map((score) => (
-						<tr key={score.id}>
-							<td>{score.id}</td>
-							<td>{score.homeTeam}</td>
-							<td>{score.result}</td>
-							<td>{score.awayTeam}</td>
-						</tr>
-					))}
-				</tbody>
-			</table>
+			{ranking.length > 2 && (
+				<form onSubmit={handleSubmit}>
+					<span>
+						<select
+							defaultValue={"home"}
+							value={teamName}
+							onChange={(e) => onSelectTeam1(e.target.value)}
+							required
+						>
+							<option value="home" disabled>
+								Home Team
+							</option>
+
+							<option value={playerObj[0].teamName}>
+								{playerObj[0].teamName}
+							</option>
+							<option value={playerObj[1].teamName}>
+								{playerObj[1].teamName}
+							</option>
+							<option value={playerObj[2].teamName}>
+								{playerObj[2].teamName}
+							</option>
+						</select>
+						<input
+							type="number"
+							value={team1Score}
+							onChange={(e) => onAddP1Score(Number(e.target.value))}
+							required
+						/>
+					</span>
+					:
+					<span>
+						<select
+							defaultValue={"away"}
+							value={teamName}
+							onChange={(e) => onSelectTeam2(e.target.value)}
+							required
+						>
+							<option value="away" disabled>
+								Away Team
+							</option>
+							<option value={playerObj[0].teamName}>
+								{playerObj[0].teamName}
+							</option>
+							<option value={playerObj[1].teamName}>
+								{playerObj[1].teamName}
+							</option>
+							<option value={playerObj[2].teamName}>
+								{playerObj[2].teamName}
+							</option>
+						</select>
+						<input
+							type="number"
+							value={team2Score}
+							onChange={(e) => onAddP2Score(Number(e.target.value))}
+							required
+						/>
+					</span>
+					<button>Add</button>
+				</form>
+			)}
+			{ranking.length < 3 && (
+				<form className="new-team-form" onSubmit={handleSubmit}>
+					<span>
+						<select
+							defaultValue={"home"}
+							value={clubsData.clubName}
+							onChange={(e) => setCreatedTeam(e.target.value)}
+							required
+						>
+							<option value="home" disabled>
+								Home Team
+							</option>
+							<optgroup label="EPL">
+								<option value={clubsData[0].clubName}>
+									{clubsData[0].clubName}
+								</option>
+								<option value={clubsData[1].clubName}>
+									{clubsData[1].clubName}
+								</option>
+								<option value={clubsData[2].clubName}>
+									{clubsData[2].clubName}
+								</option>
+								<option value={clubsData[3].clubName}>
+									{clubsData[3].clubName}
+								</option>
+								<option value={clubsData[4].clubName}>
+									{clubsData[4].clubName}
+								</option>
+							</optgroup>
+
+							<optgroup label="La Liga">
+								<option value={clubsData[5].clubName}>
+									{clubsData[5].clubName}
+								</option>
+								<option value={clubsData[6].clubName}>
+									{clubsData[6].clubName}
+								</option>
+								<option value={clubsData[7].clubName} disabled>
+									{clubsData[7].clubName}
+								</option>
+							</optgroup>
+							<optgroup label="Serie A">
+								<option value={clubsData[8].clubName}>
+									{clubsData[8].clubName}
+								</option>
+								<option value={clubsData[9].clubName} disabled>
+									{clubsData[9].clubName}
+								</option>
+								<option value={clubsData[10].clubName}>
+									{clubsData[10].clubName}
+								</option>
+								<option value={clubsData[11].clubName}>
+									{clubsData[11].clubName}
+								</option>
+								<option value={clubsData[12].clubName} disabled>
+									{clubsData[12].clubName}
+								</option>
+								<option value={clubsData[13].clubName}>
+									{clubsData[13].clubName}
+								</option>
+								<option value={clubsData[14].clubName}>
+									{clubsData[14].clubName}
+								</option>
+								<option value={clubsData[15].clubName} disabled>
+									{clubsData[15].clubName}
+								</option>
+							</optgroup>
+							<optgroup label="Bundesliga">
+								<option value={clubsData[16].clubName}>
+									{clubsData[16].clubName}
+								</option>
+								<option value={clubsData[17].clubName}>
+									{clubsData[17].clubName}
+								</option>
+							</optgroup>
+							<optgroup label="Eredivisie">
+								<option value={clubsData[18].clubName}>
+									{clubsData[18].clubName}
+								</option>
+							</optgroup>
+							<optgroup label="Ligue 1">
+								<option value={clubsData[19].clubName}>
+									{clubsData[19].clubName}
+								</option>
+							</optgroup>
+						</select>
+					</span>
+					<button className="add-team-btn">Add Team</button>
+				</form>
+			)}
 		</div>
 	);
 }

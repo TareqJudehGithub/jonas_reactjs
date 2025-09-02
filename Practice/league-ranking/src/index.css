@@ -9,8 +9,8 @@
 	background-repeat: no-repeat;
 	background-size: cover;
 	height: 100vh;
-	background-color: rgba(173, 216, 230, 0.511);
-	background-blend-mode: normal;
+	background-color: rgba(89, 106, 112, 0.288);
+	background-blend-mode: color-dodge;
 }
 
 code {
@@ -28,6 +28,10 @@ nav {
 	justify-content: space-between;
 	align-items: center;
 	padding: 35px;
+}
+.logo {
+	opacity: 0.75;
+	background-color: rgba(182, 207, 214, 0.384);
 }
 nav p {
 	display: flex;
@@ -66,8 +70,14 @@ tr {
 	font-size: 20px;
 }
 .team-name {
+	display: flex;
 	text-align: start;
 	padding-left: 10px;
+	align-items: center;
+}
+.club-img {
+	width: 25px;
+	margin-right: 10px;
 }
 tbody tr:nth-of-type(2) {
 	background-color: rgba(210, 228, 233, 0.815);
@@ -76,6 +86,11 @@ tbody tr:nth-of-type(2) {
 
 tbody tr:nth-of-type(3) {
 	/* border-top: 0.5px solid darkblue; */
+}
+
+.input-team {
+}
+.add-team-btn {
 }
 .scores-board {
 	width: 50%;

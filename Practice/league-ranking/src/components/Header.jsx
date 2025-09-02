@@ -2,7 +2,12 @@ function Header() {
 	return (
 		<header>
 			<nav>
-				<p className="logo">Put Logo here</p>
+				<img
+					className="logo"
+					src="images/pes-logo.png"
+					alt="logo"
+					width="125px"
+				/>
 				<p className="standings">Standings</p>
 				<p className="links">Links menu</p>
 			</nav>
