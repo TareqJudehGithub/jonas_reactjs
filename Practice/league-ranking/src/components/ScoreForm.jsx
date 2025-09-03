@@ -40,15 +40,16 @@ function ScoreForm({
 	function handleSubmit(e) {
 		e.preventDefault();
 
+		let clubImg = teamsData.map((team) => team.clubLogo);
+		let clubImgId = 0;
+		const imgIndex = teamsData.map((team) => {
+			if (team.clubName === createdTeam) {
+				clubImgId = team.id - 1;
+			}
+			return clubImgId;
+		});
+
 		if (ranking.length < 3) {
-			let clubImg = teamsData.map((team) => team.clubLogo);
-			let clubImgId = 0;
-			const imgIndex = teamsData.map((team) => {
-				if (team.clubName === createdTeam) {
-					clubImgId = team.id - 1;
-				}
-				return clubImgId;
-			});
 			const newTeam = {
 				id: Date.now(),
 				teamName: createdTeam,
@@ -69,10 +70,27 @@ function ScoreForm({
 			}
 		} else {
 			// Build the new result, and add it into the scoreBoard state/table.
+			let team1ImgId = 0;
+			let team2ImgId = 0;
+
+			teamsData.map((team) => {
+				if (team.clubName === team1) {
+					team1ImgId = team.id - 1;
+				}
+				return team1ImgId;
+			});
+			teamsData.map((team) => {
+				if (team.clubName === team2) {
+					team2ImgId = team.id - 1;
+				}
+				return team2ImgId;
+			});
 			const newResult = {
 				id: Date.now(),
+				homeTeamLogo: clubImg[team1ImgId],
 				homeTeam: team1,
 				awayTeam: team2,
+				awayTeamLogo: clubImg[team2ImgId],
 				result: team1Score + " : " + team2Score,
 			};
 			if (team1 && team2) {
@@ -184,11 +202,12 @@ function ScoreForm({
 	}
 
 	return (
-		<div className="scores">
+		<div className="score-form">
 			{ranking.length > 2 && (
 				<form onSubmit={handleSubmit}>
 					<span>
 						<select
+							className="score-select-team"
 							defaultValue={"home"}
 							value={teamName}
 							onChange={(e) => onSelectTeam1(e.target.value)}
@@ -209,6 +228,7 @@ function ScoreForm({
 							</option>
 						</select>
 						<input
+							className="score-input"
 							type="number"
 							value={team1Score}
 							onChange={(e) => onAddP1Score(Number(e.target.value))}
@@ -217,7 +237,15 @@ function ScoreForm({
 					</span>
 					:
 					<span>
+						<input
+							className="score-input"
+							type="number"
+							value={team2Score}
+							onChange={(e) => onAddP2Score(Number(e.target.value))}
+							required
+						/>
 						<select
+							className="score-select-team"
 							defaultValue={"away"}
 							value={teamName}
 							onChange={(e) => onSelectTeam2(e.target.value)}
@@ -236,12 +264,6 @@ function ScoreForm({
 								{playerObj[2].teamName}
 							</option>
 						</select>
-						<input
-							type="number"
-							value={team2Score}
-							onChange={(e) => onAddP2Score(Number(e.target.value))}
-							required
-						/>
 					</span>
 					<button>Add</button>
 				</form>
@@ -250,6 +272,7 @@ function ScoreForm({
 				<form className="new-team-form" onSubmit={handleSubmit}>
 					<span>
 						<select
+							className="select-new-team"
 							defaultValue={"home"}
 							value={clubsData.clubName}
 							onChange={(e) => setCreatedTeam(e.target.value)}
@@ -333,7 +356,7 @@ function ScoreForm({
 							</optgroup>
 						</select>
 					</span>
-					<button className="add-team-btn">Add Team</button>
+					<button>Add</button>
 				</form>
 			)}
 		</div>

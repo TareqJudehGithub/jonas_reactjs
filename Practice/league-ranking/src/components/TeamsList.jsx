@@ -13,25 +13,27 @@ function TeamsList({ teams }) {
 
 	return (
 		<main>
-			<table>
-				<thead className="table-head">
-					<tr>
-						<th className="team-name">Teams</th>
-						<th>Points</th>
-						<th>W</th>
-						<th>D</th>
-						<th>L</th>
-						<th>GF</th>
-						<th>GA</th>
-						<th>GD</th>
-					</tr>
-				</thead>
-				<tbody className="table-body">
-					{sortedTeams.map((team) => (
-						<Team key={team.id} team={team} />
-					))}
-				</tbody>
-			</table>
+			{sortedTeams.length > 0 && (
+				<table className="standing-table">
+					<thead className="table-head">
+						<tr>
+							<th className="team-name-header">Teams</th>
+							<th>Points</th>
+							<th>W</th>
+							<th>D</th>
+							<th>L</th>
+							<th>GF</th>
+							<th>GA</th>
+							<th>GD</th>
+						</tr>
+					</thead>
+					<tbody className="table-body">
+						{sortedTeams.map((team) => (
+							<Team key={team.id} team={team} />
+						))}
+					</tbody>
+				</table>
+			)}
 		</main>
 	);
 }

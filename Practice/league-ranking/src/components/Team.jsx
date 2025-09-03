@@ -13,7 +13,7 @@ function Team({ team }) {
 
 	return (
 		<tr>
-			<td className="team-name">
+			<td className="team-name-body">
 				<img className="club-img" src={clubLogo} alt={teamName} />
 				{teamName}
 			</td>
