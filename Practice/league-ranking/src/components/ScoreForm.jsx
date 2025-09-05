@@ -19,7 +19,9 @@ function ScoreForm({
 	onAddScore,
 	onAddTeam,
 	clubs,
-	onSelectClub,
+	onResetClub,
+	teamsTable,
+	onTeamsTableRender,
 }) {
 	// States
 	const [createdTeam, setCreatedTeam] = useState("");
@@ -32,8 +34,9 @@ function ScoreForm({
 	const [goalsAgainst, setGoalsAgainst] = useState(0);
 	let goalsDifference = 0;
 
-	const playerObj = ranking.map((player) => player);
+	const playerObj = ranking.map((item) => item);
 	const { teamName } = playerObj;
+
 	const clubsData = clubs.map((club) => club);
 
 	// Handle submit form
@@ -50,10 +53,6 @@ function ScoreForm({
 		});
 
 		if (ranking.length < 3) {
-			if (ranking.includes(teamName)) {
-				console.log(`${teamName} is already in the table`);
-				alert(`${teamName} has already been selected!`);
-			}
 			const newTeam = {
 				id: Date.now(),
 				teamName: createdTeam,
@@ -66,9 +65,10 @@ function ScoreForm({
 				goalsAgainst: 0,
 				goalDifference: 0,
 			};
-
 			if (createdTeam.length > 1) {
-				onAddTeam(newTeam);
+				teamsTable.includes(createdTeam)
+					? alert(`${createdTeam} already exists in the League Table`)
+					: onAddTeam(newTeam);
 				setCreatedTeam("");
 			} else {
 				alert("Pick a team first, please.");
@@ -98,108 +98,117 @@ function ScoreForm({
 				awayTeamLogo: clubImg[team2ImgId],
 				result: team1Score + " : " + team2Score,
 			};
-			if (team1 && team2) {
-				onAddScore(newResult);
+			if (!team1 || !team2) {
+				alert("Select both Home and Away teams please.");
+			} else if (team1 === team2) {
+				alert("Home Team should be different from Away Team.");
+			} else if (team1Score < 0 || team2Score < 0) {
+				alert(`Teams score cannot be a negative value!`);
 			} else {
-				alert("Select both teams, please.");
-			}
-			if (newResult) {
-				if (team1Score > team2Score) {
-					const team1NewStats = ranking.map((team) => {
-						if (team1 === team.teamName) {
-							goalsDifference = team1Score - team2Score;
-							return {
-								...team,
-								points: team.points + 3,
-								wins: team.wins + 1,
-								draws: team.draws,
-								losses: team.losses,
-								goalsFor: team.goalsFor + team1Score,
-								goalsAgainst: team.goalsAgainst + team2Score,
-								goalDifference: team.goalDifference + goalsDifference,
-							};
-						} else if (team2 === team.teamName) {
-							goalsDifference = team2Score - team1Score;
-							return {
-								...team,
-								points: team.points,
-								wins: team.wins,
-								draws: team.draws,
-								losses: team.losses + 1,
-								goalsFor: team.goalsFor + team2Score,
-								goalsAgainst: team.goalsAgainst + team1Score,
-								goalDifference: team.goalDifference + goalsDifference,
-							};
-						} else {
-							return team;
+				if ((team1 && team2) || team1Score >= 0 || team2Score >= 0) {
+					onAddScore(newResult);
+
+					if (newResult) {
+						if (team1Score > team2Score) {
+							const team1NewStats = ranking.map((team) => {
+								if (team1 === team.teamName) {
+									goalsDifference = team1Score - team2Score;
+									return {
+										...team,
+										points: team.points + 3,
+										wins: team.wins + 1,
+										draws: team.draws,
+										losses: team.losses,
+										goalsFor: team.goalsFor + team1Score,
+										goalsAgainst: team.goalsAgainst + team2Score,
+										goalDifference: team.goalDifference + goalsDifference,
+									};
+								} else if (team2 === team.teamName) {
+									goalsDifference = team2Score - team1Score;
+									return {
+										...team,
+										points: team.points,
+										wins: team.wins,
+										draws: team.draws,
+										losses: team.losses + 1,
+										goalsFor: team.goalsFor + team2Score,
+										goalsAgainst: team.goalsAgainst + team1Score,
+										goalDifference: team.goalDifference + goalsDifference,
+									};
+								} else {
+									return team;
+								}
+							});
+							onUpdateRanking(team1NewStats);
+						} else if (team2Score > team1Score) {
+							const team1NewStats = ranking.map((team) => {
+								if (team2 === team.teamName) {
+									goalsDifference = team2Score - team1Score;
+									return {
+										...team,
+										points: team.points + 3,
+										wins: team.wins + 1,
+										draws: team.draws,
+										losses: team.losses,
+										goalsFor: team.goalsFor + team2Score,
+										goalsAgainst: team.goalsAgainst + team1Score,
+										goalDifference: team.goalDifference + goalsDifference,
+									};
+								} else if (team1 === team.teamName) {
+									goalsDifference = team1Score - team2Score;
+									return {
+										...team,
+										points: team.points,
+										wins: team.wins,
+										draws: team.draws,
+										losses: team.losses + 1,
+										goalsFor: team.goalsFor + team1Score,
+										goalsAgainst: team.goalsAgainst + team2Score,
+										goalDifference: team.goalDifference + goalsDifference,
+									};
+								} else {
+									return team;
+								}
+							});
+							onUpdateRanking(team1NewStats);
+						} else if (team1 && team2 && team1Score === team2Score) {
+							const team1NewStats = ranking.map((team) => {
+								if (team1 === team.teamName) {
+									goalsDifference = team1Score - team2Score;
+									return {
+										...team,
+										points: team.points + 1,
+										wins: team.wins,
+										draws: team.draws + 1,
+										losses: team.losses,
+										goalsFor: team.goalsFor + team1Score,
+										goalsAgainst: team.goalsAgainst + team2Score,
+										goalDifference: team.goalDifference + goalsDifference,
+									};
+								} else if (team2 === team.teamName) {
+									goalsDifference = team2Score - team1Score;
+									return {
+										...team,
+										points: team.points + 1,
+										wins: team.wins,
+										draws: team.draws + 1,
+										losses: team.losses,
+										goalsFor: team.goalsFor + team2Score,
+										goalsAgainst: team.goalsAgainst + team1Score,
+										goalDifference: team.goalDifference + goalsDifference,
+									};
+								} else {
+									return team;
+								}
+							});
+							onUpdateRanking(team1NewStats);
 						}
-					});
-					onUpdateRanking(team1NewStats);
-				} else if (team2Score > team1Score) {
-					const team1NewStats = ranking.map((team) => {
-						if (team2 === team.teamName) {
-							goalsDifference = team2Score - team1Score;
-							return {
-								...team,
-								points: team.points + 3,
-								wins: team.wins + 1,
-								draws: team.draws,
-								losses: team.losses,
-								goalsFor: team.goalsFor + team2Score,
-								goalsAgainst: team.goalsAgainst + team1Score,
-								goalDifference: team.goalDifference + goalsDifference,
-							};
-						} else if (team1 === team.teamName) {
-							goalsDifference = team1Score - team2Score;
-							return {
-								...team,
-								points: team.points,
-								wins: team.wins,
-								draws: team.draws,
-								losses: team.losses + 1,
-								goalsFor: team.goalsFor + team1Score,
-								goalsAgainst: team.goalsAgainst + team2Score,
-								goalDifference: team.goalDifference + goalsDifference,
-							};
-						} else {
-							return team;
-						}
-					});
-					onUpdateRanking(team1NewStats);
-				} else if (team1 && team2 && team1Score === team2Score) {
-					const team1NewStats = ranking.map((team) => {
-						if (team1 === team.teamName) {
-							goalsDifference = team1Score - team2Score;
-							return {
-								...team,
-								points: team.points + 1,
-								wins: team.wins,
-								draws: team.draws + 1,
-								losses: team.losses,
-								goalsFor: team.goalsFor + team1Score,
-								goalsAgainst: team.goalsAgainst + team2Score,
-								goalDifference: team.goalDifference + goalsDifference,
-							};
-						} else if (team2 === team.teamName) {
-							goalsDifference = team2Score - team1Score;
-							return {
-								...team,
-								points: team.points + 1,
-								wins: team.wins,
-								draws: team.draws + 1,
-								losses: team.losses,
-								goalsFor: team.goalsFor + team2Score,
-								goalsAgainst: team.goalsAgainst + team1Score,
-								goalDifference: team.goalDifference + goalsDifference,
-							};
-						} else {
-							return team;
-						}
-					});
-					onUpdateRanking(team1NewStats);
+					} else {
+						console.log("Nothing to update!");
+					}
+				} else {
+					alert("Select both teams, please.");
 				}
-			} else {
-				console.log("Nothing to update!");
 			}
 			// Re-render Ranking
 			onRankingRender();

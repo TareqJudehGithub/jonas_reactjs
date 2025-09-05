@@ -21,12 +21,15 @@ function App() {
 	const [team1, setTeam1] = useState("");
 	const [team2, setTeam2] = useState("");
 
+	const [teamsTable, setTeamsTable] = useState([]);
 	// Handles
-	function handleSelectClub() {
-		setClub(club);
+
+	function handleResetClub() {
+		setClub((clubs) => (clubs = teamsData));
 	}
 	function handleAddTeam(team) {
 		setRanking((teams) => [...teams, team]);
+		setTeamsTable((teams) => [...teams, team.teamName]);
 	}
 	function handleSelectPlayer1(p1) {
 		setTeam1(p1);
@@ -64,6 +67,10 @@ function App() {
 	function handleRankingRerender() {
 		setRanking((ranking) => ranking);
 	}
+	function handleTeamsTableRender() {
+		setTeamsTable((teams) => teams);
+		teamsTable.map((teams) => console.log(teams));
+	}
 
 	return (
 		<div className="app">
@@ -71,7 +78,7 @@ function App() {
 			<TeamsList teams={ranking} scoreBoard={scoreBoard} />
 			<ScoreForm
 				clubs={club}
-				onSelectClub={handleSelectClub}
+				onResetClub={handleResetClub}
 				ranking={ranking}
 				onUpdateRanking={handleUpdateRanking}
 				onRankingRender={handleRankingRerender}
@@ -87,6 +94,8 @@ function App() {
 				onAddP2Score={handleAddP2Score}
 				onAddScore={handleAddScoreBoard}
 				onAddTeam={handleAddTeam}
+				teamsTable={teamsTable}
+				onTeamsTableRender={handleTeamsTableRender}
 			/>
 			<ScoreBoard scoreBoard={scoreBoard} />
 		</div>

@@ -3,14 +3,24 @@
 	padding: 0;
 	box-sizing: border-box;
 }
+
 .app {
 	background-image: url("../public/images/bg-1a.jpg");
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
 	height: 150vh;
-	background-color: rgba(194, 163, 253, 0.418);
+	background-color: rgba(194, 163, 253, 0.719);
 	background-blend-mode: darken;
+	text-shadow: 1px 0px 1px rgba(231, 227, 227, 0.486);
+
+	/* font-family: "Story Script", sans-serif;
+	font-weight: 400;
+	font-style: normal; */
+
+	font-family: "Fjalla One", sans-serif;
+	font-weight: 400;
+	font-style: normal;
 }
 
 code {
@@ -45,8 +55,7 @@ nav p {
 	font-weight: bold;
 	text-shadow: 1px 1px 1px rgb(255, 255, 255);
 }
-.standing-table {
-}
+
 table {
 	width: 99.5%;
 	margin: 0 auto 25px auto;
@@ -77,17 +86,17 @@ tr {
 	text-align: start;
 	padding-left: 10px;
 	align-items: center;
-	font-size: 32px;
+	font-size: 36px;
 }
 .team-name-body {
 	display: flex;
 	text-align: start;
 	padding: 10px 0px 10px 10px;
 	align-items: center;
-	font-size: 28px;
+	font-size: 26px;
 }
 .club-img {
-	width: 35px;
+	width: 45px;
 	margin-right: 10px;
 }
 tbody tr:nth-of-type(2) {
@@ -100,6 +109,9 @@ tbody tr:nth-of-type(2) {
 	flex-wrap: wrap;
 	justify-content: center;
 	margin: 75px 0;
+	font-family: "Fjalla One", sans-serif;
+	font-weight: 400;
+	font-style: normal;
 }
 select::-webkit-scrollbar {
 	display: none; /* Hides the scrollbar */
@@ -109,14 +121,13 @@ select::-webkit-scrollbar {
 .score-select-team,
 .select-new-team {
 	overflow: hidden;
-	font-size: 20px;
+	font-size: 24px;
 	text-align: center;
 	padding: 2px;
 	border-radius: 10px;
 	border: none;
 
-	background-color: rgba(210, 228, 233, 0.815);
-	background-color: rgba(194, 163, 253, 0.192);
+	background-color: rgba(175, 141, 236, 0.562);
 
 	text-shadow: 1px 1px 1px rgb(255, 255, 255);
 	width: 200px;
@@ -126,6 +137,10 @@ select::-webkit-scrollbar {
 	box-shadow: 1px 1px 1px rgba(194, 163, 253, 0.192);
 	box-shadow: 0px 0px 2px rgba(154, 116, 224, 0.705);
 	cursor: pointer;
+
+	font-family: "Fjalla One", sans-serif;
+	font-weight: 400;
+	font-style: normal;
 }
 
 .score-select-team:focus,
@@ -145,6 +160,7 @@ select::-webkit-scrollbar {
 	border: 2px solid rgba(194, 163, 253, 0.555);
 	text-shadow: 1px 1px 1px rgba(194, 163, 253, 0.555);
 	text-shadow: 1px 1px 1px rgba(218, 85, 196, 0.753);
+	background-color: rgba(137, 83, 236, 0.562);
 }
 .select-new-team optgroup {
 	font-size: 22px;
@@ -167,8 +183,6 @@ select::-webkit-scrollbar {
 	text-align: center;
 	padding-left: 12px;
 	border: none;
-
-	background-color: rgba(226, 231, 233, 0.815);
 	background-color: rgba(203, 183, 241, 0.192);
 	width: 50px;
 	height: 50px;
@@ -179,10 +193,9 @@ select::-webkit-scrollbar {
 	cursor: pointer;
 }
 .score-input:hover {
-	font-size: 26px;
+	font-size: 28px;
 	border-radius: 10px;
 	border: 2px solid rgba(194, 163, 253, 0.555);
-	text-shadow: 1px 1px 1px rgba(194, 163, 253, 0.555);
 	text-shadow: 1px 1px 1px rgba(218, 85, 196, 0.753);
 }
 button {
