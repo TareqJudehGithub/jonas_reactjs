@@ -1,4 +1,4 @@
-function Team({ team }) {
+function Team({ team, scoreBoard }) {
 	const {
 		teamName,
 		clubLogo,
@@ -17,13 +17,13 @@ function Team({ team }) {
 				<img className="club-img" src={clubLogo} alt={teamName} />
 				{teamName}
 			</td>
-			<td>{points}</td>
-			<td>{wins}</td>
-			<td>{draws}</td>
-			<td>{losses}</td>
-			<td>{goalsFor}</td>
-			<td>{goalsAgainst}</td>
-			<td>{goalDifference}</td>
+			<td className="score-number">{points}</td>
+			<td className="score-number">{wins}</td>
+			<td className="score-number">{draws}</td>
+			<td className="score-number">{losses}</td>
+			<td className="score-number">{goalsFor}</td>
+			<td className="score-number">{goalsAgainst}</td>
+			<td className="score-number">{goalDifference}</td>
 		</tr>
 	);
 }

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Team from "./Team";
 
-function TeamsList({ teams }) {
+function TeamsList({ teams, scoreBoard }) {
 	//function sortByPoints() {
 	let sortedTeams = teams
 		.slice()
@@ -29,7 +29,7 @@ function TeamsList({ teams }) {
 					</thead>
 					<tbody className="table-body">
 						{sortedTeams.map((team) => (
-							<Team key={team.id} team={team} />
+							<Team key={team.id} team={team} scoreBoard={scoreBoard} />
 						))}
 					</tbody>
 				</table>

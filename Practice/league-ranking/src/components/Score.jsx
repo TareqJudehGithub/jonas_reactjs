@@ -1,5 +1,6 @@
-function Score({ score }) {
+function Score({ score, scores }) {
 	const { homeTeamLogo, homeTeam, result, awayTeam, awayTeamLogo } = score;
+
 	return (
 		<tr className="result-score-tr">
 			<td className="home-td">

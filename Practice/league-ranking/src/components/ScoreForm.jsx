@@ -50,6 +50,10 @@ function ScoreForm({
 		});
 
 		if (ranking.length < 3) {
+			if (ranking.includes(teamName)) {
+				console.log(`${teamName} is already in the table`);
+				alert(`${teamName} has already been selected!`);
+			}
 			const newTeam = {
 				id: Date.now(),
 				teamName: createdTeam,
@@ -62,6 +66,7 @@ function ScoreForm({
 				goalsAgainst: 0,
 				goalDifference: 0,
 			};
+
 			if (createdTeam.length > 1) {
 				onAddTeam(newTeam);
 				setCreatedTeam("");
@@ -213,7 +218,7 @@ function ScoreForm({
 							onChange={(e) => onSelectTeam1(e.target.value)}
 							required
 						>
-							<option value="home" disabled>
+							<option style={{ textAlign: "center" }} value="home" disabled>
 								Home Team
 							</option>
 
@@ -251,7 +256,7 @@ function ScoreForm({
 							onChange={(e) => onSelectTeam2(e.target.value)}
 							required
 						>
-							<option value="away" disabled>
+							<option style={{ textAlign: "center" }} value="away" disabled>
 								Away Team
 							</option>
 							<option value={playerObj[0].teamName}>
@@ -278,11 +283,14 @@ function ScoreForm({
 							onChange={(e) => setCreatedTeam(e.target.value)}
 							required
 						>
-							<option value="home" disabled>
-								Home Team
+							<option style={{ textAlign: "center" }} value="home" disabled>
+								Teams
 							</option>
 							<optgroup label="EPL">
-								<option value={clubsData[0].clubName}>
+								<option
+									style={{ textAlign: "start" }}
+									value={clubsData[0].clubName}
+								>
 									{clubsData[0].clubName}
 								</option>
 								<option value={clubsData[1].clubName}>
