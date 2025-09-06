@@ -1,8 +1,7 @@
-import { useState } from "react";
 import Team from "./Team";
 
-function TeamsList({ teams, scoreBoard }) {
-	//function sortByPoints() {
+function TeamsList({ teams }) {
+	// Sort teams table by points, then by goals difference.
 	let sortedTeams = teams
 		.slice()
 		.sort(
@@ -18,18 +17,19 @@ function TeamsList({ teams, scoreBoard }) {
 					<thead className="table-head">
 						<tr>
 							<th className="team-name-header">Teams</th>
-							<th>Points</th>
+							<th>P</th>
 							<th>W</th>
 							<th>D</th>
 							<th>L</th>
 							<th>GF</th>
 							<th>GA</th>
 							<th>GD</th>
+							<th>Points</th>
 						</tr>
 					</thead>
 					<tbody className="table-body">
 						{sortedTeams.map((team) => (
-							<Team key={team.id} team={team} scoreBoard={scoreBoard} />
+							<Team key={team.id} team={team} />
 						))}
 					</tbody>
 				</table>

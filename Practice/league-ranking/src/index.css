@@ -74,6 +74,10 @@ th {
 .score-number {
 	font-size: 26px;
 }
+.points {
+	font-size: 30px;
+	font-weight: bold;
+}
 .table-body {
 	background-color: rgba(210, 228, 233, 0.678);
 	background-color: rgba(201, 185, 231, 0.418);
@@ -123,7 +127,7 @@ select::-webkit-scrollbar {
 	overflow: hidden;
 	font-size: 24px;
 	text-align: center;
-	padding: 2px;
+	padding: 4px;
 	border-radius: 10px;
 	border: none;
 
@@ -179,7 +183,8 @@ select::-webkit-scrollbar {
 	text-align: center;
 }
 .score-input {
-	font-size: 24px;
+	font-size: 28px;
+	font-weight: bold;
 	text-align: center;
 	padding-left: 12px;
 	border: none;
@@ -193,7 +198,8 @@ select::-webkit-scrollbar {
 	cursor: pointer;
 }
 .score-input:hover {
-	font-size: 28px;
+	font-size: 30px;
+	font-weight: bolder;
 	border-radius: 10px;
 	border: 2px solid rgba(194, 163, 253, 0.555);
 	text-shadow: 1px 1px 1px rgba(218, 85, 196, 0.753);
@@ -202,18 +208,29 @@ button {
 	background-color: rgba(194, 163, 253, 0.308);
 	text-shadow: 1px 1px 1px rgba(218, 85, 196, 0.342);
 	box-shadow: 1px 1px 1px rgba(194, 163, 253, 0.192);
-	padding: 10px;
+	font-size: 24px;
+	padding: 4px;
 	margin-left: 7.5px;
 	border: none;
 	width: 75px;
 	height: 55px;
 	border-radius: 15px;
-	font-size: 20px;
+}
+.league-over {
+	margin-top: 13px;
+	text-align: center;
+}
+.league-over button {
+	background-color: rgba(149, 101, 236, 0.349);
+	font-size: 22px;
+	font-weight: 600;
+	color: rgba(0, 0, 0, 0.705);
+	width: 120px;
 }
 button:hover {
 	border: 2px solid rgba(194, 163, 253, 0.555);
-	text-shadow: 1px 1px 1px rgba(194, 163, 253, 0.555);
 	text-shadow: 1px 1px 1px rgba(218, 85, 196, 0.753);
+	background-color: rgba(137, 83, 236, 0.562);
 }
 .scores-board {
 	width: 70%;
@@ -261,7 +278,6 @@ button:hover {
 }
 .result-score-tr {
 }
-
 .home-span {
 	display: flex;
 	justify-items: center;

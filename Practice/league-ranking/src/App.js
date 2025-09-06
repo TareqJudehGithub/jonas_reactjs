@@ -75,7 +75,7 @@ function App() {
 	return (
 		<div className="app">
 			<Header />
-			<TeamsList teams={ranking} scoreBoard={scoreBoard} />
+			<TeamsList teams={ranking} />
 			<ScoreForm
 				clubs={club}
 				onResetClub={handleResetClub}
@@ -96,6 +96,7 @@ function App() {
 				onAddTeam={handleAddTeam}
 				teamsTable={teamsTable}
 				onTeamsTableRender={handleTeamsTableRender}
+				scoreBoard={scoreBoard}
 			/>
 			<ScoreBoard scoreBoard={scoreBoard} />
 		</div>

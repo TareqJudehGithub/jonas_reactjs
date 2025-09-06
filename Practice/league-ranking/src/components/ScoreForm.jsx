@@ -1,7 +1,6 @@
 import teamsData from "../playersData";
 import { useState } from "react";
 
-// const clubLogos = teamsData.map((team) => team.clubLogo);
 function ScoreForm({
 	ranking,
 	onRankingRender,
@@ -19,10 +18,12 @@ function ScoreForm({
 	onAddScore,
 	onAddTeam,
 	clubs,
-	onResetClub,
 	teamsTable,
 	onTeamsTableRender,
+	onResetClub,
+	scoreBoard,
 }) {
+	console.log(scoreBoard.length);
 	// States
 	const [createdTeam, setCreatedTeam] = useState("");
 
@@ -57,13 +58,14 @@ function ScoreForm({
 				id: Date.now(),
 				teamName: createdTeam,
 				clubLogo: clubImg[clubImgId],
-				points: 0,
+				played: 0,
 				wins: 0,
 				draws: 0,
 				losses: 0,
 				goalsFor: 0,
 				goalsAgainst: 0,
 				goalDifference: 0,
+				points: 0,
 			};
 			if (createdTeam.length > 1) {
 				teamsTable.includes(createdTeam)
@@ -115,25 +117,27 @@ function ScoreForm({
 									goalsDifference = team1Score - team2Score;
 									return {
 										...team,
-										points: team.points + 3,
+										played: team.played + 1,
 										wins: team.wins + 1,
 										draws: team.draws,
 										losses: team.losses,
 										goalsFor: team.goalsFor + team1Score,
 										goalsAgainst: team.goalsAgainst + team2Score,
 										goalDifference: team.goalDifference + goalsDifference,
+										points: team.points + 3,
 									};
 								} else if (team2 === team.teamName) {
 									goalsDifference = team2Score - team1Score;
 									return {
 										...team,
-										points: team.points,
+										played: team.played + 1,
 										wins: team.wins,
 										draws: team.draws,
 										losses: team.losses + 1,
 										goalsFor: team.goalsFor + team2Score,
 										goalsAgainst: team.goalsAgainst + team1Score,
 										goalDifference: team.goalDifference + goalsDifference,
+										points: team.points,
 									};
 								} else {
 									return team;
@@ -146,25 +150,27 @@ function ScoreForm({
 									goalsDifference = team2Score - team1Score;
 									return {
 										...team,
-										points: team.points + 3,
+										played: team.played + 1,
 										wins: team.wins + 1,
 										draws: team.draws,
 										losses: team.losses,
 										goalsFor: team.goalsFor + team2Score,
 										goalsAgainst: team.goalsAgainst + team1Score,
 										goalDifference: team.goalDifference + goalsDifference,
+										points: team.points + 3,
 									};
 								} else if (team1 === team.teamName) {
 									goalsDifference = team1Score - team2Score;
 									return {
 										...team,
-										points: team.points,
+										played: team.played + 1,
 										wins: team.wins,
 										draws: team.draws,
 										losses: team.losses + 1,
 										goalsFor: team.goalsFor + team1Score,
 										goalsAgainst: team.goalsAgainst + team2Score,
 										goalDifference: team.goalDifference + goalsDifference,
+										points: team.points,
 									};
 								} else {
 									return team;
@@ -177,25 +183,27 @@ function ScoreForm({
 									goalsDifference = team1Score - team2Score;
 									return {
 										...team,
-										points: team.points + 1,
+										played: team.played + 1,
 										wins: team.wins,
 										draws: team.draws + 1,
 										losses: team.losses,
 										goalsFor: team.goalsFor + team1Score,
 										goalsAgainst: team.goalsAgainst + team2Score,
 										goalDifference: team.goalDifference + goalsDifference,
+										points: team.points + 1,
 									};
 								} else if (team2 === team.teamName) {
 									goalsDifference = team2Score - team1Score;
 									return {
 										...team,
-										points: team.points + 1,
+										played: team.played + 1,
 										wins: team.wins,
 										draws: team.draws + 1,
 										losses: team.losses,
 										goalsFor: team.goalsFor + team2Score,
 										goalsAgainst: team.goalsAgainst + team1Score,
 										goalDifference: team.goalDifference + goalsDifference,
+										points: team.points + 1,
 									};
 								} else {
 									return team;
@@ -249,7 +257,7 @@ function ScoreForm({
 							required
 						/>
 					</span>
-					:
+					<span>:</span>
 					<span>
 						<input
 							className="score-input"
@@ -279,9 +287,15 @@ function ScoreForm({
 							</option>
 						</select>
 					</span>
-					<button>Add</button>
+					{scoreBoard.length < 6 && <button>Add</button>}
+					{scoreBoard.length === 6 && (
+						<div className="league-over">
+							<button disabled>Restart</button>
+						</div>
+					)}
 				</form>
 			)}
+
 			{ranking.length < 3 && (
 				<form className="new-team-form" onSubmit={handleSubmit}>
 					<span>
