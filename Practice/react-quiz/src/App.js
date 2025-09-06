@@ -1,62 +1,68 @@
 import { useEffect, useReducer } from "react";
 import Header from "./components/Header";
 import Main from "./components/Main";
+import Loader from "./Loader";
+import ErrorComponent from "./Error";
+import StartScreen from "./components/StartScreen";
 
 function App() {
-	// States
+	// The states(status) the application can be in:
+	// "loading", "error", "ready", "active", "finish"
+	// status will tell the application where exactly we are at.
+
+	// states
 	const initialState = {
 		questions: [],
-
-		// The states(status) the application can be in: "loading", "error", "ready", "active", "finish"
-		status: "loading", // status will tell the application where exactly we are at.
+		status: "isLoading",
 	};
+	// Derived states
+
+	const [{ questions, status }, dispatch] = useReducer(reducer, initialState);
+
+	const numQuestions = questions.length;
+	console.log(numQuestions);
 
 	function reducer(state, action) {
 		switch (action.type) {
 			case "dataReceived":
 				return {
 					...state,
-					question: action.payload,
-					status: "ready",
+					questions: action.payload, // render 'data' into the questions ara
+					status: "ready", // change the status to "ready"
 				};
-			case "dataFailed":
+			case "errorFetchingData":
 				return {
 					...state,
 					status: "error",
 				};
-
 			default:
-				throw new Error("Action unknown");
+				throw new Error("Error - Default");
 		}
 	}
 
-	const [state, dispatch] = useReducer(reducer, initialState);
-
 	useEffect(function () {
-		const url = "http://localhost:8000/questions";
-
-		async function getQuestions() {
+		async function getData() {
 			try {
-				const response = await fetch(url);
+				const url = fetch("http://localhost:5000/questions");
+
+				const response = await url;
 				const data = await response.json();
 
-				// dataReceived is the data we just received right after fetch
 				dispatch({ type: "dataReceived", payload: data });
 			} catch (err) {
-				dispatch({
-					type: "dataFailed",
-				});
+				dispatch({ type: "errorFetchingData" });
 			}
 		}
-		getQuestions();
+		getData();
 	}, []);
 
 	return (
 		<div className="app">
 			<Header />
 			<Main>
-				<p>1/15</p>
-				<p>Question?</p>
+				{status === "isLoading" && <Loader />}
+				{status === "error" && <ErrorComponent />}
+				{status === "ready" && <StartScreen numQuestions={numQuestions} />}
 			</Main>
 		</div>
 	);
