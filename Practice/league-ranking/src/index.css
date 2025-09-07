@@ -21,13 +21,13 @@
 	font-family: "Fjalla One", sans-serif;
 	font-weight: 400;
 	font-style: normal;
+	position: relative;
 }
 
-code {
-	font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-		monospace;
+header {
 }
-
+main {
+}
 nav {
 	background-color: rgba(194, 163, 253, 0.418);
 	font-size: 20px;
@@ -116,6 +116,7 @@ tbody tr:nth-of-type(2) {
 	font-family: "Fjalla One", sans-serif;
 	font-weight: 400;
 	font-style: normal;
+	margin-top: 200px;
 }
 select::-webkit-scrollbar {
 	display: none; /* Hides the scrollbar */
@@ -216,6 +217,12 @@ button {
 	height: 55px;
 	border-radius: 15px;
 }
+button:hover {
+	border: 2px solid rgba(194, 163, 253, 0.555);
+	text-shadow: 1px 1px 1px rgba(218, 85, 196, 0.753);
+	background-color: rgba(137, 83, 236, 0.562);
+	/* background-color: rgba(194, 163, 253, 0.308); */
+}
 .league-over {
 	margin-top: 13px;
 	text-align: center;
@@ -226,11 +233,6 @@ button {
 	font-weight: 600;
 	color: rgba(0, 0, 0, 0.705);
 	width: 120px;
-}
-button:hover {
-	border: 2px solid rgba(194, 163, 253, 0.555);
-	text-shadow: 1px 1px 1px rgba(218, 85, 196, 0.753);
-	background-color: rgba(137, 83, 236, 0.562);
 }
 .scores-board {
 	width: 70%;

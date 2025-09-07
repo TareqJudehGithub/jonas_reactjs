@@ -1,9 +1,11 @@
 import { useEffect, useReducer } from "react";
 import Header from "./components/Header";
 import Main from "./components/Main";
+import StartScreen from "./components/StartScreen";
+import Question from "./components/Question";
+
 import Loader from "./Loader";
 import ErrorComponent from "./Error";
-import StartScreen from "./components/StartScreen";
 
 function App() {
 	// The states(status) the application can be in:
@@ -14,27 +16,52 @@ function App() {
 	const initialState = {
 		questions: [],
 		status: "isLoading",
+		index: 0,
+		answer: null,
+		points: 0,
 	};
+
 	// Derived states
 
-	const [{ questions, status }, dispatch] = useReducer(reducer, initialState);
+	// const [state, dispatch] = useReducer(reducer, initialState);
+	// const { questions, status, index } = state; or we could destruct them directly
+
+	const [{ questions, status, index, answer }, dispatch] = useReducer(
+		reducer,
+		initialState
+	);
 
 	const numQuestions = questions.length;
-	console.log(numQuestions);
 
 	function reducer(state, action) {
 		switch (action.type) {
+			case "errorFetchingData":
+				return {
+					...state,
+					status: "error",
+				};
 			case "dataReceived":
 				return {
 					...state,
 					questions: action.payload, // render 'data' into the questions ara
 					status: "ready", // change the status to "ready"
 				};
-			case "errorFetchingData":
+			case "start":
 				return {
 					...state,
-					status: "error",
+					status: "active",
 				};
+			case "newAnswer":
+				const question = state.questions.at(state.index);
+				return {
+					...state,
+					answer: action.payload,
+					points:
+						action.payload === question.correctOption
+							? state.points + question.points
+							: state.points,
+				};
+
 			default:
 				throw new Error("Error - Default");
 		}
@@ -62,7 +89,16 @@ function App() {
 			<Main>
 				{status === "isLoading" && <Loader />}
 				{status === "error" && <ErrorComponent />}
-				{status === "ready" && <StartScreen numQuestions={numQuestions} />}
+				{status === "ready" && (
+					<StartScreen numQuestions={numQuestions} dispatch={dispatch} />
+				)}
+				{status === "active" && (
+					<Question
+						question={questions[index]}
+						dispatch={dispatch}
+						answer={answer}
+					/>
+				)}
 			</Main>
 		</div>
 	);
