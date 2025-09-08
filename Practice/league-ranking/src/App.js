@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useReducer, useState } from "react";
 import Header from "./components/Header";
 import TeamsList from "./components/TeamsList";
 import ScoreForm from "./components/ScoreForm";
 import ScoreBoard from "./components/ScoresBoard";
 
 import teamsData from "./playersData";
+import ErrorAlert from "./components/ErrorAlert";
 
 function App() {
 	// States
@@ -18,10 +19,75 @@ function App() {
 	const [homeTeam, setHomeTeam] = useState("");
 	const [awayTeam, setAwayTeam] = useState("");
 
-	const [team1, setTeam1] = useState("");
-	const [team2, setTeam2] = useState("");
+	const [team1, setTeam1] = useState("home");
+	const [team2, setTeam2] = useState("away");
 
 	const [teamsTable, setTeamsTable] = useState([]);
+
+	const initialState = {
+		status: "ready",
+		errorMessage: "",
+	};
+
+	const [{ status, errorMessage }, dispatch] = useReducer(
+		reducer,
+		initialState
+	);
+
+	function reducer(state, action) {
+		switch (action.type) {
+			case "allGood!":
+				return {
+					...state,
+					status: "ready",
+				};
+			case "errorAddingTeam":
+				return {
+					...state,
+					status: "error",
+					errorMessage: action.payload,
+				};
+			case "errorNoTeamToAdd":
+				return {
+					...state,
+					status: "error",
+					errorMessage: action.payload,
+				};
+			case "errorSelectHomeTeam":
+				return {
+					...state,
+					status: "error",
+					errorMessage: action.payload,
+				};
+			case "errorSelectAwayTeam":
+				return {
+					...state,
+					status: "error",
+					errorMessage: action.payload,
+				};
+			case "errorSelectBothTeams":
+				return {
+					...state,
+					status: "error",
+					errorMessage: action.payload,
+				};
+			case "errorDifferentTeams":
+				return {
+					...state,
+					status: "error",
+					errorMessage: action.payload,
+				};
+
+			case "errorNegativeScore":
+				return {
+					...state,
+					status: "error",
+					errorMessage: action.payload,
+				};
+			default:
+				throw new Error("reducer failed error.");
+		}
+	}
 	// Handles
 
 	function handleResetClub() {
@@ -30,6 +96,7 @@ function App() {
 	function handleAddTeam(team) {
 		setRanking((teams) => [...teams, team]);
 		setTeamsTable((teams) => [...teams, team.teamName]);
+		dispatch({ type: "allGood!" });
 	}
 	function handleSelectPlayer1(p1) {
 		setTeam1(p1);
@@ -47,23 +114,17 @@ function App() {
 	}
 	function handleAddScoreBoard(score) {
 		setScoreBoard((scores) => [...scores, score]);
+		setTeam1("home");
+		setTeam2("away");
+		setTeam1Score(0);
+		setTeam2Score(0);
+
+		dispatch({ type: "allGood!" });
 	}
 	function handleUpdateRanking(newStats) {
 		setRanking(newStats);
 	}
-	// Update ranking
-	// function handleUpdateRanking(newResult, team1) {
-	// 	const newRanking = ranking.map((team) => {
-	// 		if (team.teamName === team1) {
-	// 			console.log(`Home team: ${team1}`);
-	// 			console.log(`Updated team stats: ${newResult}`);
-	// 			return { ...team, team: newResult };
-	// 		} else {
-	// 			return team;
-	// 		}
-	// 	});
-	// 	setRanking(newRanking);
-	// }
+
 	function handleRankingRerender() {
 		setRanking((ranking) => ranking);
 	}
@@ -97,7 +158,11 @@ function App() {
 				teamsTable={teamsTable}
 				onTeamsTableRender={handleTeamsTableRender}
 				scoreBoard={scoreBoard}
+				dispatch={dispatch}
 			/>
+			{status === "error" && (
+				<ErrorAlert status={status}>{errorMessage}</ErrorAlert>
+			)}
 			<ScoreBoard scoreBoard={scoreBoard} />
 		</div>
 	);

@@ -17,7 +17,7 @@ function TeamsList({ teams }) {
 					<thead className="table-head">
 						<tr>
 							<th className="team-name-header">Teams</th>
-							<th>P</th>
+							<th>MP</th>
 							<th>W</th>
 							<th>D</th>
 							<th>L</th>
