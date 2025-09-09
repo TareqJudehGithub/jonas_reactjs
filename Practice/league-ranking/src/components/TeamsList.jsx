@@ -17,14 +17,14 @@ function TeamsList({ teams }) {
 					<thead className="table-head">
 						<tr>
 							<th className="team-name-header">Teams</th>
-							<th>MP</th>
+							<th>G</th>
 							<th>W</th>
 							<th>D</th>
 							<th>L</th>
 							<th>GF</th>
 							<th>GA</th>
 							<th>GD</th>
-							<th>Points</th>
+							<th>Pts</th>
 						</tr>
 					</thead>
 					<tbody className="table-body">
