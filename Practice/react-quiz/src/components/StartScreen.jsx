@@ -1,5 +1,7 @@
+// @ts-ignore
 import React from "react";
 
+// @ts-ignore
 export default function StartScreen({ numQuestions, dispatch }) {
 	return (
 		<div className="start">

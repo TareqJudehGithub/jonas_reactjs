@@ -1,6 +1,8 @@
+// @ts-ignore
 import React from "react";
 import Options from "./Options";
 
+// @ts-ignore
 export default function Question({ question, dispatch, answer }) {
 	return (
 		<div>
@@ -9,16 +11,23 @@ export default function Question({ question, dispatch, answer }) {
 
 			{/* extract each item and it's index  */}
 			<div className="options">
-				{question.options.map((option, index) => (
-					<Options
-						key={option}
-						option={option}
-						index={index}
-						dispatch={dispatch}
-						question={question}
-						answer={answer}
-					/>
-				))}
+				{question.options.map(
+					(
+						// @ts-ignore
+						option,
+						// @ts-ignore
+						index
+					) => (
+						<Options
+							key={option}
+							option={option}
+							index={index}
+							dispatch={dispatch}
+							question={question}
+							answer={answer}
+						/>
+					)
+				)}
 			</div>
 		</div>
 	);

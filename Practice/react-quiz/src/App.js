@@ -6,6 +6,9 @@ import Question from "./components/Question";
 
 import Loader from "./Loader";
 import ErrorComponent from "./Error";
+import NextButton from "./components/NextButton";
+import PreviousButton from "./components/PreviousButton";
+import Progress from "./components/Progress";
 
 function App() {
 	// The states(status) the application can be in:
@@ -26,13 +29,25 @@ function App() {
 	// const [state, dispatch] = useReducer(reducer, initialState);
 	// const { questions, status, index } = state; or we could destruct them directly
 
-	const [{ questions, status, index, answer }, dispatch] = useReducer(
+	const [{ questions, status, index, answer, points }, dispatch] = useReducer(
 		reducer,
 		initialState
 	);
 
 	const numQuestions = questions.length;
 
+	// Calculate total points for all questions
+
+	// - Using old school for loop
+	// let pointsTotal = 0;
+	// for (let i = 0; i < questions.length; i++) {
+	// 	pointsTotal += questions[i].points;
+	// }
+
+	// using reduce()
+	let pointsTotal = questions.reduce((acc, cur) => acc + cur.points, 0);
+
+	// @ts-ignore
 	function reducer(state, action) {
 		switch (action.type) {
 			case "errorFetchingData":
@@ -53,6 +68,7 @@ function App() {
 				};
 			case "newAnswer":
 				const question = state.questions.at(state.index);
+
 				return {
 					...state,
 					answer: action.payload,
@@ -60,6 +76,18 @@ function App() {
 						action.payload === question.correctOption
 							? state.points + question.points
 							: state.points,
+				};
+			case "nextQuestion":
+				return {
+					...state,
+					index: state.index + 1,
+					answer: null,
+				};
+			case "previousQuestion":
+				return {
+					...state,
+					index: state.index - 1,
+					answer: null,
 				};
 
 			default:
@@ -74,7 +102,7 @@ function App() {
 
 				const response = await url;
 				const data = await response.json();
-
+				//	console.log(data);
 				dispatch({ type: "dataReceived", payload: data });
 			} catch (err) {
 				dispatch({ type: "errorFetchingData" });
@@ -93,11 +121,21 @@ function App() {
 					<StartScreen numQuestions={numQuestions} dispatch={dispatch} />
 				)}
 				{status === "active" && (
-					<Question
-						question={questions[index]}
-						dispatch={dispatch}
-						answer={answer}
-					/>
+					<>
+						<Progress
+							index={index}
+							numQuestions={numQuestions}
+							points={points}
+							pointsTotal={pointsTotal}
+						/>
+						<Question
+							question={questions[index]}
+							dispatch={dispatch}
+							answer={answer}
+						/>
+						<NextButton dispatch={dispatch} answer={answer} />
+						<PreviousButton dispatch={dispatch} answer={answer} />
+					</>
 				)}
 			</Main>
 		</div>

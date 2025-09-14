@@ -1,11 +1,19 @@
 export default function Options({
+	// @ts-ignore
 	option,
+	// @ts-ignore
 	index,
+	// @ts-ignore
 	dispatch,
+	// @ts-ignore
 	question,
+	// @ts-ignore
 	answer,
 }) {
 	const isAnswered = answer !== null;
+	if (isAnswered) {
+		console.log(index);
+	}
 
 	return (
 		// Check if the current index(option clicked equals the answer)
