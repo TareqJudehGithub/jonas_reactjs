@@ -9,11 +9,16 @@ import ErrorComponent from "./Error";
 import NextButton from "./components/NextButton";
 import Progress from "./components/Progress";
 import FinishScreen from "./components/FinishScreen";
+import Footer from "./components/Footer";
+import Timer from "./components/Timer";
 
 function App() {
 	// The states(status) the application can be in:
 	// "loading", "error", "ready", "active", "finish"
 	// status will tell the application where exactly we are at.
+
+	// consts
+	const SECS_PER_QUESTION = 30;
 
 	// states
 	const initialState = {
@@ -23,6 +28,7 @@ function App() {
 		answer: null,
 		points: 0,
 		highscore: 0,
+		secondsRemaining: null,
 	};
 
 	// Derived states
@@ -30,8 +36,10 @@ function App() {
 	// const [state, dispatch] = useReducer(reducer, initialState);
 	// const { questions, status, index } = state; or we could destruct them directly
 
-	const [{ questions, status, index, answer, points, highscore }, dispatch] =
-		useReducer(reducer, initialState);
+	const [
+		{ questions, status, index, answer, points, highscore, secondsRemaining },
+		dispatch,
+	] = useReducer(reducer, initialState);
 
 	const numQuestions = questions.length;
 
@@ -65,6 +73,7 @@ function App() {
 				return {
 					...state,
 					status: "active",
+					secondsRemaining: state.questions.length * SECS_PER_QUESTION,
 				};
 			case "newAnswer":
 				const question = state.questions.at(state.index);
@@ -105,6 +114,12 @@ function App() {
 					status: "ready",
 					answer: null,
 					points: 0,
+				};
+			case "tick":
+				return {
+					...state,
+					secondsRemaining: state.secondsRemaining - 1, // countdown
+					status: state.secondsRemaining === 0 ? "finished" : state.status,
 				};
 
 			default:
@@ -168,6 +183,12 @@ function App() {
 					/>
 				)}
 			</Main>
+
+			<Footer>
+				{status === "active" && (
+					<Timer dispatch={dispatch} secondsRemaining={secondsRemaining} />
+				)}
+			</Footer>
 		</div>
 	);
 }
