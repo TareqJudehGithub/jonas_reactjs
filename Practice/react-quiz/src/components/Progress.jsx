@@ -8,20 +8,19 @@ export default function Progress({
 	points,
 	// @ts-ignore
 	pointsTotal,
+	// @ts-ignore
+	highscore,
 }) {
 	return (
 		<header className="progress">
 			<progress value={index} max={numQuestions} />
 			<p>
-				<span>
-					Question <strong>{index + 1}</strong>/ {numQuestions}
-				</span>
+				Question <strong>{index + 1}</strong>/ {numQuestions}
 			</p>
 			<p>
-				<span>
-					{points}/{pointsTotal} points
-				</span>
+				{points}/{pointsTotal} points
 			</p>
+			<p>Highscore: {highscore}</p>
 		</header>
 	);
 }

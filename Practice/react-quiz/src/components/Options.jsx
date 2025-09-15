@@ -11,8 +11,8 @@ export default function Options({
 	answer,
 }) {
 	const isAnswered = answer !== null;
-	if (isAnswered) {
-		console.log(index);
+	if (index === answer) {
+		console.log(`Index: ${index}`);
 	}
 
 	return (

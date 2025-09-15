@@ -144,6 +144,12 @@ progress {
 	float: right;
 }
 
+.btn-ui-restart {
+	text-align: center;
+	width: 25%;
+	margin: 0 auto;
+}
+
 .options {
 	display: flex;
 	flex-direction: column;
