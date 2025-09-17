@@ -2,3 +2,10 @@
 	font-family: sans-serif;
 	text-align: center;
 }
+.btn-amount {
+	background-color: lightgray;
+	padding: 2px;
+	border-radius: 3px;
+	margin: 0 2px;
+	cursor: pointer;
+}

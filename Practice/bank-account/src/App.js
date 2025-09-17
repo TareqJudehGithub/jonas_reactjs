@@ -10,25 +10,65 @@ function App() {
 		isActive: false,
 		status: "notActive",
 		activeLoan: false,
+		depositAmount: 0,
+		step: 5,
+		depositInput: null,
 	};
 
 	// @ts-ignore
 	function reducer(state, action) {
 		switch (action.type) {
 			case "openAccount":
+				if (state.isActive) {
+					alert("Account is already open!");
+					return { ...state };
+				}
 				return {
 					...state,
 					status: "active",
-					isActive: (state.isActive = true),
+					isActive: true,
+					balance: 500,
 				};
+
+			case "ChangeDepositAmount":
+				if (state.isActive) {
+					return {
+						...state,
+						step: action.payload,
+					};
+				} else {
+					return { ...state };
+				}
+			case "increaseDeposit":
+				if (state.isActive) {
+					return {
+						...state,
+						depositAmount: state.depositAmount + action.payload,
+					};
+				} else {
+					return { ...state };
+				}
+			case "decreaseDeposit":
+				if (state.isActive) {
+					return {
+						...state,
+						depositAmount:
+							state.depositAmount > 0
+								? state.depositAmount - action.payload
+								: state.depositAmount,
+					};
+				} else {
+					return { ...state };
+				}
 			case "deposit":
-				return {
-					...state,
-					balance:
-						state.status === "active"
-							? state.balance + action.payload
-							: state.balance,
-				};
+				if (state.isActive) {
+					return {
+						...state,
+						balance: state.balance + action.payload,
+					};
+				} else {
+					return { ...state };
+				}
 			case "withdraw":
 				return {
 					...state,
@@ -38,29 +78,28 @@ function App() {
 							: state.balance,
 				};
 			case "requestLoan":
-				return {
-					...state,
-					loan:
-						state.status === "active"
-							? state.loan + action.payload
-							: state.loan,
-					balance:
-						state.status === "active"
-							? state.balance + action.payload
-							: state.balance,
-					activeLoan: (state.activeLoan = true),
-				};
-			case "payLoan":
-				if (state.activeLoan === true) {
-					alert("You already applied for a loan.");
+				if (state.activeLoan === true && state.loan > 0) {
+					alert("Already on a loan program");
 					return {
 						...state,
 					};
-				} else if (state.balance >= 5000 && state.status === "active")
+				}
+				return {
+					...state,
+					loan: state.loan + action.payload,
+
+					balance: state.balance + action.payload,
+
+					activeLoan: (state.activeLoan = true),
+				};
+
+			case "payLoan":
+				if (state.balance >= 5000 && state.status === "active")
 					return {
 						...state,
 						loan: state.loan - action.payload,
 						balance: state.balance - action.payload,
+						activeLoan: (state.activeLoan = false),
 					};
 				else {
 					alert("No enough balance to pay the loan.");
@@ -73,7 +112,10 @@ function App() {
 					return {
 						...state,
 						status: "notActive",
-						isActive: (state.isActive = false),
+						isActive:
+							state.isActive === true
+								? (state.isActive = false)
+								: state.isActive,
 					};
 				} else {
 					alert("Cannot close an account with balance in it.");
@@ -81,14 +123,22 @@ function App() {
 						...state,
 					};
 				}
+
 			default:
 				return "Undefined type";
 		}
 	}
-	const [{ balance, loan, isActive }, dispatch] = useReducer(
-		reducer,
-		initialState
-	);
+	// @ts-ignore
+	const [
+		{ balance, loan, isActive, depositAmount, step, depositInput },
+		dispatch,
+	] = useReducer(reducer, initialState);
+
+	// @ts-ignore
+	function handleSubmit(e) {
+		e.preventDefault();
+		//dispatch(({type: "setDepositAmount", payload: e.target.value}))
+	}
 
 	return (
 		<div className="App">
@@ -105,14 +155,56 @@ function App() {
 						Open account
 					</button>
 				</p>
-				<p>
-					<button
-						onClick={() => dispatch({ type: "deposit", payload: 150 })}
+
+				<span>
+					<input
+						type="range"
+						min={5}
+						max={1000}
+						value={step}
+						onChange={(e) =>
+							dispatch({
+								type: "ChangeDepositAmount",
+								payload: Number(e.target.value),
+							})
+						}
+					/>
+				</span>
+				<span>{step}</span>
+				<span
+					className="btn-amount"
+					onClick={() => dispatch({ type: "decreaseDeposit", payload: step })}
+				>
+					&lt;
+				</span>
+				<span>${depositAmount}</span>
+
+				<span
+					className="btn-amount"
+					onClick={() => dispatch({ type: "increaseDeposit", payload: step })}
+				>
+					&gt;
+				</span>
+				<button
+					onClick={() =>
+						dispatch({ type: "deposit", payload: Number(depositAmount) })
+					}
+					disabled={!isActive}
+				>
+					Deposit
+				</button>
+
+				<form onSubmit={handleSubmit}>
+					<input
+						value={depositInput}
+						type="number"
+						onChange={(e) =>
+							dispatch({ type: "deposit", payload: Number(e.target.value) })
+						}
 						disabled={!isActive}
-					>
-						Deposit 150
-					</button>
-				</p>
+					/>
+				</form>
+
 				<p>
 					<button
 						onClick={() => dispatch({ type: "withdraw", payload: 50 })}
