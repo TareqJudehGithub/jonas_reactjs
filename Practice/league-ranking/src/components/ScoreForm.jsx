@@ -386,7 +386,7 @@ function ScoreForm({
 								<option value={clubsData[6].clubName}>
 									{clubsData[6].clubName}
 								</option>
-								<option value={clubsData[7].clubName} disabled>
+								<option value={clubsData[7].clubName}>
 									{clubsData[7].clubName}
 								</option>
 							</optgroup>
@@ -394,7 +394,7 @@ function ScoreForm({
 								<option value={clubsData[8].clubName}>
 									{clubsData[8].clubName}
 								</option>
-								<option value={clubsData[9].clubName} disabled>
+								<option value={clubsData[9].clubName}>
 									{clubsData[9].clubName}
 								</option>
 								<option value={clubsData[10].clubName}>
@@ -403,7 +403,7 @@ function ScoreForm({
 								<option value={clubsData[11].clubName}>
 									{clubsData[11].clubName}
 								</option>
-								<option value={clubsData[12].clubName} disabled>
+								<option value={clubsData[12].clubName}>
 									{clubsData[12].clubName}
 								</option>
 								<option value={clubsData[13].clubName}>
@@ -412,8 +412,8 @@ function ScoreForm({
 								<option value={clubsData[14].clubName}>
 									{clubsData[14].clubName}
 								</option>
-								<option value={clubsData[15].clubName} disabled>
-									{clubsData[15].clubName}
+								<option value={clubsData[20].clubName}>
+									{clubsData[20].clubName}
 								</option>
 							</optgroup>
 							<optgroup label="Bundesliga">

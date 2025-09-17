@@ -1,8 +1,10 @@
-import { useReducer, useState } from "react";
+// @ts-ignore
+import { useReducer } from "react";
 
 const initialState = { count: 0, step: 1 };
 
 // reducer function
+// @ts-ignore
 function reducer(state, action) {
 	console.log(state, action);
 
@@ -41,11 +43,13 @@ function DateCounter() {
 		dispatch({ type: "inc", payload: state.step });
 	};
 
+	// @ts-ignore
 	const defineCount = function (e) {
 		// set count state - action
 		dispatch({ type: "setCount", payload: Number(e.target.value) });
 	};
 
+	// @ts-ignore
 	const defineStep = function (e) {
 		dispatch({ type: "setStep", payload: Number(e.target.value) });
 	};

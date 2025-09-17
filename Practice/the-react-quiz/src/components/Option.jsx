@@ -1,10 +1,16 @@
+// @ts-ignore
 import React from "react";
 
 export default function Option({
+	// @ts-ignore
 	option,
+	// @ts-ignore
 	index,
+	// @ts-ignore
 	correctOption,
+	// @ts-ignore
 	answer,
+	// @ts-ignore
 	dispatch,
 }) {
 	const isAnswered = answer !== null;
