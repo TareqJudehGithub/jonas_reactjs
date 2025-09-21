@@ -1,5 +1,7 @@
 // Uses the same styles as Product
 import PageNav from "../components/PageNav";
+
+// @ts-ignore
 import styles from "./Pricing.module.css";
 
 export default function Product() {

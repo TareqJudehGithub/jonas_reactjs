@@ -1,16 +1,13 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
-import AppNav from "../components/AppNav";
-import PageNav from "../components/PageNav";
-
+import SideBar from "../components/SideBar";
+import Map from "../components/Map";
 // @ts-ignore
 import styles from "./AppLayout.module.css";
 
 export default function AppLayout() {
 	return (
-		<div>
-			<AppNav />
-			<h1>App Layout</h1>
+		<div className={styles.app}>
+			<SideBar />
+			<Map />
 		</div>
 	);
 }

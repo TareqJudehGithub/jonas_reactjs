@@ -10,10 +10,10 @@ export default function PageNav() {
 			<Logo />
 			<ul className={styles.ul}>
 				<li>
-					<NavLink to="/pricing">Pricing</NavLink>
+					<NavLink to="/product">Products</NavLink>
 				</li>
 				<li>
-					<NavLink to="/product">Products</NavLink>
+					<NavLink to="/pricing">Pricing</NavLink>
 				</li>
 				<li>
 					<NavLink className={styles.ctaLink} to="/Login">
