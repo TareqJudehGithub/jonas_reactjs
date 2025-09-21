@@ -1,6 +1,7 @@
 import { NavLink, Link } from "react-router-dom";
 import PageNav from "../components/PageNav";
 
+// @ts-ignore
 import styles from "./Homepage.module.css";
 
 export default function Homepage() {
