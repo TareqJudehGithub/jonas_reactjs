@@ -1,10 +1,10 @@
 const teamsData = [
-	// EPL
 	{
 		id: 0,
 		clubName: "Teams",
-		clubLogo: "images/Arsenal.png",
+		clubLogo: "",
 	},
+	// EPL
 	{
 		id: 1,
 		clubName: "Arsenal",
@@ -58,7 +58,7 @@ const teamsData = [
 	{
 		id: 10,
 		clubName: "Fiorentina",
-		clubLogo: "images/inter.png",
+		clubLogo: "images/fiorentina.png",
 	},
 
 	{

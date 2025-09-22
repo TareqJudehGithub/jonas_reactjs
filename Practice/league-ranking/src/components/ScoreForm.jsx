@@ -2,26 +2,43 @@ import teamsData from "../playersData";
 import { useState } from "react";
 
 function ScoreForm({
+	// @ts-ignore
 	ranking,
-	onRankingRender,
+	// @ts-ignore
+	//onRankingRender,
+	// @ts-ignore
 	onUpdateRanking,
+	// @ts-ignore
 	homeTeam,
+	// @ts-ignore
 	awayTeam,
+	// @ts-ignore
 	team1,
+	// @ts-ignore
 	team2,
+	// @ts-ignore
 	onSelectTeam1,
+	// @ts-ignore
 	onSelectTeam2,
+	// @ts-ignore
 	team1Score,
+	// @ts-ignore
 	team2Score,
+	// @ts-ignore
 	onAddP1Score,
+	// @ts-ignore
 	onAddP2Score,
+	// @ts-ignore
 	onAddScore,
+	// @ts-ignore
 	onAddTeam,
+	// @ts-ignore
 	clubs,
+	// @ts-ignore
 	teamsTable,
-	onTeamsTableRender,
-	onResetClub,
+	// @ts-ignore
 	scoreBoard,
+	// @ts-ignore
 	dispatch,
 }) {
 	// States
@@ -35,24 +52,28 @@ function ScoreForm({
 	const [goalsAgainst, setGoalsAgainst] = useState(0);
 	let goalsDifference = 0;
 
+	// @ts-ignore
 	const playerObj = ranking.map((item) => item);
 	const { teamName } = playerObj;
 
+	// @ts-ignore
 	const clubsData = clubs.map((club) => club);
 
 	// Handle submit form
+	// @ts-ignore
 	function handleSubmit(e) {
 		e.preventDefault();
 
 		let clubImg = teamsData.map((team) => team.clubLogo);
 		let clubImgId = 0;
-		const imgIndex = teamsData.map((team) => {
+		teamsData.map((team) => {
 			if (team.clubName === createdTeam) {
 				clubImgId = team.id;
 			}
 			return clubImgId;
 		});
 
+		// Add teams as long as teams in Ranking table are 3 or below
 		if (ranking.length < 3) {
 			const newTeam = {
 				id: Date.now(),
@@ -72,17 +93,16 @@ function ScoreForm({
 					type: "errorNoTeamToAdd",
 					payload: `Pick a team first, please."`,
 				});
-				//alert("Pick a team first, please.");
 			} else {
 				if (createdTeam.length > 1) {
+					// Check if the team to be added is already added
 					teamsTable.includes(createdTeam)
 						? dispatch({
 								type: "errorAddingTeam",
 								payload: `Team: ${createdTeam}
 								already exists in the League Table.`,
 						  })
-						: //alert(`${createdTeam} already exists in the League Table`)
-						  onAddTeam(newTeam);
+						: onAddTeam(newTeam);
 					setCreatedTeam("Teams");
 				} else {
 					dispatch({
@@ -154,6 +174,7 @@ function ScoreForm({
 
 						if (newResult) {
 							if (team1Score > team2Score) {
+								// @ts-ignore
 								const team1NewStats = ranking.map((team) => {
 									if (team1 === team.teamName) {
 										goalsDifference = team1Score - team2Score;
@@ -187,6 +208,7 @@ function ScoreForm({
 								});
 								onUpdateRanking(team1NewStats);
 							} else if (team2Score > team1Score) {
+								// @ts-ignore
 								const team1NewStats = ranking.map((team) => {
 									if (team2 === team.teamName) {
 										goalsDifference = team2Score - team1Score;
@@ -220,6 +242,7 @@ function ScoreForm({
 								});
 								onUpdateRanking(team1NewStats);
 							} else if (team1 && team2 && team1Score === team2Score) {
+								// @ts-ignore
 								const team1NewStats = ranking.map((team) => {
 									if (team1 === team.teamName) {
 										goalsDifference = team1Score - team2Score;
@@ -262,7 +285,7 @@ function ScoreForm({
 				}
 			}
 			// Re-render Ranking
-			onRankingRender();
+			//	onRankingRender();
 		}
 	}
 
@@ -330,6 +353,7 @@ function ScoreForm({
 							</option>
 						</select>
 					</span>
+
 					{scoreBoard.length < 6 && (
 						<div className="league-over">
 							<button>Add</button>
@@ -358,6 +382,7 @@ function ScoreForm({
 							</option> */}
 
 							<option
+								// Teams
 								style={{ textAlign: "center" }}
 								value={clubsData[0].clubName}
 								disabled
@@ -377,28 +402,25 @@ function ScoreForm({
 								<option value={clubsData[4].clubName}>
 									{clubsData[4].clubName}
 								</option>
-							</optgroup>
-
-							<optgroup label="La Liga">
 								<option value={clubsData[5].clubName}>
 									{clubsData[5].clubName}
 								</option>
+							</optgroup>
+
+							<optgroup label="La Liga">
 								<option value={clubsData[6].clubName}>
 									{clubsData[6].clubName}
 								</option>
 								<option value={clubsData[7].clubName}>
 									{clubsData[7].clubName}
 								</option>
-							</optgroup>
-							<optgroup label="Serie A">
-								<option value={clubsData[8].clubName}>
+								<option value={clubsData[8].clubName} disabled>
 									{clubsData[8].clubName}
 								</option>
+							</optgroup>
+							<optgroup label="Serie A">
 								<option value={clubsData[9].clubName}>
 									{clubsData[9].clubName}
-								</option>
-								<option value={clubsData[10].clubName}>
-									{clubsData[10].clubName}
 								</option>
 								<option value={clubsData[11].clubName}>
 									{clubsData[11].clubName}
@@ -409,29 +431,35 @@ function ScoreForm({
 								<option value={clubsData[13].clubName}>
 									{clubsData[13].clubName}
 								</option>
-								<option value={clubsData[14].clubName}>
-									{clubsData[14].clubName}
+								<option value={clubsData[16].clubName} disabled>
+									{clubsData[16].clubName}
 								</option>
-								<option value={clubsData[20].clubName}>
-									{clubsData[20].clubName}
+								<option value={clubsData[10].clubName} disabled>
+									{clubsData[10].clubName}
+								</option>
+								<option value={clubsData[15].clubName} disabled>
+									{clubsData[15].clubName}
+								</option>
+								<option value={clubsData[14].clubName} disabled>
+									{clubsData[14].clubName}
 								</option>
 							</optgroup>
 							<optgroup label="Bundesliga">
-								<option value={clubsData[16].clubName}>
-									{clubsData[16].clubName}
-								</option>
 								<option value={clubsData[17].clubName}>
 									{clubsData[17].clubName}
 								</option>
-							</optgroup>
-							<optgroup label="Eredivisie">
 								<option value={clubsData[18].clubName}>
 									{clubsData[18].clubName}
 								</option>
 							</optgroup>
-							<optgroup label="Ligue 1">
+							<optgroup label="Eredivisie">
 								<option value={clubsData[19].clubName}>
 									{clubsData[19].clubName}
+								</option>
+							</optgroup>
+							<optgroup label="Ligue 1">
+								<option value={clubsData[20].clubName}>
+									{clubsData[20].clubName}
 								</option>
 							</optgroup>
 						</select>

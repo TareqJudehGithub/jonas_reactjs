@@ -1,3 +1,4 @@
+// @ts-ignore
 function Score({ score, scores }) {
 	const { homeTeamLogo, homeTeam, result, awayTeam, awayTeamLogo } = score;
 
