@@ -1,14 +1,13 @@
 import Team from "./Team";
-
-function TeamsList({ teams }) {
+// @ts-ignore
+function TeamsList({ leagueTable }) {
 	// Sort teams table by points, then by goals difference.
-	let sortedTeams = teams
-		.slice()
-		.sort(
-			(a, b) =>
-				Number(b.points) - Number(a.points) ||
-				Number(b.goalDifference) - Number(a.goalDifference)
-		);
+	let sortedTeams = leagueTable.slice().sort(
+		// @ts-ignore
+		(a, b) =>
+			Number(b.points) - Number(a.points) ||
+			Number(b.goalDifference) - Number(a.goalDifference)
+	);
 
 	return (
 		<main>
@@ -28,9 +27,14 @@ function TeamsList({ teams }) {
 						</tr>
 					</thead>
 					<tbody className="table-body">
-						{sortedTeams.map((team) => (
-							<Team key={team.id} team={team} />
-						))}
+						{sortedTeams.map(
+							(
+								// @ts-ignore
+								team
+							) => (
+								<Team key={team.id} team={team} />
+							)
+						)}
 					</tbody>
 				</table>
 			)}

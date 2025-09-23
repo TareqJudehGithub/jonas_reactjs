@@ -1,3 +1,4 @@
+// @ts-ignore
 function Team({ team }) {
 	const {
 		played,

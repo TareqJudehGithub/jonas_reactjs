@@ -9,10 +9,6 @@ function ScoreForm({
 	// @ts-ignore
 	onUpdateRanking,
 	// @ts-ignore
-	homeTeam,
-	// @ts-ignore
-	awayTeam,
-	// @ts-ignore
 	team1,
 	// @ts-ignore
 	team2,
@@ -361,7 +357,9 @@ function ScoreForm({
 					)}
 					{scoreBoard.length === 6 && (
 						<div className="league-over">
-							<button disabled>Restart</button>
+							<button onClick={() => dispatch({ type: "restartLeague" })}>
+								Restart
+							</button>
 						</div>
 					)}
 				</form>
