@@ -1,0 +1,39 @@
+React Router 
+  - Routing
+   The ability to move between components url.
+
+  - React Router is an external library responsible for building Single Page
+    Applications (SPA)s.
+  - Whenever a user clicks on link, the SPA changes (DOM is updated).
+  - React components correspond to the new URL rendered.
+  - SPA is a client-side, where the page is never re-rendered.
+
+
+  React Router installation
+  $ npm install react-router-dom
+
+
+
+
+  This is how the App component will look like using routes
+
+ export default function App() {
+	const name = "hello";
+
+	return (
+		<>
+			<header>Header goes here</header>
+			<BrowserRouter>
+				<Routes>
+					
+					<Route index (or path="/") element={<Homepage />} />   
+					<Route path="product" element={<Product />} />
+					<Route path="pricing" element={<Pricing />} />
+					<Route path="*" element={<PageNotFound />} />
+				</Routes>
+			</BrowserRouter>
+		</>
+	);
+}
+
+- index for the default route, we could also use path="/"

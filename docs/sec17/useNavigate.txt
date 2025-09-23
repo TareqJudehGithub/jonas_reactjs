@@ -1,0 +1,22 @@
+UseNavigate
+  
+  Programmatic UseNavigation is the ability for a use to move to 
+  another link without the usage of any link (in an imperative way). For example after 
+  submitting a form.
+
+  The useNavigate() hook
+   - useNavigate() allows us to automatically move to another route.
+
+    1. In the corresponding component, we define the navigate variable using
+      useNavigate() hook.
+        const navigate = useNavigate();
+    2. Now, and in the target element: 
+        <button onClick{() => {navigate("targetRoute")}}>Some text</button>
+
+  Navigate back and forth
+   - We provide -1 in the navigate param parentheses to direct the 
+     browser for a ONE step back.  
+      onClick{() => {navigate(-1)} }
+   - plus 1 or (1) moves forward
+
+

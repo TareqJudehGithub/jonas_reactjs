@@ -1,0 +1,32 @@
+Nest Routes
+ - A child route nested inside a parent.
+  
+  - Inside the App component, we provide the children (nested routes)
+ 
+      <Route path="app" element={<AppLayout />}>
+            <Route index element={<p>Default child</p>}/>
+						<Route path="cities" element={<p>List of cities</p>} />
+						<Route path="countries" element={<p>List of countries</p>} />
+						<Route path="form" element={<p>Form</p>} />
+			</Route>
+  - index property inside <Route /> indicates this is the default child route.
+  - DO NOT include a forward slash "/" (aka absolute path) in nested routes path property.
+      Right:  path="cities"
+      Wrong:  path="/cities" 
+  - Next, in the target component (where we need those children to be rendered,
+    we add the <Outlet /> element provided by "react-router-dom")
+ 
+  export default function SideBar() {
+	return (
+		<div className={styles.sidebar}>
+			<Logo />
+			<AppNav />
+			<Outlet />
+			<Footer />
+		</div>
+	);
+}
+
+<Outlet /> 
+ - Render on page all nested routes for a specific component.
+

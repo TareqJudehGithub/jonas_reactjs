@@ -1,0 +1,59 @@
+Params with React Router
+ To use params with React Router, we usually we that in three steps:
+  1. Create a new route.
+  2. We link to that route.
+  3. On that route, we read the state from that URL.
+
+
+  Now let's see that in action:
+   
+   1. In App component or the component we're creating routes in:
+    <Route path="cities/:id"  element={<City />}/>
+    
+    - id is the parameter name we provided, it could be any name, but 
+      of course, it has to be meaningful.      
+
+   2. In CityItem component, or in the item it self where we want 
+      to click for more details for example, we implement the Link element,
+      providing the item ID in the to="" attribute.
+
+   <Link to={`${id}`}>
+    <span className={styles.emoji}>{emoji}</span>
+				<h3 className={styles.name}>{cityName}</h3>
+				<time className={styles.date}>{formatDate(date)}</time>
+				<button className={styles.deleteBtn}>&times;</button>
+   </Link>   
+
+   IMPORTANT:  Do not include a forward slash "/" inside to={}.
+      Correct:  to={`${id}`}
+      Wrong: to={`/${id}`}
+
+    Because we want to attached the Id in the url, and not go to root
+    url ID.
+
+  3. Read the Data/state from the URL:
+   In the item component it self, or in City component in our example:
+   - We use useParam hook from react router dom
+    import {useParam} from "react-router-dom"
+   - Then, we destruct the param id and use it as a variable/state in useParam hook.
+    const {id} = useParam();
+
+Reading and Setting a Query String
+ - A query string starts with '?'  question mark
+ <Link
+				className={styles.cityItem}
+				to={`${id}?lat=${[position.lat]}&lng=${position.lng}`}
+			>
+ - We use useSearchParam hook to set a q query string
+    const [searchParam, setSearchParam] = useSearchParam();
+    const lat = searchParam.get("lat")
+    const lng = searchParam.get("lng")
+ 
+ - We are able now to change the state (map coordinates) using 
+   setSearchParam.
+    <button onClick={() => setSearchParam({lat: 50, lng: 25})}>Change position </button>
+
+
+
+
+   

@@ -1,0 +1,40 @@
+vite
+
+ - A tool to install real-world React projects.
+
+1. Installation
+ $ npm create vite@latest  => Enter
+  
+   - Press y button next, and after that select a name for your project.
+
+
+2. After creating a project, navigate to that project directly in the Terminal, and
+install all needed packages using  npm i
+ % npm i
+
+
+ To Start a vite project, run:  
+  $npm run dev
+
+
+3. Now, and after installing vite, we need to install and configure packages needed for our project:
+  - eslint
+  - vite-plugin-eslint
+  -eslint-config-react-app
+$ npm install eslint vite-plugin-eslint eslint-config-react-app --save-dev
+
+4. Create a new file .eslintrc.json under the src folder.
+  - Inside .eslintrc.json, we need to extend vite to work with eslint rules:
+      {      
+        "extends": "react-app"
+      }
+
+5. Finally, we need to config our vite project with vite.config
+    // Add the following import line below:     
+    import eslint from "vite-plugin-eslint";
+
+    // Add the new plugin imported also below:
+      plugins: [react(), eslint()],
+    
+  
+

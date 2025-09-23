@@ -2,7 +2,7 @@ UseReducer Hook
  - The useReducer takes the current state and the reducer function (action) as arguments.
  - An action is an object that describes how to update the state.
  - useReducer takes the state as the 1st argument, and the dispatch 
-   as the 2nd. So dispatch can be used to update the state.
+   as the 2nd. So 'dispatch' can be used to update the state.
  - a Dispatch is a function that triggers state updates, by sending actions from event 
    handlers to the reducer.  
  - The dispatch and the current state are always returned by useReducer hook.

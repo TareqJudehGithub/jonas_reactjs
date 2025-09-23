@@ -1,0 +1,43 @@
+Link
+ - Link element allows us to move between pages without re-rendering the whole page.
+ - ALWAYS make sure to include a "/" forward slash in the to="" property. If not "/"
+   were included, React Router will understand this is a child or a nest router, and 
+	 will cause the next link we click on to be nested inside the current one.
+	 /product/pricing   
+	 
+
+
+import { Link } from "react-router-dom";
+
+export default function Homepage() {
+	return (
+		<div>
+			<h1>Worldwise - Homepage</h1>
+			<Link to={"/pricing"}>Pricing</Link>
+		</div>
+	);
+}
+
+import { Link, NavLink } from "react-router-dom";
+ - Difference between Link and NavLink, is that Navlink adds an "active" css style
+   to the current link visited (active), while Link does not. therefor, it is 
+   recommended to use NavLink instead of Link.
+
+  
+export default function PageNav() {
+	return (
+		<nav>
+			<ul>
+				<li>
+					<NavLink to="/">Homepage</NavLink>
+				</li>
+				<li>
+					<NavLink to="/pricing">Pricing</NavLink>
+				</li>
+				<li>
+					<NavLink to="/product">Products</NavLink>
+				</li>
+			</ul>
+		</nav>
+	);
+}
