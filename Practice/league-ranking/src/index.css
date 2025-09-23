@@ -117,7 +117,7 @@ tbody tr:nth-of-type(2) {
 	font-weight: 400;
 	font-style: normal;
 	margin-top: 100px;
-	margin-bottom: 25px;
+	margin-bottom: 15px;
 }
 select::-webkit-scrollbar {
 	display: none; /* Hides the scrollbar */
@@ -218,11 +218,11 @@ button {
 	height: 55px;
 	border-radius: 15px;
 }
-button:hover {
+button:hover,
+.league-over button:hover {
 	border: 2px solid rgba(194, 163, 253, 0.555);
 	text-shadow: 1px 1px 1px rgba(218, 85, 196, 0.753);
 	background-color: rgba(137, 83, 236, 0.562);
-	/* background-color: rgba(194, 163, 253, 0.308); */
 }
 .league-over {
 	margin-top: 13px;
@@ -235,6 +235,13 @@ button:hover {
 	color: rgba(0, 0, 0, 0.705);
 	width: 120px;
 }
+.restart button {
+	background-color: rgba(155, 12, 250, 0.753);
+}
+.restart button:hover {
+	background-color: rgba(137, 83, 236, 0.562);
+}
+
 .scores-board {
 	width: 70%;
 	margin: 0 auto;
@@ -320,7 +327,7 @@ button:hover {
 }
 
 .error {
-	margin: 0 auto;
+	margin: 15px auto;
 	padding: 10px;
 	text-align: center;
 	width: 500px;

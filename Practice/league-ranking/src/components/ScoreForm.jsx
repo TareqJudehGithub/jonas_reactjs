@@ -4,7 +4,6 @@ import { useState } from "react";
 function ScoreForm({
 	// @ts-ignore
 	ranking,
-
 	// @ts-ignore
 	onUpdateRanking,
 	// @ts-ignore
@@ -355,7 +354,7 @@ function ScoreForm({
 						</div>
 					)}
 					{scoreBoard.length === 6 && (
-						<div className="league-over">
+						<div className="league-over restart">
 							<button onClick={() => dispatch({ type: "restart" })}>
 								Restart
 							</button>
