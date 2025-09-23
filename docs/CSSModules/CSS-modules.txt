@@ -1,0 +1,33 @@
+CSS Modules
+ - CSS for React should never be global, it is hard to maintain especially for
+   big projects.
+ - CSS or styling in React should be per component.
+ - CSS Modules provides one external file (.css) for each component.
+ - The styles in one file are scoped for one component, and no other 
+   component can or is able to use them.
+ - CSS Modules makes the component more modular and reusable.
+
+
+ Using CSS Modules
+  - Start by creating a new .css file RIGHT NEXT to the component file and in same 
+    folder, and of course with the same name as the component has.
+
+    $ touch componentName.module.css
+
+  - Inside componentName.module.css, include your CSS class names and  properties.
+      .nav {
+        background-color: beige;
+      }
+      .nav ul {
+      display: flex;
+      justify-content: space-between;
+      list-style: none;
+    }
+    
+
+  - In the component, import the newly created CSS file:
+    import styles from "./componentName.module.css"
+
+  - using the imported css file name as a class for every element.
+  <nav className={styles.nav}> 
+  <ul  className={styles.ul}>
