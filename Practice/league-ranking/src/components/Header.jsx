@@ -4,7 +4,7 @@ function Header() {
 			<nav>
 				<img
 					className="logo"
-					src="images/fl25-logo.png"
+					src="images/purple-trail.png"
 					alt="logo"
 					width="125px"
 				/>
