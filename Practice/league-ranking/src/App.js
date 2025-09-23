@@ -10,7 +10,7 @@ import ErrorAlert from "./components/ErrorAlert";
 function App() {
 	// States
 	const [club, setClub] = useState(teamsData);
-	// const [ranking, setRanking] = useState([]);
+	const [ranking, setRanking] = useState([]);
 	const [scoreBoard, setScoreBoard] = useState([]);
 
 	const [team1Score, setTeam1Score] = useState(0);
@@ -27,39 +27,21 @@ function App() {
 	const initialState = {
 		status: "ready",
 		errorMessage: "",
-		ranking: [],
 	};
 
-	const [{ status, errorMessage, ranking }, dispatch] = useReducer(
-		// const [{ status, errorMessage }, dispatch] = useReducer(
+	const [{ status, errorMessage }, dispatch] = useReducer(
 		reducer,
 		initialState
 	);
 
-	// @ts-ignore
+	const x = 10;
+
 	function reducer(state, action) {
 		switch (action.type) {
 			case "allGood!":
 				return {
 					...state,
 					status: "ready",
-					errorMessage: "",
-				};
-			case "addTeamToTable":
-				return {
-					...state,
-					ranking: action.payload,
-				};
-
-			case "updateTeamRank":
-				return {
-					...state,
-					ranking: action.payload,
-				};
-			case "updateTableRank":
-				return {
-					state,
-					ranking: state.ranking,
 				};
 			case "errorAddingTeam":
 				return {
@@ -105,7 +87,7 @@ function App() {
 					errorMessage: action.payload,
 				};
 			default:
-				throw new Error("Error: Undefined reducer type.");
+				throw new Error("reducer failed error.");
 		}
 	}
 	// Handles
@@ -113,37 +95,26 @@ function App() {
 	function handleResetClub() {
 		setClub((clubs) => (clubs = teamsData));
 	}
-	// @ts-ignore
 	function handleAddTeam(team) {
-		// @ts-ignore
-		//setRanking((teams) => [...teams, team]);
-		dispatch({ type: "addTeamToTable", payload: [...ranking, team] });
-
-		// @ts-ignore
+		setRanking((teams) => [...teams, team]);
 		setTeamsTable((teams) => [...teams, team.teamName]);
 		dispatch({ type: "allGood!" });
 	}
-	// @ts-ignore
 	function handleSelectPlayer1(p1) {
 		setTeam1(p1);
 	}
-	// @ts-ignore
 	function handleSelectPlayer2(p2) {
 		setTeam2(p2);
 	}
-	// @ts-ignore
 	function handleAddP1Score(p1Score, homeTeam) {
 		setTeam1Score(p1Score);
 		setHomeTeam(homeTeam);
 	}
-	// @ts-ignore
 	function handleAddP2Score(p2Score, awayTeam) {
 		setTeam2Score(p2Score);
 		setAwayTeam(awayTeam);
 	}
-	// @ts-ignore
 	function handleAddScoreBoard(score) {
-		// @ts-ignore
 		setScoreBoard((scores) => [...scores, score]);
 		setTeam1("home");
 		setTeam2("away");
@@ -152,16 +123,13 @@ function App() {
 
 		dispatch({ type: "allGood!" });
 	}
-	// @ts-ignore
 	function handleUpdateRanking(newStats) {
-		//	setRanking(newStats);
-		dispatch({ type: "updateTeamRank", payload: newStats });
+		setRanking(newStats);
 	}
 
-	// function handleRankingRerender() {
-	// 	// setRanking((ranking) => ranking);
-	// 	dispatch({ type: "updateTableRank", payload: ranking });
-	// }
+	function handleRankingRerender() {
+		setRanking((ranking) => ranking);
+	}
 	function handleTeamsTableRender() {
 		setTeamsTable((teams) => teams);
 		teamsTable.map((teams) => console.log(teams));
@@ -173,9 +141,10 @@ function App() {
 			<TeamsList teams={ranking} />
 			<ScoreForm
 				clubs={club}
+				onResetClub={handleResetClub}
 				ranking={ranking}
 				onUpdateRanking={handleUpdateRanking}
-				//	onRankingRender={handleRankingRerender}
+				onRankingRender={handleRankingRerender}
 				onSelectTeam1={handleSelectPlayer1}
 				onSelectTeam2={handleSelectPlayer2}
 				homeTeam={homeTeam}
@@ -189,6 +158,7 @@ function App() {
 				onAddScore={handleAddScoreBoard}
 				onAddTeam={handleAddTeam}
 				teamsTable={teamsTable}
+				onTeamsTableRender={handleTeamsTableRender}
 				scoreBoard={scoreBoard}
 				dispatch={dispatch}
 			/>
