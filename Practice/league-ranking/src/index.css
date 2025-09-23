@@ -41,7 +41,7 @@ nav {
 	box-shadow: 0px 0px 3px rgba(194, 163, 253, 0.979);
 }
 .logo {
-	opacity: 0.85;
+	opacity: 1;
 }
 nav p {
 	display: flex;
