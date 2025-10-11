@@ -1,13 +1,18 @@
 // Models
-import { CORE_CONCEPTS } from "./models/data";
+import { CORE_CONCEPTS, EXAMPLES } from "./models/data";
 // Custom Components
 import Header from "./components/Header/Header";
 import CoreConcept from "./components/CoreConcept/CoreConcept";
 import TabButton from "./components/TabButton/TabButton";
+import { useState } from "react";
 
 function App() {
-	function handleSelect() {
-		console.log("Button click!");
+	// States
+	const [selectedTopic, setSelectedTopic] = useState("components");
+
+	// Handles
+	function handleSelect(selectedButton: string): void {
+		setSelectedTopic(selectedButton);
 	}
 	return (
 		<div>
@@ -41,12 +46,20 @@ function App() {
 				<section className="examples">
 					<h2>Examples</h2>
 					<menu>
-						<TabButton onSelect={handleSelect}>Components</TabButton>
-						<TabButton onSelect={handleSelect}>JSX</TabButton>
-						<TabButton onSelect={handleSelect}>Props</TabButton>
-						<TabButton onSelect={handleSelect}>State</TabButton>
+						<TabButton onSelect={() => handleSelect("components")}>
+							Components
+						</TabButton>
+						<TabButton onSelect={() => handleSelect("jsx")}>JSX</TabButton>
+						<TabButton onSelect={() => handleSelect("props")}>Props</TabButton>
+						<TabButton onSelect={() => handleSelect("state")}>State</TabButton>
 					</menu>
-					Dynamic content incoming..
+					<div className="tab-content">
+						<h3>{EXAMPLES[selectedTopic].title}</h3>
+						<p>{EXAMPLES[selectedTopic].description}</p>
+						<pre>
+							<code>{EXAMPLES[selectedTopic].code}</code>
+						</pre>
+					</div>
 				</section>
 			</main>
 		</div>
