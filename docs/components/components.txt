@@ -1,0 +1,59 @@
+Components
+ 
+ What are components? Components are what we write in order to describe a piece
+ of the user interface (UI). It is a JS function that returns React elements. So 
+ it returns an element tree. We usually write these elements using JSX syntax.
+ 
+ - A component is a generic description of the UI, so we could essentially this of 
+   a component as blueprint of a template, where React out of that component can 
+  create one or multiple instances.
+  - The instance is the actual physical manifestation of a component living in the 
+    component tree, while the component is just a function we wrote, before being 
+    called.
+  - Each instance has it's own state, props, and life-cycle. So basically a component
+    can be born, live, until it eventually die.
+
+  
+
+
+
+
+
+ - Reusable functions for React.
+ - Components must be PascalCase, and also must return values.
+ - Each component can return one element.
+ - /public/ folder is the root folder, is where we put resources like images, and other 
+   related files.   Like wwwrooot folder in MVC Core.
+ - A component should NEVER mutate/update data coming from outside (see props and state 
+   below for more info).
+ - In React, data flow* is one-way. Data can only be passed from parent to child 
+   components, but NEVER the opposite way.
+
+ What is JSX?
+   - A declarative syntax to describe what Components look like and how they work.
+   - Declarative VS Imperative.
+   - JSX is what we return from each component.
+    - In the im approach, we tell the app exactly what to do, like when using JS, we 
+      have to manually manipulate the dOM.
+    - In Declarative approach, we describe what the UI should look like based on data 
+      provided in the component.
+    - React is an abstraction away from DOM: we never touch the DOM.
+
+
+
+
+One-way data flow benefits
+  - Makes applications more predictable and easier to understand.
+  - Makes applications easier to debug, as we have more control over the data.
+  - One-way data flow is more performant.
+
+
+Component Types
+
+ - Structural (stateful) component
+  - Responsible for the Structure or the layout of the app.
+
+ - Presentational (stateless) component
+  - Responsible for presenting part of the UI (like a logo).
+      - Does not have any state in it.
+

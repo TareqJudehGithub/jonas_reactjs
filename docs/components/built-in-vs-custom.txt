@@ -1,0 +1,12 @@
+Built-in components VS Custom (React) Components
+
+ 
+ Built-in                                 Custom
+  - Name starts with a lower case         - Starts with an uppercase
+    character.                                
+  - Only valid, officially-defined        - Defined by us (custom).
+    HTML elements are allowed.
+  - Are rendered as DOM nodes by          - React "traverses" the 
+    React (i.e., displayed on the           component tree until it 
+    screen)                                 has only built-in components
+                                            left.

@@ -1,0 +1,10 @@
+Bootstrap
+ - Bootstrap is a fast and a powerful tool for building responsive
+   websites.
+
+Installation: 
+  $ npm i bootstrap@5.3.8
+
+Configuration:
+- in React main.tsx file:
+  import "../node_modules/bootstrap/dist/css/bootstrap.css";

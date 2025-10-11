@@ -1,10 +1,17 @@
 React Hooks
- - Special built-in fnuctions that allow us to "hook" into React internals
+ - Special built-in functions that allow us to "hook" into React internals
   - Creating and accessing state from Fiber tree
   - Registering side effects in Fiber tree
   - Manual DOM selections
-  - Always start with "use"
+  - React hook always start with "use"
+  
+  - Hooks can only be called inside React components.
+  - Hooks should only be called at top level.
+  - Hooks cannot be nested, used in conditionals, or loops.
 
+  What is a state? A state is data that belongs to a component, that when updated, it 
+  causes that component to be re-rendered.
+  
  - Hooks should always be called in the top level of it's component.
 
 - Always use a callback state to update a state

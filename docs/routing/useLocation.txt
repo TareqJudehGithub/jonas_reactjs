@@ -1,0 +1,15 @@
+useLocation()
+ - useLocation allows us to save the url the user have entered
+
+
+import { useLocation } from "react-router-dom";
+
+const location = useLocation();
+
+	useEffect(() => {
+		console.log(`Route not found: ${location.pathname}`);
+	}, [location]);
+
+
+  return <h4>Route not found: {location.pathname}</h4>;
+

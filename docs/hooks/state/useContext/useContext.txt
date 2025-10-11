@@ -1,0 +1,41 @@
+useContext Hook
+ - useContext hook eliminates the pop-drilling problem between the parent 
+   and a child component.
+ - First, we create the ValueContext component, where we will create all props needed.
+
+    import React from "react";
+
+    const ValueContext = React.createContext("Default Value");
+
+    export default ValueContext;
+
+
+ - The provider <ValueContext.Provider> provides the value of the ValueContext
+ - Inside <ValueContext.Provider> we include the parent component that we wish
+   to pass the props from to other child components.
+
+      <ValueContext.Provider>
+        <ParentComponent />
+      </ValueContext.Provider>
+ 
+ - In the Provider, we set up a provider to pass the value, of the ValueContext to 
+   every other child component that needed it.
+ - Now in the child component, we define a const variable usually 'value' to accept
+   the value from the parent, using the useContext hook
+ - *** The variable name for the ValueContext provided as an argument in the child
+   component MUST match the const variable name define in the ValueContext component.
+
+
+    import { useContext } from "react";
+    import ValueContext from "./ValueContext";
+
+    export default function Child() {
+      const value = useContext(ValueContext);
+
+      return (
+        <>
+          <h3>This is the CHILD component</h3>
+          <h4>The message is {value}</h4>
+        </>
+      );
+    }

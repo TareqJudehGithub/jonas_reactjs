@@ -1,0 +1,5 @@
+useCallback Hook
+
+ - useCallback improves our React application performance.
+ - To catch function definitions of a function.
+ - So useCallback stops re-creating functions during app re-render.

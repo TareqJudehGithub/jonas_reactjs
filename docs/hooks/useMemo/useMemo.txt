@@ -1,0 +1,6 @@
+useMemo
+ - Memo stands for memoization, which is a technique that involves storing the 
+   result of calculation to avoid repeating them.
+ - useMemo caches the result of a function (values), without asking React to render it.
+ - useMemo improves performance of ur application through not re-rendering components.
+ 

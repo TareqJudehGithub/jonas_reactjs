@@ -1,0 +1,32 @@
+React Hook Form
+ - A hook for allowing users to enter data.
+
+ - Installation
+  $ npm i react-hook-form
+
+
+ - Configuration and setup
+  - In the target component, start by creating a useForm state variable.
+     const { register, handleSubmit } = useForm<FormType>(); 
+
+  - Implement a 'onSubmit' function that accepts or captures the data sent.
+  - A function that can be executed when using React Hook Form
+	    const onSubmit: SubmitHandler<FormType> = (data) => console.log(data);
+
+  - Now in the UI, setup the onSubmit event, and configure the input field
+   with both register and handleSubmit from useForm hook.
+
+  		<form onSubmit={handleSubmit(onSubmit)}>
+				<div className="form-group">
+					<label htmlFor="name">Name</label>
+					<input
+						{...register("name")}
+						autoComplete="off"
+						className="form-control" />
+				</div>
+			</form>
+
+
+     interface FormType {
+    name: string;
+  }

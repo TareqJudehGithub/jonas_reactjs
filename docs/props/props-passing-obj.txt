@@ -1,0 +1,25 @@
+Passing a Single Prop Object
+
+If you got data that's already organized as a JavaScript object, you can pass that object as a single prop value instead of splitting it across multiple props.
+
+I.e., instead of
+
+<CoreConcept
+  title={CORE_CONCEPTS[0].title}
+  description={CORE_CONCEPTS[0].description}  
+  image={CORE_CONCEPTS[0].image} />
+or
+
+<CoreConcept
+  {...CORE_CONCEPTS[0]} />
+you could also pass a single concept (or any name of your choice) prop to the CoreConcept component:
+
+<CoreConcept
+  concept={CORE_CONCEPTS[0]} />
+In the CoreConcept component, you would then get that one single prop:
+
+export default function CoreConcept({ concept }) {
+  // Use concept.title, concept.description etc.
+  // Or destructure the concept object: const { title, description, image } = concept;
+}
+It is entirely up to you which syntax & approach you prefer.

@@ -1,0 +1,9 @@
+Navigate
+ - Navigate is a declarative component.
+ - Navigate is best used inside nested routes.
+
+		<Route index element={<Navigate replace to="cities" />} />
+
+ - Don't forget to add 'replace' keyword. 'replace' replaces the current element in the history 
+ stack, or in other words, 'replace' enables us to go back from the route we came from.
+ 

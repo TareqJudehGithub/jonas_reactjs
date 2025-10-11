@@ -1,0 +1,10 @@
+Catching errors in React
+ - Error boundaries prevent React apps from crashing during running by trapping errors 
+   and rendering ui components instead with error messages.
+   
+ - React official documents, suggest installing a 3rd party library calculation
+   react-error-boundary for handling React application errors.
+  
+  Installation:
+   $ npm install react-error-boundary
+

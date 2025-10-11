@@ -1,0 +1,20 @@
+Component Composition
+ - To include a component inside another component as a children props
+ - Creates highly reusable and flexible components.
+ - Fixes prop drilling problem.
+
+ function Modal({children})
+ {
+  return (
+    <>
+      {children}    
+    </>
+  )
+ }
+
+ // Child component
+ function Success()
+
+ {
+  return <p>Well Done!<p/>
+ }
