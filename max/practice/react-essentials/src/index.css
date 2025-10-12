@@ -48,7 +48,7 @@ main h2 {
 	justify-content: center;
 }
 
-.examples {
+/* .examples {
 	margin: 3rem auto;
 }
 
@@ -63,6 +63,10 @@ main h2 {
 	gap: 0.5rem;
 	list-style: none;
 }
+.examples menu button.active {
+	background-color: #7925d3;
+	color: #ebe7ef;
+} */
 
 .tab-content {
 	padding: 1rem;

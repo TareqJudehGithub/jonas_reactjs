@@ -2,8 +2,9 @@ import componentsImg from "../assets/components.png";
 import propsImg from "../assets/config.png";
 import jsxImg from "../assets/jsx-ui.png";
 import stateImg from "../assets/state-mgmt.png";
+import type { Core, ExamplesType } from "./data.model";
 
-export const CORE_CONCEPTS = [
+export const CORE_CONCEPTS: Core[] = [
 	{
 		image: componentsImg,
 		title: "Components",
@@ -30,28 +31,6 @@ export const CORE_CONCEPTS = [
 	},
 ];
 
-export interface ExamplesType {
-	components: {
-		title: string;
-		description: string;
-		code: string;
-	};
-	jsx: {
-		title: string;
-		description: string;
-		code: string;
-	};
-	props: {
-		title: string;
-		description: string;
-		code: string;
-	};
-	state: {
-		title: string;
-		description: string;
-		code: string;
-	};
-}
 export const EXAMPLES: ExamplesType | any = {
 	components: {
 		title: "Components",

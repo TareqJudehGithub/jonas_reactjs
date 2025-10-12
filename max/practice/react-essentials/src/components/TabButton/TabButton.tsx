@@ -7,7 +7,10 @@ import styles from "./TabButton.module.css";
 export default function TabButton(props: TabButtonProps): JSX.Element {
 	return (
 		<>
-			<button className={styles.button} onClick={props.onSelect}>
+			<button
+				className={props.isSelected ? styles.buttonActive : styles.button}
+				onClick={props.onSelect}
+			>
 				{props.children}
 			</button>
 		</>
@@ -17,4 +20,5 @@ export default function TabButton(props: TabButtonProps): JSX.Element {
 interface TabButtonProps {
 	children: React.ReactNode;
 	onSelect: () => {} | void;
+	isSelected: boolean;
 }
