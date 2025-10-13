@@ -2,7 +2,7 @@ import componentsImg from "../assets/components.png";
 import propsImg from "../assets/config.png";
 import jsxImg from "../assets/jsx-ui.png";
 import stateImg from "../assets/state-mgmt.png";
-import type { Core, ExamplesType } from "./data.model";
+import type { Core, OuterObj } from "./data.model";
 
 export const CORE_CONCEPTS: Core[] = [
 	{
@@ -31,7 +31,7 @@ export const CORE_CONCEPTS: Core[] = [
 	},
 ];
 
-export const EXAMPLES: ExamplesType | any = {
+export const EXAMPLES: OuterObj = {
 	components: {
 		title: "Components",
 		description:
