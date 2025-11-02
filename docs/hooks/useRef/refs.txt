@@ -1,4 +1,7 @@
 The useRef() hook
+ - Just like useState, useRef is another generic type and accepts <HTMLInputElement> type.
+			const inputVar = useRef<HTMLInputElement>(null);
+			
  - React remembers Ref data between re-renders, but does not cause a UI  re-render when 
    updating them. And that's the main difference between Refs and states.
  - States are immutable, but Refs are not. Refs are like a box, that can hold any value.

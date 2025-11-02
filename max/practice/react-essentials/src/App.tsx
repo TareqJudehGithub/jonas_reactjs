@@ -1,7 +1,7 @@
 // Custom Components
 import Header from "./components/Header/Header";
 import CoreConcepts from "./components/CoreConcept/CoreConcepts";
-import Examples from "./components/CoreConcept/Examples";
+import Examples from "./components/Examples";
 
 function App() {
 	return (

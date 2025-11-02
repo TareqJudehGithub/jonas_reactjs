@@ -1,0 +1,13 @@
+Setting component types dynamically
+
+ - The idea here is to receive a component identifier value as a prop, and
+   the only 2 important things to remember here, are:
+   1. The the prop must be usable as a custom component in the receiving component 
+     (which must start with an uppercase letter).
+   2. We use string names for the identifiers (the built-in elements) in the target
+      component we are passing props to. 
+   - In case we were passing a custom component, then we use not "" for strings, but 
+     we use component functions {ComponentName}  without < />
+
+
+See component Tabs and the App component for more details.
